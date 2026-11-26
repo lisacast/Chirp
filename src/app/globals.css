@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/* PlayChirp palette (playchirp-palette.png) plus the mockup background. */
+:root {
+  --sky: #b8cdd2;
+  --sky-deep: #84a7ae;
+  --coral: #e25945;
+  --coral-soft: #e57361;
+  --brick: #b3230c;
+  --sand: #b39457;
+  --slate: #354248;
+  --navy: #3b3a6e;
+  --blue: #4f81e3;
+  --sun: #fed35d;
+  --ink: #16202a;
+  --card: #ffffff;
+}
+
+@theme inline {
+  --color-sky: var(--sky);
+  --color-sky-deep: var(--sky-deep);
+  --color-coral: var(--coral);
+  --color-coral-soft: var(--coral-soft);
+  --color-brick: var(--brick);
+  --color-sand: var(--sand);
+  --color-slate: var(--slate);
+  --color-navy: var(--navy);
+  --color-blue: var(--blue);
+  --color-sun: var(--sun);
+  --color-ink: var(--ink);
+  --color-card: var(--card);
+  --font-sans: var(--font-lexend), ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html,
+body {
+  background: var(--sky);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition: transform 0.1s ease, filter 0.15s ease;
+  text-align: center;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn:disabled {
+  opacity: 0.5;
+}
+.btn-coral {
+  background: var(--coral-soft);
+  color: white;
+}
+.btn-coral:hover {
+  filter: brightness(0.95);
+}
+.btn-navy {
+  background: var(--navy);
+  color: white;
+}
+.btn-outline {
+  background: white;
+  color: var(--coral);
+  border: 3px solid var(--coral);
+}
+
+/* Flashcard flip */
+.flip {
+  perspective: 1200px;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner {
+    transition: none;
+  }
+}
+
+.breathe {
+  animation: breathe 16s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.6);
+  }
+  25%,
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(0.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .breathe {
+    animation: none;
+  }
+}
