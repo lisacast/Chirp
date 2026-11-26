@@ -42,7 +42,7 @@ const EXERCISES = [
       "Sit comfortably and let your eyes soften or close.",
       "Breathe in slowly for 4, hold for 4, out for 4, hold for 4.",
       "Imagine dropping a pebble into a calm lake and watching it drift down.",
-      "As you breathe in, silently say \"Wise.\" As you breathe out, say \"Mind.\"",
+      'As you breathe in, silently say "Wise." As you breathe out, say "Mind."',
       "Ask: what does my Wise Mind know right now? Just listen.",
       "Before you finish, thank yourself for taking this time.",
     ],
@@ -62,7 +62,10 @@ export default function MindfulPage() {
   useEffect(() => {
     if (!ex) return;
     setLeft(ex.seconds);
-    timer.current = setInterval(() => setLeft((l) => (l > 0 ? l - 1 : 0)), 1000);
+    timer.current = setInterval(
+      () => setLeft((l) => (l > 0 ? l - 1 : 0)),
+      1000,
+    );
     return () => {
       if (timer.current) clearInterval(timer.current);
     };
@@ -70,24 +73,39 @@ export default function MindfulPage() {
 
   if (ex) {
     const elapsed = ex.seconds - left;
-    const stepIdx = Math.min(ex.steps.length - 1, Math.floor((elapsed / ex.seconds) * ex.steps.length));
+    const stepIdx = Math.min(
+      ex.steps.length - 1,
+      Math.floor((elapsed / ex.seconds) * ex.steps.length),
+    );
     const finished = left === 0;
     return (
       <Shell>
-        <h1 className="text-2xl font-bold">{ex.title}</h1>
+        <h1 className="text-center text-2xl font-bold text-navy sm:text-3xl">
+          {ex.title}
+        </h1>
         <div className="mt-6 flex flex-col items-center">
-          <div className="relative flex h-56 w-56 items-center justify-center">
+          <div className="relative flex h-56 w-56 sm:h-72 sm:w-72 items-center justify-center">
             <div className="breathe absolute inset-0 rounded-full bg-white/60" />
-            <span className="relative text-4xl font-bold tabular-nums">{fmt(left)}</span>
+            <span className="relative text-4xl font-bold tabular-nums">
+              {fmt(left)}
+            </span>
           </div>
-          <p className="mt-6 min-h-[4.5rem] rounded-2xl bg-white px-5 py-4 text-center text-lg shadow-sm" aria-live="polite">
-            {finished ? "All done. Nice work taking care of yourself!" : ex.steps[stepIdx]}
+          <p
+            className="mt-6 min-h-[4.5rem] w-full max-w-lg rounded-2xl bg-white px-5 py-4 text-center text-lg shadow-sm"
+            aria-live="polite"
+          >
+            {finished
+              ? "All done. Nice work taking care of yourself!"
+              : ex.steps[stepIdx]}
           </p>
           <p className="mt-2 text-sm text-ink/70">
             Step {Math.min(stepIdx + 1, ex.steps.length)} of {ex.steps.length}
           </p>
         </div>
-        <button className="btn btn-outline mt-8" onClick={() => setActive(null)}>
+        <button
+          className="btn btn-outline mx-auto mt-8 max-w-sm"
+          onClick={() => setActive(null)}
+        >
           {finished ? "Back to exercises" : "Stop"}
         </button>
       </Shell>
@@ -95,14 +113,26 @@ export default function MindfulPage() {
   }
 
   return (
-    <Shell>
-      <h1 className="text-3xl font-bold">Mindful exercises</h1>
-      <div className="mt-5 space-y-4">
+    <Shell width="wide">
+      <h1 className="text-3xl font-bold text-navy sm:text-4xl">
+        Mindful exercises
+      </h1>
+      <p className="mt-1 text-ink/80">
+        Short guided exercises for grounding and centering. Pick one and follow
+        along.
+      </p>
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
         {EXERCISES.map((e) => (
-          <section key={e.id} className="rounded-3xl bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-bold">{e.title}</h2>
-            <p className="text-ink/80">{e.intro}</p>
-            <button className="btn btn-coral mt-3" onClick={() => setActive(e.id)}>
+          <section
+            key={e.id}
+            className="flex flex-col rounded-3xl bg-white p-6 shadow-sm"
+          >
+            <h2 className="text-lg font-bold text-navy">{e.title}</h2>
+            <p className="mt-1 flex-1 text-ink/80">{e.intro}</p>
+            <button
+              className="btn btn-coral mt-5"
+              onClick={() => setActive(e.id)}
+            >
               ▶ Start
             </button>
           </section>

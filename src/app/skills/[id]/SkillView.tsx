@@ -26,15 +26,17 @@ export default function SkillView({ id }: { id: string }) {
 
   return (
     <Shell>
-      <Flashcard
-        skill={skill}
-        backLabel="← Skills"
-        onBack={() => router.push("/skills")}
-        onNext={() => router.push(`/skills/${next.id}`)}
-      />
-      <Link href="/chat" className="btn btn-navy mt-3">
-        Practice this with Chirp
-      </Link>
+      <div className="mx-auto w-full max-w-lg">
+        <Flashcard
+          skill={skill}
+          backLabel="← Skills"
+          onBack={() => router.push("/skills")}
+          onNext={() => router.push(`/skills/${next.id}`)}
+        />
+        <Link href="/chat" className="btn btn-navy mt-3">
+          Practice this with Chirp
+        </Link>
+      </div>
     </Shell>
   );
 }

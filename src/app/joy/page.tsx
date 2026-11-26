@@ -21,12 +21,17 @@ export default function JoyPage() {
 
   return (
     <Shell>
-      <h1 className="text-3xl font-bold">Joy finder</h1>
-      <p className="mt-1 text-ink/80">Small pleasant moments add up. Here&apos;s an idea for today:</p>
-      <div className="mt-6 flex min-h-48 items-center justify-center rounded-3xl bg-sun p-6 text-center text-2xl font-bold shadow-sm" aria-live="polite">
+      <h1 className="text-3xl font-bold text-navy sm:text-4xl">Joy finder</h1>
+      <p className="mt-1 text-ink/80">
+        Small pleasant moments add up. Here&apos;s an idea for today:
+      </p>
+      <div
+        className="mt-6 flex min-h-56 items-center justify-center rounded-3xl bg-sun p-8 text-center text-2xl sm:text-3xl font-bold shadow-sm"
+        aria-live="polite"
+      >
         {idx !== null ? LIST[idx] : ""}
       </div>
-      <div className="mt-6 space-y-3">
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <button className="btn btn-coral" onClick={another}>
           Show me another
         </button>

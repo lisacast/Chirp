@@ -1,5 +1,10 @@
 import Link from "next/link";
-import LegalPage, { COMPANY, Mail, SUPPORT_EMAIL, type LegalSection } from "@/components/LegalPage";
+import LegalPage, {
+  COMPANY,
+  Mail,
+  SUPPORT_EMAIL,
+  type LegalSection,
+} from "@/components/LegalPage";
 
 export const metadata = { title: "Privacy Policy · PlayChirp" };
 
@@ -17,9 +22,11 @@ const SECTIONS: LegalSection[] = [
     heading: "Who we are",
     body: (
       <P>
-        PlayChirp is operated by {COMPANY}, Sacramento, California, USA (&quot;we,&quot; &quot;us&quot; or
-        &quot;our&quot;). This Privacy Policy explains what information the PlayChirp website and Chirp guide (the
-        &quot;Service&quot;) handle, how it is used, and the choices you have. It is part of our{" "}
+        PlayChirp is operated by {COMPANY}, Sacramento, California, USA
+        (&quot;we,&quot; &quot;us&quot; or &quot;our&quot;). This Privacy Policy
+        explains what information the PlayChirp website and Chirp guide (the
+        &quot;Service&quot;) handle, how it is used, and the choices you have.
+        It is part of our{" "}
         <Link href="/terms" className="underline">
           Terms of Use
         </Link>
@@ -32,9 +39,10 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <P>
-          PlayChirp is not directed to children under 13, and we do not knowingly collect, use or disclose personal
-          information from children under 13, in line with the U.S. Children&apos;s Online Privacy Protection Act
-          (COPPA).
+          PlayChirp is not directed to children under 13, and we do not
+          knowingly collect, use or disclose personal information from children
+          under 13, in line with the U.S. Children&apos;s Online Privacy
+          Protection Act (COPPA).
         </P>
         <UL
           items={[
@@ -53,7 +61,10 @@ const SECTIONS: LegalSection[] = [
     heading: "Information we do not collect",
     body: (
       <>
-        <P>We designed PlayChirp to work with as little information as possible. We do not:</P>
+        <P>
+          We designed PlayChirp to work with as little information as possible.
+          We do not:
+        </P>
         <UL
           items={[
             "require an account, or ask for your full name, email address, phone number, home address, school or photo;",
@@ -69,7 +80,10 @@ const SECTIONS: LegalSection[] = [
     heading: "Information saved on your device",
     body: (
       <>
-        <P>Some information is saved only in your own browser, using its built-in storage:</P>
+        <P>
+          Some information is saved only in your own browser, using its built-in
+          storage:
+        </P>
         <UL
           items={[
             "your optional nickname, that you confirmed you are 13 or older and agreed to the Terms, your daily mood check-in, and which skills you marked as practiced (kept until you clear your browser data); and",
@@ -77,8 +91,8 @@ const SECTIONS: LegalSection[] = [
           ]}
         />
         <P>
-          We cannot see or access this information. Anyone using the same device may be able to, so please use a private
-          window on shared devices.
+          We cannot see or access this information. Anyone using the same device
+          may be able to, so please use a private window on shared devices.
         </P>
       </>
     ),
@@ -87,7 +101,10 @@ const SECTIONS: LegalSection[] = [
     heading: "Information we process to run Chirp",
     body: (
       <>
-        <P>When you chat with Chirp, the following is sent over an encrypted (HTTPS) connection to our server:</P>
+        <P>
+          When you chat with Chirp, the following is sent over an encrypted
+          (HTTPS) connection to our server:
+        </P>
         <UL
           items={[
             "the recent messages in your current conversation (which can include your nickname if Chirp greeted you by it), and",
@@ -95,15 +112,18 @@ const SECTIONS: LegalSection[] = [
           ]}
         />
         <P>
-          Our server checks the latest message for crisis words so it can show safety resources, then passes the
-          conversation to our AI service provider to create Chirp&apos;s reply. The reply is sent back to your browser. We
-          do not store the conversation. Our AI service provider processes it on our behalf to produce the reply, is not
-          permitted to use it to train its models, and may keep it for a limited time under its own policies for safety
-          and abuse monitoring before deleting it.
+          Our server checks the latest message for crisis words so it can show
+          safety resources, then passes the conversation to our AI service
+          provider to create Chirp&apos;s reply. The reply is sent back to your
+          browser. We do not store the conversation. Our AI service provider
+          processes it on our behalf to produce the reply, is not permitted to
+          use it to train its models, and may keep it for a limited time under
+          its own policies for safety and abuse monitoring before deleting it.
         </P>
         <P>
-          <strong>Please do not share personal details</strong>, such as your full name, address, phone number, school,
-          passwords or other people&apos;s private information, in the chat.
+          <strong>Please do not share personal details</strong>, such as your
+          full name, address, phone number, school, passwords or other
+          people&apos;s private information, in the chat.
         </P>
       </>
     ),
@@ -112,11 +132,14 @@ const SECTIONS: LegalSection[] = [
     heading: "Technical information",
     body: (
       <P>
-        Like almost every website, our hosting provider automatically records basic technical information when your
-        browser requests a page, such as IP address, browser type, the page requested and the date and time. This is used
-        to deliver the site, keep it secure, prevent abuse and see overall traffic, and is kept for a limited time. To
-        prevent misuse, our server also briefly uses a scrambled (hashed) form of your IP address to limit how many
-        messages can be sent per minute; this record is discarded within minutes.
+        Like almost every website, our hosting provider automatically records
+        basic technical information when your browser requests a page, such as
+        IP address, browser type, the page requested and the date and time. This
+        is used to deliver the site, keep it secure, prevent abuse and see
+        overall traffic, and is kept for a limited time. To prevent misuse, our
+        server also briefly uses a scrambled (hashed) form of your IP address to
+        limit how many messages can be sent per minute; this record is discarded
+        within minutes.
       </P>
     ),
   },
@@ -152,11 +175,13 @@ const SECTIONS: LegalSection[] = [
     heading: "Subscriptions and payments",
     body: (
       <P>
-        If you buy a subscription, a parent or guardian must make the purchase if you are under 18. Payments are handled by
-        our payment processor, which collects the billing details needed to charge you (such as name, email, billing
-        address and card details) under its own privacy policy. We receive only what we need to manage the subscription,
-        such as its status and the email used, and keep it for as long as the subscription is active and as required for
-        tax and accounting.
+        If you buy a subscription, a parent or guardian must make the purchase
+        if you are under 18. Payments are handled by our payment processor,
+        which collects the billing details needed to charge you (such as name,
+        email, billing address and card details) under its own privacy policy.
+        We receive only what we need to manage the subscription, such as its
+        status and the email used, and keep it for as long as the subscription
+        is active and as required for tax and accounting.
       </P>
     ),
   },
@@ -164,9 +189,11 @@ const SECTIONS: LegalSection[] = [
     heading: "How long we keep information",
     body: (
       <P>
-        We keep information only as long as needed for the purposes above. Chat conversations are not stored by us.
-        Information on your device stays until you clear it. Hosting logs and any subscription records are kept for limited
-        periods for security, legal and accounting reasons and then deleted.
+        We keep information only as long as needed for the purposes above. Chat
+        conversations are not stored by us. Information on your device stays
+        until you clear it. Hosting logs and any subscription records are kept
+        for limited periods for security, legal and accounting reasons and then
+        deleted.
       </P>
     ),
   },
@@ -174,9 +201,10 @@ const SECTIONS: LegalSection[] = [
     heading: "Security",
     body: (
       <P>
-        We use reasonable safeguards to protect information, including encrypted connections, keeping our AI service key
-        out of public view, and collecting as little as possible. No system is completely secure, so we cannot guarantee
-        absolute security.
+        We use reasonable safeguards to protect information, including encrypted
+        connections, keeping our AI service key out of public view, and
+        collecting as little as possible. No system is completely secure, so we
+        cannot guarantee absolute security.
       </P>
     ),
   },
@@ -192,9 +220,11 @@ const SECTIONS: LegalSection[] = [
           ]}
         />
         <P>
-          To make a request, email <Mail to={SUPPORT_EMAIL} />. Because we do not keep accounts or chat records, we may
-          have little or no information that can be linked to you. We will respond within the time required by law and
-          will not discriminate against you for making a request.
+          To make a request, email <Mail to={SUPPORT_EMAIL} />. Because we do
+          not keep accounts or chat records, we may have little or no
+          information that can be linked to you. We will respond within the time
+          required by law and will not discriminate against you for making a
+          request.
         </P>
       </>
     ),
@@ -203,8 +233,9 @@ const SECTIONS: LegalSection[] = [
     heading: "Teens 13 to 17",
     body: (
       <P>
-        We never sell or share the personal information of anyone under 18, and we do not use it for advertising or
-        profiling. If you are under 18, we encourage you to review this policy with a parent or guardian.
+        We never sell or share the personal information of anyone under 18, and
+        we do not use it for advertising or profiling. If you are under 18, we
+        encourage you to review this policy with a parent or guardian.
       </P>
     ),
   },
@@ -212,9 +243,10 @@ const SECTIONS: LegalSection[] = [
     heading: "International users",
     body: (
       <P>
-        PlayChirp is operated in the United States, and information may be processed in the United States and other
-        countries where our service providers operate. By using the Service, you understand that your information may be
-        transferred to and processed in these places.
+        PlayChirp is operated in the United States, and information may be
+        processed in the United States and other countries where our service
+        providers operate. By using the Service, you understand that your
+        information may be transferred to and processed in these places.
       </P>
     ),
   },
@@ -222,9 +254,11 @@ const SECTIONS: LegalSection[] = [
     heading: "Changes to this policy",
     body: (
       <P>
-        We may update this Privacy Policy from time to time. We will change the effective date above and, for important
-        changes, show a notice in the Service. If we ever want to use information in a way that is materially different
-        from what this policy says, we will ask for consent where required.
+        We may update this Privacy Policy from time to time. We will change the
+        effective date above and, for important changes, show a notice in the
+        Service. If we ever want to use information in a way that is materially
+        different from what this policy says, we will ask for consent where
+        required.
       </P>
     ),
   },
@@ -232,7 +266,8 @@ const SECTIONS: LegalSection[] = [
     heading: "Contact us",
     body: (
       <P>
-        Questions or requests about privacy? Email <Mail to={SUPPORT_EMAIL} />. {COMPANY}, Sacramento, California, USA.
+        Questions or requests about privacy? Email <Mail to={SUPPORT_EMAIL} />.{" "}
+        {COMPANY}, Sacramento, California, USA.
       </P>
     ),
   },
@@ -244,9 +279,10 @@ export default function PrivacyPage() {
       title="Privacy Policy"
       intro={
         <p>
-          Your privacy matters, especially when you are talking about feelings. In short: PlayChirp is for ages 13 and up,
-          does not need an account, does not use ads or trackers, does not sell your information, and does not keep your
-          chat conversations.
+          Your privacy matters, especially when you are talking about feelings.
+          In short: PlayChirp is for ages 13 and up, does not need an account,
+          does not use ads or trackers, does not sell your information, and does
+          not keep your chat conversations.
         </p>
       }
       sections={SECTIONS}

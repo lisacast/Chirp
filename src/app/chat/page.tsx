@@ -23,7 +23,9 @@ function greeting(): ChatMessage {
     content: mood
       ? `${hi}I'm Chirp. I see you're feeling ${mood} today. Want to tell me a little about what's going on?`
       : `${hi}I'm Chirp, your skills buddy. How are you feeling today?`,
-    quickReplies: mood ? undefined : ["Pretty good", "Stressed out", "Not great"],
+    quickReplies: mood
+      ? undefined
+      : ["Pretty good", "Stressed out", "Not great"],
   };
 }
 
@@ -31,7 +33,10 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
-  const [openSkill, setOpenSkill] = useState<{ id: string; list: string[] } | null>(null);
+  const [openSkill, setOpenSkill] = useState<{
+    id: string;
+    list: string[];
+  } | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,7 +52,8 @@ export default function ChatPage() {
 
   useEffect(() => {
     try {
-      if (messages.length) sessionStorage.setItem(STORE, JSON.stringify(messages));
+      if (messages.length)
+        sessionStorage.setItem(STORE, JSON.stringify(messages));
     } catch {}
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, busy]);
@@ -102,7 +108,13 @@ export default function ChatPage() {
 
   function closeCard() {
     setOpenSkill(null);
-    setMessages((m) => [...m, { role: "assistant", content: "Hey, great job. What would you like to practice next?" }]);
+    setMessages((m) => [
+      ...m,
+      {
+        role: "assistant",
+        content: "Hey, great job. What would you like to practice next?",
+      },
+    ]);
   }
 
   function nextCard() {
@@ -144,14 +156,22 @@ export default function ChatPage() {
           <div key={i} className="space-y-2">
             {m.role === "assistant" ? (
               <div className="flex items-start gap-2">
-                <Image src="/chirp-bird.png" alt="" width={40} height={40} className="mt-1 shrink-0 rounded-full bg-white p-0.5" />
+                <Image
+                  src="/chirp-bird.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="mt-1 shrink-0 rounded-full bg-white p-0.5"
+                />
                 <div className="max-w-[85%] whitespace-pre-wrap rounded-3xl rounded-tl-md bg-white px-4 py-3 shadow-sm">
                   {m.content}
                 </div>
               </div>
             ) : (
               <div className="flex justify-end">
-                <div className="max-w-[85%] whitespace-pre-wrap rounded-3xl rounded-tr-md bg-sun px-4 py-3 shadow-sm">{m.content}</div>
+                <div className="max-w-[85%] whitespace-pre-wrap rounded-3xl rounded-tr-md bg-sun px-4 py-3 shadow-sm">
+                  {m.content}
+                </div>
               </div>
             )}
 
@@ -183,20 +203,30 @@ export default function ChatPage() {
         ))}
 
         {busy && (
-          <div className="flex items-center gap-2 pl-12 text-ink/70" aria-label="Chirp is typing">
+          <div
+            className="flex items-center gap-2 pl-12 text-ink/70"
+            aria-label="Chirp is typing"
+          >
             <span className="animate-pulse">Chirp is thinking…</span>
           </div>
         )}
 
-        {!busy && last?.role === "assistant" && last.quickReplies && last.quickReplies.length > 0 && (
-          <div className="flex flex-wrap justify-end gap-2">
-            {last.quickReplies.map((q) => (
-              <button key={q} onClick={() => send(q)} className="rounded-full border-2 border-sun bg-white px-4 py-2 text-sm font-medium">
-                {q}
-              </button>
-            ))}
-          </div>
-        )}
+        {!busy &&
+          last?.role === "assistant" &&
+          last.quickReplies &&
+          last.quickReplies.length > 0 && (
+            <div className="flex flex-wrap justify-end gap-2">
+              {last.quickReplies.map((q) => (
+                <button
+                  key={q}
+                  onClick={() => send(q)}
+                  className="rounded-full border-2 border-sun bg-white px-4 py-2 text-sm font-medium"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          )}
         <div ref={endRef} />
       </div>
 
@@ -219,7 +249,12 @@ export default function ChatPage() {
           autoComplete="off"
           className="min-w-0 flex-1 bg-transparent py-2 outline-none placeholder:text-ink/60"
         />
-        <button type="submit" disabled={busy || !input.trim()} aria-label="Send" className="p-1 disabled:opacity-40">
+        <button
+          type="submit"
+          disabled={busy || !input.trim()}
+          aria-label="Send"
+          className="p-1 disabled:opacity-40"
+        >
           <SendIcon />
         </button>
       </form>
@@ -228,7 +263,12 @@ export default function ChatPage() {
       </p>
 
       {card && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-4" role="dialog" aria-modal="true" aria-label={card.name}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={card.name}
+        >
           <div className="w-full max-w-md">
             <Flashcard skill={card} onBack={closeCard} onNext={nextCard} />
           </div>

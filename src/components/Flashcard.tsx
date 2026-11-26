@@ -13,7 +13,12 @@ interface Props {
 
 // Skill flashcard from the spec: name on the front, description on the back,
 // tap to flip, with "← Chat" and "Next →" on the back.
-export default function Flashcard({ skill, onBack, backLabel = "← Chat", onNext }: Props) {
+export default function Flashcard({
+  skill,
+  onBack,
+  backLabel = "← Chat",
+  onNext,
+}: Props) {
   const [flipped, setFlipped] = useState(false);
   const [done, setDone] = useState(false);
   const mod = getModule(skill.module);
@@ -36,10 +41,18 @@ export default function Flashcard({ skill, onBack, backLabel = "← Chat", onNex
             aria-hidden={flipped}
             tabIndex={flipped ? -1 : 0}
           >
-            <span className="text-sm font-semibold uppercase tracking-wider opacity-85">{mod.name}</span>
-            <span className="mt-3 text-3xl font-bold leading-tight">{skill.name}</span>
-            <span className="mt-4 text-lg opacity-95">&ldquo;{skill.tagline}&rdquo;</span>
-            <span className="mt-8 rounded-full bg-white/25 px-4 py-1 text-sm">Tap to flip</span>
+            <span className="text-sm font-semibold uppercase tracking-wider opacity-85">
+              {mod.name}
+            </span>
+            <span className="mt-3 text-3xl font-bold leading-tight">
+              {skill.name}
+            </span>
+            <span className="mt-4 text-lg opacity-95">
+              &ldquo;{skill.tagline}&rdquo;
+            </span>
+            <span className="mt-8 rounded-full bg-white/25 px-4 py-1 text-sm">
+              Tap to flip
+            </span>
           </button>
 
           <div
@@ -72,7 +85,9 @@ export default function Flashcard({ skill, onBack, backLabel = "← Chat", onNex
               }}
               className={`mt-auto pt-4 text-sm font-semibold ${done ? "text-green-700" : "text-navy underline"}`}
             >
-              {done ? "✓ Nice work! Saved to your practice list." : "I practiced this"}
+              {done
+                ? "✓ Nice work! Saved to your practice list."
+                : "I practiced this"}
             </button>
           </div>
         </div>

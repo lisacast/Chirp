@@ -37,11 +37,16 @@ const FAQ = [
 export default function FaqPage() {
   return (
     <Shell gated={false}>
-      <h1 className="text-3xl font-bold">FAQ</h1>
-      <p className="mt-1 text-ink/80">The most frequently asked questions about Chirp.</p>
+      <h1 className="text-3xl font-bold text-navy sm:text-4xl">FAQ</h1>
+      <p className="mt-1 text-ink/80">
+        The most frequently asked questions about Chirp.
+      </p>
       <div className="mt-5 space-y-2">
         {FAQ.map((f) => (
-          <details key={f.q} className="rounded-2xl bg-white px-4 py-3 shadow-sm open:shadow">
+          <details
+            key={f.q}
+            className="rounded-2xl bg-white px-4 py-3 shadow-sm open:shadow"
+          >
             <summary className="cursor-pointer font-semibold">{f.q}</summary>
             <p className="mt-2 text-ink/85">{f.a}</p>
           </details>
@@ -49,7 +54,10 @@ export default function FaqPage() {
       </div>
       <p className="mt-6 text-ink/80">
         Other questions? Email{" "}
-        <a className="font-semibold underline" href="mailto:support@playchirp.com">
+        <a
+          className="font-semibold underline"
+          href="mailto:support@playchirp.com"
+        >
           support@playchirp.com
         </a>
         . Read our{" "}

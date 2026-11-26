@@ -26,16 +26,27 @@ export default function MoodPage() {
   const [mood, setMood] = useState<string | null>(null);
 
   function go(selected: string | null) {
-    updateProfile({ mood: selected ?? undefined, moodDate: selected ? new Date().toDateString() : undefined });
+    updateProfile({
+      mood: selected ?? undefined,
+      moodDate: selected ? new Date().toDateString() : undefined,
+    });
     router.push("/lobby");
   }
 
   return (
     <Shell>
-      <h1 className="text-3xl font-bold text-navy">What&apos;s your mood today?</h1>
-      <p className="mt-2 text-ink/75">Pick the one that feels most like you right now.</p>
+      <h1 className="text-3xl font-bold text-navy sm:text-4xl">
+        What&apos;s your mood today?
+      </h1>
+      <p className="mt-2 text-ink/75">
+        Pick the one that feels most like you right now.
+      </p>
 
-      <div className="mt-5 grid grid-cols-3 gap-3" role="radiogroup" aria-label="Mood">
+      <div
+        className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-4"
+        role="radiogroup"
+        aria-label="Mood"
+      >
         {MOODS.map((m) => (
           <button
             key={m.label}
@@ -43,19 +54,27 @@ export default function MoodPage() {
             aria-checked={mood === m.label}
             onClick={() => setMood(m.label)}
             className={`flex flex-col items-center rounded-2xl bg-white/70 py-3 transition ${
-              mood === m.label ? "ring-4 ring-white bg-white scale-105" : "hover:bg-white"
+              mood === m.label
+                ? "ring-4 ring-white bg-white scale-105"
+                : "hover:bg-white"
             }`}
           >
             <span className="text-4xl" aria-hidden>
               {m.emoji}
             </span>
-            <span className="mt-1 text-sm font-medium capitalize">{m.label}</span>
+            <span className="mt-1 text-sm font-medium capitalize">
+              {m.label}
+            </span>
           </button>
         ))}
       </div>
 
-      <div className="mt-6 space-y-3">
-        <button className="btn btn-coral" disabled={!mood} onClick={() => go(mood)}>
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <button
+          className="btn btn-coral"
+          disabled={!mood}
+          onClick={() => go(mood)}
+        >
           Use my mood
         </button>
         <button className="btn btn-outline" onClick={() => go(null)}>
