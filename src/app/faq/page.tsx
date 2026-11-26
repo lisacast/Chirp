@@ -10,15 +10,15 @@ const FAQ = [
   },
   {
     q: "Is Chirp a therapist?",
-    a: "No. Chirp is a practice buddy, not a therapist, doctor or emergency service. It can't diagnose anything or give medical advice. If you're working with a counselor, Chirp can help you practice between sessions.",
+    a: "No. PlayChirp is not a medical app. Chirp is a practice buddy, not a therapist, doctor or emergency service. It can't diagnose anything or give medical advice. If you're working with a counselor, Chirp can help you practice between sessions.",
   },
   {
     q: "Who is PlayChirp for?",
-    a: "PlayChirp is for anyone 13 or older who wants to get better at handling big feelings, tough moments and tricky conversations.",
+    a: "PlayChirp is for anyone 13 or older who wants to get better at handling big feelings, tough moments and tricky conversations. It isn't available to children under 13. If you're under 18, please use it with a parent or guardian's permission.",
   },
   {
     q: "Is my chat private?",
-    a: "Your chat stays in this browser tab and is cleared when you close it or tap Start over. Messages are sent to our AI provider only to create Chirp's reply. We don't ask for your name, school or contact details, and you shouldn't share them.",
+    a: "There's no account, no ads and no trackers. Your chat stays in this browser tab and is cleared when you close it or tap Start over. Messages are sent securely to our AI service provider only to create Chirp's reply, and we don't keep them. We don't ask for your name, school or contact details, and you shouldn't share them. See our Privacy Policy for details.",
   },
   {
     q: "What if I'm in crisis?",
@@ -52,6 +52,14 @@ export default function FaqPage() {
         <a className="font-semibold underline" href="mailto:support@playchirp.com">
           support@playchirp.com
         </a>
+        . Read our{" "}
+        <Link className="font-semibold underline" href="/terms">
+          Terms of Use
+        </Link>{" "}
+        and{" "}
+        <Link className="font-semibold underline" href="/privacy">
+          Privacy Policy
+        </Link>
         .
       </p>
       <Link href="/lobby" className="btn btn-coral mt-6">

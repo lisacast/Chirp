@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ExitIcon, HomeIcon, LifebuoyIcon } from "./Icons";
-import { loadProfile } from "@/lib/profile";
+import { hasAgreed, loadProfile } from "@/lib/profile";
 
 interface ShellProps {
   children: React.ReactNode;
-  /** Require the 13+ / terms agreement before showing the page. */
+  /** Require the age check and terms agreement before showing the page. */
   gated?: boolean;
   /** Fill the viewport height (used by chat). */
   fill?: boolean;
@@ -22,7 +22,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
 
   useEffect(() => {
     if (!gated) return;
-    if (!loadProfile().agreedAt) router.replace("/");
+    if (!hasAgreed(loadProfile())) router.replace("/");
     else setReady(true);
   }, [gated, router]);
 

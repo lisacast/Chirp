@@ -142,9 +142,14 @@ respond([
 
 function loadChirpConfig(): array
 {
-    // Written by the app build (src/app/api/chirp-config.json/route.ts).
-    $raw = @file_get_contents(__DIR__ . '/chirp-config.json');
-    $cfg = $raw ? json_decode($raw, true) : null;
+    // Written by the app build (src/app/api/chirp-config.json/route.ts), converted to PHP when packaged.
+    $php = __DIR__ . '/chirp-config.php';
+    if (is_file($php)) {
+        $cfg = require $php;
+    } else {
+        $raw = @file_get_contents(__DIR__ . '/chirp-config.json');
+        $cfg = $raw ? json_decode($raw, true) : null;
+    }
     if (!is_array($cfg)) {
         error_log('PlayChirp: chirp-config.json missing or invalid');
         http_response_code(500);

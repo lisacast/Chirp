@@ -1,10 +1,11 @@
 "use client";
 
-// On-device profile for v1. Nothing here leaves the person's browser.
-// Accounts (Supabase) can replace this later without changing the pages.
+// On-device profile. Nothing here leaves the person's browser.
 
 export interface Profile {
-  agreedAt?: string; // confirmed 13+ and accepted terms
+  agreedAt?: string; // passed the age check and accepted the terms
+  termsVersion?: number; // which version of the terms and age check was accepted
+  ageBlocked?: boolean; // age check showed under 13: the Service stays closed on this device
   nickname?: string;
   mood?: string;
   moodDate?: string;
@@ -12,6 +13,11 @@ export interface Profile {
 }
 
 const KEY = "playchirp.profile.v1";
+export const TERMS_VERSION = 2;
+
+export function hasAgreed(p: Profile): boolean {
+  return !!p.agreedAt && p.termsVersion === TERMS_VERSION && !p.ageBlocked;
+}
 
 export function loadProfile(): Profile {
   try {
