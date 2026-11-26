@@ -1,0 +1,10 @@
+{
+  "name": "playchirp/api",
+  "description": "PlayChirp chat backend for SiteGround",
+  "require": {
+    "php": ">=8.1",
+    "anthropic-ai/sdk": "^1.0",
+    "guzzlehttp/guzzle": "^7.9"
+  },
+  "config": { "vendor-dir": "vendor", "optimize-autoloader": true }
+}
