@@ -27,5 +27,11 @@ npm run dev
 ```
 Without a key the app runs, and chat shows a "not connected" message (crisis help still works).
 
-## Deploy
-Vercel or Cloudflare Pages. Set `ANTHROPIC_API_KEY` in the project's environment variables.
+## Deploy (Cloudflare Workers, free plan allows commercial use)
+Uses [OpenNext for Cloudflare](https://opennext.js.org/cloudflare).
+```
+npx wrangler login
+npx wrangler secret put ANTHROPIC_API_KEY
+npm run deploy
+```
+`npm run preview` runs the Cloudflare build locally.
