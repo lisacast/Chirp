@@ -2,7 +2,7 @@ import Link from "next/link";
 import Shell from "@/components/Shell";
 import Art from "@/components/Art";
 import PageHeader from "@/components/PageHeader";
-import { ART, SECTION_THEME, sectionTheme } from "@/data/art";
+import { ART, articleTheme, sectionTheme, THEMES } from "@/data/art";
 import { ARTICLES, readMinutes, SECTIONS } from "@/data/articles";
 
 export const metadata = {
@@ -10,7 +10,7 @@ export const metadata = {
   description: "Plain-language articles about DBT skills: mindfulness, distress tolerance, emotion regulation and relationships.",
 };
 
-const th = (a: (typeof ARTICLES)[number]) => SECTION_THEME[a.section] ?? "learn";
+const th = (a: (typeof ARTICLES)[number]) => articleTheme(a);
 
 export default function LearnPage() {
   const lead = ARTICLES[0];
@@ -33,7 +33,7 @@ export default function LearnPage() {
               <Link href={`/learn/${a.slug}`} className="card flex h-full items-center gap-3 overflow-hidden hover:border-oxford">
                 <Art theme={th(a)} seed={a.slug} motif={false} className="h-full min-h-24 w-24 shrink-0 self-stretch" />
                 <span className="py-3 pr-3">
-                  <span className="text-xs font-extrabold uppercase tracking-[0.14em]" style={{ color: sectionTheme(a.section).solid }}>{a.section}</span>
+                  <span className="text-xs font-extrabold uppercase tracking-[0.14em]" style={{ color: THEMES[articleTheme(a)].solid }}>{a.section}</span>
                   <span className="block font-bold leading-snug text-oxford">{a.title}</span>
                 </span>
               </Link>
@@ -55,7 +55,7 @@ export default function LearnPage() {
                   <Art theme={th(a)} seed={a.slug} className="aspect-[4/3] w-full transition group-hover:scale-105" />
                   <span className="block p-3">
                     <span className="block font-bold leading-snug text-oxford">{a.title}</span>
-                    <span className="mt-1 block text-xs font-extrabold uppercase tracking-wider" style={{ color: sectionTheme(a.section).solid }}>{readMinutes(a)} min</span>
+                    <span className="mt-1 block text-xs font-extrabold uppercase tracking-wider" style={{ color: THEMES[articleTheme(a)].solid }}>{readMinutes(a)} min</span>
                   </span>
                 </Link>
               </li>

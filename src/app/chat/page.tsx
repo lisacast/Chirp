@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Shell from "@/components/Shell";
 import Flashcard from "@/components/Flashcard";
+import LiveBird, { type BirdMood } from "@/components/LiveBird";
 import CrisisCard from "@/components/CrisisCard";
 import { SendIcon } from "@/components/Icons";
 import { getSkill, getModule, SKILLS } from "@/data/skills";
@@ -38,8 +38,22 @@ export default function ChatPage() {
     list: string[];
   } | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
+  const [bird, setBird] = useState<BirdMood>("idle");
+  const pendingQ = useRef<string | null>(null);
 
   useEffect(() => {
+    let q = new URLSearchParams(location.search).get("q");
+    try {
+      const pre = sessionStorage.getItem("playchirp.prefill");
+      if (pre) {
+        q = pre;
+        sessionStorage.removeItem("playchirp.prefill");
+      }
+    } catch {}
+    if (q) {
+      pendingQ.current = q.slice(0, MAX_INPUT);
+      history.replaceState(null, "", "/chat/");
+    }
     try {
       const saved = sessionStorage.getItem(STORE);
       if (saved) {
@@ -56,6 +70,12 @@ export default function ChatPage() {
         sessionStorage.setItem(STORE, JSON.stringify(messages));
     } catch {}
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    if (messages.length && pendingQ.current && !busy) {
+      const q = pendingQ.current;
+      pendingQ.current = null;
+      send(q);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages, busy]);
 
   async function send(text: string) {
@@ -67,6 +87,7 @@ export default function ChatPage() {
     setMessages(next);
     setInput("");
     setBusy(true);
+    setBird("thinking");
 
     try {
       const res = await fetch("/api/chat.php", {
@@ -103,6 +124,8 @@ export default function ChatPage() {
       ]);
     } finally {
       setBusy(false);
+      setBird("reply");
+      setTimeout(() => setBird("idle"), 900);
     }
   }
 
@@ -144,9 +167,21 @@ export default function ChatPage() {
 
   return (
     <Shell fill>
-      <div className="flex items-center justify-between pb-2">
-        <h1 className="text-lg font-bold">Chat with Chirp</h1>
-        <button onClick={clearChat} className="text-sm text-muted underline">
+      <div className="flex items-center gap-3 pb-3">
+        <LiveBird mood={bird} size={52} />
+        <div className="min-w-0 flex-1">
+          <h1 className="text-lg font-bold leading-tight text-oxford">Chirp</h1>
+          <p className="text-xs font-semibold text-muted">
+            {bird === "thinking" ? (
+              <>
+                thinking<span className="dot-1">.</span>
+                <span className="dot-2">.</span>
+                <span className="dot-3">.</span>
+              </>
+            ) : bird === "listening" ? "listening…" : "here for you · private, nothing saved"}
+          </p>
+        </div>
+        <button onClick={clearChat} className="rounded-full border border-line bg-white px-3 py-1 text-xs font-bold text-muted">
           Start over
         </button>
       </div>
@@ -156,13 +191,8 @@ export default function ChatPage() {
           <div key={i} className="space-y-2">
             {m.role === "assistant" ? (
               <div className="flex items-start gap-2">
-                <Image
-                  src="/chirp-bird.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  className="mt-1 shrink-0 rounded-full bg-white p-0.5"
-                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/chirp-bird.png" alt="" width={34} height={34} className={`mt-1 h-[34px] w-[34px] shrink-0 rounded-full bg-white p-0.5 ring-1 ring-line ${i === messages.length - 1 ? "bird-ruffle" : ""}`} />
                 <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tl-sm border border-line bg-white px-4 py-3">
                   {m.content}
                 </div>
@@ -203,11 +233,10 @@ export default function ChatPage() {
         ))}
 
         {busy && (
-          <div
-            className="flex items-center gap-2 pl-12 text-muted"
-            aria-label="Chirp is typing"
-          >
-            <span className="animate-pulse">Chirp is thinking…</span>
+          <div className="flex items-center gap-2 pl-11" aria-label="Chirp is typing">
+            <span className="rounded-2xl rounded-tl-sm border border-line bg-white px-4 py-3 text-xl font-bold leading-none text-oxford">
+              <span className="dot-1">•</span> <span className="dot-2">•</span> <span className="dot-3">•</span>
+            </span>
           </div>
         )}
 
@@ -243,9 +272,12 @@ export default function ChatPage() {
         <input
           id="chat-input"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            setInput(e.target.value);
+            if (!busy) setBird(e.target.value ? "listening" : "idle");
+          }}
           maxLength={MAX_INPUT}
-          placeholder="Reply here"
+          placeholder="Tell Chirp anything…"
           autoComplete="off"
           className="min-w-0 flex-1 bg-transparent py-2 outline-none placeholder:text-muted"
         />
@@ -253,7 +285,7 @@ export default function ChatPage() {
           type="submit"
           disabled={busy || !input.trim()}
           aria-label="Send"
-          className="flex h-10 w-10 items-center justify-center rounded-lg bg-red text-white disabled:opacity-40"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-sun text-oxford disabled:opacity-40"
         >
           <SendIcon className="h-5 w-5" />
         </button>

@@ -17,6 +17,7 @@ export default function ToolGlyph({ kind, className = "h-10 w-10" }: { kind: Eng
     rate: <><path d="M6 40 V34 M14 40 V28 M22 40 V22 M30 40 V16 M38 40 V10" {...s} strokeWidth={4} /></>,
     pick: <><circle cx="14" cy="14" r="5" {...s} /><circle cx="34" cy="14" r="5" fill="currentColor" /><circle cx="14" cy="34" r="5" {...s} /><circle cx="34" cy="34" r="5" {...s} /></>,
     slider: <><path d="M6 24 H42" {...s} /><circle cx="26" cy="24" r="7" fill="currentColor" /></>,
+    chain: <><rect x="4" y="18" width="16" height="12" rx="6" {...s} /><rect x="16" y="18" width="16" height="12" rx="6" {...s} /><rect x="28" y="18" width="16" height="12" rx="6" {...s} /></>,
     bilateral: <><circle cx="13" cy="24" r="8" fill="currentColor" /><circle cx="35" cy="24" r="8" {...s} /></>,
   };
   return (

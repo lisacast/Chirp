@@ -6,6 +6,7 @@ import type { Engine, Tool } from "@/data/tools";
 import { getSkill } from "@/data/skills";
 import { markActive, markPracticed } from "@/lib/profile";
 import { track } from "@/lib/track";
+import ChainAnalysis from "./ChainAnalysis";
 
 type Done = () => void;
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.max(0, s) % 60).padStart(2, "0")}`;
@@ -93,6 +94,8 @@ function Engine({ e, th, done }: { e: Engine; th: Theme; done: Done }) {
       return <Slider e={e} th={th} done={done} />;
     case "bilateral":
       return <Bilateral e={e} th={th} done={done} />;
+    case "chain":
+      return <ChainAnalysis th={th} done={done} />;
   }
 }
 

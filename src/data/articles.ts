@@ -1,8 +1,9 @@
+import { SKILL_GUIDES } from "./skillGuides";
 // Chirp "Learn" library: original plain-language articles about DBT skills.
 // Topics follow the content plan in "Content and Keywords for Chirp" (CHIRP 2.0).
 // Body format: "## " heading, "- " bullet, "1. " numbered step, "> " tip callout, otherwise a paragraph.
 
-export type ArticleSection = "Foundations" | "Mindfulness" | "Distress Tolerance" | "Emotion Regulation" | "Relationships" | "Everyday Life";
+export type ArticleSection = "Foundations" | "Skill Guides" | "Mindfulness" | "Distress Tolerance" | "Emotion Regulation" | "Relationships" | "Everyday Life";
 
 export interface Article {
   slug: string;
@@ -10,11 +11,13 @@ export interface Article {
   title: string;
   dek: string; // one-line summary under the headline
   skills?: string[]; // related skill ids
+  module?: string; // skill module, for colour coding skill guides
   body: string[];
 }
 
 export const SECTIONS: { name: ArticleSection; blurb: string; color: string }[] = [
   { name: "Foundations", blurb: "What DBT is, where it came from, and how it works.", color: "#1A56C4" },
+  { name: "Skill Guides", blurb: "An in-depth guide to every skill, with real examples and ways to practice.", color: "#1A56C4" },
   { name: "Mindfulness", blurb: "Coming back to the present moment, on purpose.", color: "#0B7285" },
   { name: "Distress Tolerance", blurb: "Getting through hard moments without making them harder.", color: "#B83D0B" },
   { name: "Emotion Regulation", blurb: "Understanding feelings and steering them.", color: "#7B2CBF" },
@@ -22,7 +25,7 @@ export const SECTIONS: { name: ArticleSection; blurb: string; color: string }[] 
   { name: "Everyday Life", blurb: "Skills for school, sleep, screens and the holidays.", color: "#C2410C" },
 ];
 
-export const ARTICLES: Article[] = [
+const BASE: Article[] = [
   // ---------------- Foundations ----------------
   {
     slug: "what-is-dbt",
@@ -633,7 +636,93 @@ export const ARTICLES: Article[] = [
       "> If you are under 18, a parent, guardian or school counselor can help you find support.",
     ],
   },
+  {
+    slug: "how-to-start-dbt",
+    section: "Foundations",
+    title: "How to get started with DBT",
+    dek: "What full DBT looks like, how to find it, what it costs, and how to practice skills in between.",
+    body: [
+      "Dialectical Behavior Therapy (DBT) can be learned in a few different ways. Some people do the full program with a trained team. Others start by learning and practicing the skills, with a school counselor, a therapist, a book or an app like Chirp. This guide walks through the options so you know what to look for.",
+      "## What full DBT includes",
+      "Comprehensive DBT, as it was designed by Marsha Linehan, usually has four parts working together:",
+      "- Individual therapy: weekly sessions with a DBT therapist focused on your goals and what's getting in the way.",
+      "- Skills group: a weekly class that teaches the four skill areas, mindfulness, distress tolerance, emotion regulation and interpersonal effectiveness.",
+      "- Coaching between sessions: short check-ins, often by phone, to help you use a skill in real life when you need it.",
+      "- A consultation team: the therapists meet regularly to support each other and keep the treatment on track.",
+      "Programs for teens (often called DBT-A) usually invite a parent or caregiver into a skills group too, and add skills for families, like finding the middle path between too strict and too loose.",
+      "## How to find a DBT provider",
+      "1. Ask someone you trust to help: a parent or caregiver, a school counselor, or your doctor. If you're under 18, an adult usually needs to help arrange treatment.",
+      "2. Ask clearly for DBT. Many therapists use some DBT skills. Fewer offer the full program. Ask: \"Do you offer comprehensive DBT, with skills group and coaching?\"",
+      "3. Look for training. The DBT-Linehan Board of Certification lists certified clinicians and programs on its website, dbt-lbc.org.",
+      "4. Check what fits your life: in person or online, group times, and whether they work with teens and families.",
+      "## What it can cost, and ways to lower it",
+      "Costs vary a lot by country, insurance and provider. Some ways people make DBT more affordable:",
+      "- Check what your health insurance covers. Many plans cover therapy and group sessions.",
+      "- Ask about a sliding scale, where the fee depends on income.",
+      "- Look at community mental health centers and university training clinics, which often cost less.",
+      "- Ask your school counselor about free groups or skills classes.",
+      "## Practicing between sessions",
+      "Skills only help if you use them in real life. That's where most of the work happens. You can practice with a diary card, with a skills workbook, or with Chirp's [tools](/tools), [flashcards](/skills) and [chat](/chat). Chirp is built to help you practice, any time, at your own pace.",
+      "> Chirp is an educational skills app, not therapy. If you're struggling a lot, or thinking about hurting yourself, please reach out to a real person today. Call or text 988.",
+      "## Can I learn DBT skills without a therapist?",
+      "Yes, many people learn and practice skills on their own or in a class, and find them helpful in everyday life. Research on DBT, though, is mostly about the full program with trained clinicians, especially for people with suicidal thoughts or self-harm. If that's you, self-study is a great addition, but not a replacement. See [Does DBT work?](/learn/does-dbt-work) for what the studies show.",
+    ],
+  },
+  {
+    slug: "does-dbt-work",
+    section: "Foundations",
+    title: "Does DBT work? What the research says, including cost",
+    dek: "A plain-language look at the main studies on DBT for teens and adults, and what they found about cost.",
+    body: [
+      "DBT is one of the most studied talk therapies for people who feel emotions very intensely, especially when that leads to self-harm or suicidal thoughts. Here is a short, honest summary of some of the key research, with the studies named so you can look them up.",
+      "## The first trials",
+      "In 1991, Marsha Linehan and colleagues published the first randomized controlled trial of DBT, with women who had repeated self-harm and a diagnosis of borderline personality disorder. Compared with treatment as usual, people in DBT had fewer and less medically severe self-harm episodes and spent fewer days in psychiatric hospitals. (Linehan et al., 1991, Archives of General Psychiatry.)",
+      "In 2006, a larger two-year trial compared DBT with therapy from community experts. People in DBT were about half as likely to make a suicide attempt, and needed fewer hospital and emergency visits for suicidal thoughts. (Linehan et al., 2006, Archives of General Psychiatry.)",
+      "## Research with teens",
+      "- In Norway, a trial with teens who had repeated self-harm found that DBT for adolescents led to larger reductions in self-harm, suicidal thoughts and depression than enhanced usual care. (Mehlum et al., 2014, Journal of the American Academy of Child and Adolescent Psychiatry.)",
+      "- In the United States, a trial across several sites with teens at high risk of suicide found that DBT reduced suicide attempts and self-harm more than individual and group supportive therapy by the end of treatment. (McCauley et al., 2018, JAMA Psychiatry.)",
+      "## Do the skills themselves matter?",
+      "A 2015 study tested which parts of DBT matter. Versions of treatment that included skills training worked better for reducing self-harm and improving depression and anxiety than a version without skills training. (Linehan et al., 2015, JAMA Psychiatry.) This is part of why practicing skills is so important.",
+      "## What reviews of many studies say",
+      "Cochrane reviews look at many studies together. Reviews of therapies for borderline personality disorder have found DBT to be among the therapies with the most evidence, while noting that many studies are small and more research is needed. (Stoffers-Winterling et al., 2012; Storebø et al., 2020, Cochrane Database of Systematic Reviews.)",
+      "## What about cost?",
+      "Full DBT asks a lot: weekly therapy, a weekly group and coaching. That can sound expensive. But costs have to be compared with what happens without effective treatment, like emergency visits and hospital stays, which are much more costly.",
+      "- In the 1991 trial, people in DBT spent fewer days in psychiatric hospitals, one of the most expensive parts of mental health care.",
+      "- A UK trial in everyday health services found that DBT reduced self-harm more than usual treatment, and that overall costs were not significantly different between the groups. (Priebe et al., 2012, Psychotherapy and Psychosomatics.)",
+      "In other words, the research suggests DBT can lead to better outcomes without costing more overall. Results vary by place and service, so it's worth asking providers and insurers about local costs.",
+      "## What this means for Chirp",
+      "These studies are about DBT delivered by trained clinicians. Chirp hasn't been studied in a clinical trial, and it's not a treatment. What Chirp offers is easy, free-to-try practice of the same skills, any time, so they're there when you need them. If you're in DBT, Chirp can help you practice between sessions. If you're not, it can be a first step, and a way to see whether these skills might help you.",
+      "> If you're having thoughts of suicide or self-harm, please don't wait. Call or text 988, or text HOME to 741741.",
+    ],
+  },
+  {
+    slug: "chirp-meets-you-where-you-are",
+    section: "Foundations",
+    title: "Start anywhere: how Chirp meets you where you are",
+    dek: "Chirp isn't a course you have to finish in order. Here's how it fits whatever kind of day you're having.",
+    body: [
+      "Lots of apps work like a ladder: lesson one, then lesson two, then lesson three. Chirp doesn't. Feelings don't show up in order, and neither should help. You can start with any skill, on any day, and come back to whatever you need.",
+      "## Why not step by step?",
+      "DBT skills are grouped into four areas: mindfulness, distress tolerance, emotion regulation and interpersonal effectiveness. They work together, but you don't need to master one before using another. If you're in a crisis today, a distress tolerance skill is what helps. If you're about to talk to a parent, DEAR MAN is. If things are calm, it's a great time to build mindfulness or plan ahead.",
+      "## How Chirp picks what fits",
+      "- Your mood: when you check in, Today suggests a skill that matches how you feel.",
+      "- The moment: the [Right now](/help) finder takes you straight to steps for overwhelmed, anxious, angry, sad, numb and more.",
+      "- Your words: in [chat](/chat), Chirp listens to what's going on and suggests the one skill that fits, then helps you try it.",
+      "- Your time: every [tool](/tools) shows how long it takes, from one minute to fifteen.",
+      "## A few ways people use Chirp",
+      "- In a hard moment: open Tools, pick a breathing or TIPP tool, and get your body calmer first.",
+      "- Before a tough conversation: use the DEAR MAN builder, then rehearse it.",
+      "- After something went wrong: use the [chain analysis](/tools/chain-analysis) tool to understand what happened and where a skill could help next time.",
+      "- On a calm day: read a [skill guide](/learn), try a meditation, or fill a square on your bingo card.",
+      "## There's no falling behind",
+      "There are no levels to unlock and no lessons you can miss. Your bingo card fills in whatever order you practice. If you disappear for a month and come back, Chirp just picks up where you are now.",
+      "> The best skill is the one you'll actually use today. Start there.",
+    ],
+  },
 ];
+
+export const ARTICLES: Article[] = [...BASE, ...SKILL_GUIDES];
+
 
 export function getArticle(slug: string): Article | undefined {
   return ARTICLES.find((a) => a.slug === slug);

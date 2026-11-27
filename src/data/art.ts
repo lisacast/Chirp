@@ -72,6 +72,7 @@ export const SECTION_THEME: Record<string, ThemeKey> = {
   "Emotion Regulation": "emotion",
   Relationships: "relationships",
   "Everyday Life": "joy",
+  "Skill Guides": "learn",
 };
 
 export const moduleTheme = (id: string): Theme => THEMES[MODULE_THEME[id] ?? "learn"];
@@ -103,3 +104,40 @@ export const scrimCss = (key: ThemeKey) => {
   const deep = THEMES[key].stops[0];
   return `linear-gradient(to top, ${deep} 0%, ${deep}cc 30%, ${deep}00 75%)`;
 };
+
+/** The owner's photos (lakes, mountains, sky reflections, rain ripples), grouped by theme. */
+export const PHOTOS: Record<ThemeKey, number[]> = {
+  mindfulness: [36, 37, 38, 39, 40, 2, 4],
+  distress: [33, 34, 35, 29, 41, 1],
+  emotion: [6, 8, 24, 11, 13, 1],
+  relationships: [30, 31, 32, 22, 23, 16],
+  learn: [7, 14, 15, 21, 25, 12, 9, 10],
+  meditate: [3, 5, 17, 18, 2, 4],
+  joy: [42, 28, 26, 27],
+  help: [1, 41],
+  today: [42, 15, 3, 7, 12, 26, 30, 5, 19, 24, 28],
+  progress: [19, 20, 27],
+  practice: [37, 31, 16, 10],
+};
+
+export const MEDITATION_PHOTO: Record<string, number> = {
+  arrive: 42,
+  "breathing-space": 5,
+  "wise-mind-lake": 15,
+  "leaves-on-a-stream": 31,
+  "body-scan": 18,
+  "urge-surfing": 1,
+  "kindness-for-you": 33,
+  "safe-place": 32,
+  "sleep-wind-down": 3,
+};
+
+export const photoSrc = (n: number, small = false) => `/photos/p${n}${small ? "-sm" : ""}.webp`;
+export const pickPhoto = (key: ThemeKey, seed = "") => {
+  const pool = PHOTOS[key];
+  return pool[hash(seed + key) % pool.length];
+};
+
+/** Theme for an article: skill guides take their skill's module colour, others their section's. */
+export const articleTheme = (a: { section: string; module?: string }): ThemeKey =>
+  (a.module && MODULE_THEME[a.module]) || SECTION_THEME[a.section] || "learn";

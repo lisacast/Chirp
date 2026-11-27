@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CardsIcon, ChatIcon, ExitIcon, HomeIcon, LeafIcon, LifebuoyIcon, WindIcon } from "./Icons";
+import { BookIcon, CardsIcon, ExitIcon, HomeIcon, LeafIcon, LifebuoyIcon, SendIcon, WindIcon } from "./Icons";
 import { hasAgreed, loadProfile } from "@/lib/profile";
 import { trackPage } from "@/lib/track";
 
@@ -23,11 +23,11 @@ interface ShellProps {
 const TABS = [
   { href: "/lobby", label: "Today", Icon: HomeIcon },
   { href: "/tools", label: "Tools", Icon: WindIcon },
-  { href: "/chat", label: "Chat", Icon: ChatIcon },
   { href: "/skills", label: "Skills", Icon: CardsIcon },
+  { href: "/learn", label: "Learn", Icon: BookIcon },
   { href: "/meditate", label: "Meditate", Icon: LeafIcon },
 ];
-const DESKTOP = [...TABS, { href: "/learn", label: "Learn" }, { href: "/progress", label: "Progress" }];
+const DESKTOP = [TABS[0], { href: "/chat", label: "Chat" }, ...TABS.slice(1), { href: "/progress", label: "Progress" }];
 
 const WIDTHS = { narrow: "max-w-2xl", medium: "max-w-4xl", wide: "max-w-6xl" };
 
@@ -126,13 +126,13 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
         id="main"
         className={`mx-auto flex w-full flex-1 flex-col px-4 sm:px-6 ${
           fill ? "min-h-0 max-w-3xl pt-3" : `${WIDTHS[width]} pt-5 pb-8 sm:pt-8`
-        } ${showTabs ? "pb-24 md:pb-8" : ""}`}
+        } ${showTabs ? "pb-40 md:pb-8" : ""}`}
       >
         {ready ? children : null}
       </main>
 
       {!fill && (
-        <footer className={`bg-oxford text-white ${showTabs ? "pb-20 md:pb-0" : ""}`}>
+        <footer className={`bg-oxford text-white ${showTabs ? "pb-36 md:pb-0" : ""}`}>
           <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">
             <div className="flex items-center justify-between gap-4 rounded-xl bg-white/10 px-4 py-3">
               <p className="text-sm font-bold">
@@ -167,34 +167,44 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
         </footer>
       )}
 
-      {/* Bottom tab bar (phones and tablets) */}
+      {/* Floating dock (phones and tablets): Ask Chirp bar + tabs */}
       {showTabs && (
-        <nav
-          aria-label="Tabs"
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-oxford pb-[env(safe-area-inset-bottom)] md:hidden"
-        >
-          <ul className="mx-auto grid max-w-lg grid-cols-5">
-            {TABS.map(({ href, label, Icon }) => {
-              const on = active(href);
-              return (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    aria-current={on ? "page" : undefined}
-                    className={`flex h-16 flex-col items-center justify-center gap-0.5 text-xs font-bold ${
-                      on ? "text-sun" : "text-white/80"
-                    }`}
-                  >
-                    <span className={`flex h-7 w-12 items-center justify-center rounded-full ${on ? "bg-white/15" : ""}`}>
-                      <Icon className="h-6 w-6" />
-                    </span>
-                    {label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+        <nav aria-label="Tabs" className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(env(safe-area-inset-bottom),0.6rem)] md:hidden">
+          <div className="mx-auto max-w-lg rounded-[1.4rem] bg-oxford p-2 shadow-[0_10px_40px_rgba(0,28,56,0.45)] ring-1 ring-white/10">
+            <Link href="/chat" className="ask-glow flex items-center gap-2.5 rounded-2xl bg-white/10 py-2 pl-2 pr-2 ring-2 ring-sun">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white">
+                <Image src="/chirp-bird.png" alt="" width={26} height={26} className="bird-idle" />
+              </span>
+              <span className="flex-1 text-[0.95rem] font-semibold text-white/85">Ask Chirp anything…</span>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-sun text-oxford">
+                <SendIcon className="h-5 w-5" />
+              </span>
+            </Link>
+            <ul className="mt-1 grid grid-cols-5">
+              {TABS.map(({ href, label, Icon }) => {
+                const on = active(href);
+                return (
+                  <li key={href}>
+                    <Link href={href} aria-current={on ? "page" : undefined} className={`flex h-12 flex-col items-center justify-center gap-0.5 text-[0.68rem] font-bold ${on ? "text-sun" : "text-white/75"}`}>
+                      <Icon className="h-5 w-5" />
+                      {label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </nav>
+      )}
+
+      {/* Desktop: floating Ask Chirp button */}
+      {showNav && !path.startsWith("/chat") && (
+        <Link href="/chat" className="ask-glow fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-full bg-sun py-2 pl-2 pr-5 font-extrabold text-oxford shadow-xl md:flex">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white">
+            <Image src="/chirp-bird.png" alt="" width={28} height={28} className="bird-idle" />
+          </span>
+          Ask Chirp
+        </Link>
       )}
     </div>
   );

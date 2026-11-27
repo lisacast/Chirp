@@ -71,7 +71,7 @@ if (!is_file($autoload)) {
 require $autoload;
 
 $mood = isset($body['mood']) && is_string($body['mood']) ? mb_substr($body['mood'], 0, 30) : '';
-$system = $config['systemPrompt'] . ($mood !== '' ? "\n\nThe person picked this mood when they arrived: {$mood}." : '');
+$system = $config['systemPrompt'] . "\n\nToday's date: " . gmdate('l, F j, Y') . '.' . ($mood !== '' ? "\n\nThe person picked this mood when they arrived: {$mood}." : '');
 $model = $settings['model'] ?? getenv('CHIRP_MODEL') ?: 'claude-opus-5-5';
 
 try {

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Shell from "@/components/Shell";
 import ArticleBody from "@/components/ArticleBody";
 import Art from "@/components/Art";
-import { SECTION_THEME, sectionTheme } from "@/data/art";
+import { articleTheme, THEMES } from "@/data/art";
 import { ARTICLES, getArticle, readMinutes, SECTIONS } from "@/data/articles";
 import { getSkill, MODULES } from "@/data/skills";
 import { markRead } from "@/lib/profile";
@@ -39,11 +39,11 @@ export default function ArticleView({ slug }: { slug: string }) {
           </Link>
           <span className="text-muted"> / {a.section}</span>
         </nav>
-        <Art theme={SECTION_THEME[a.section] ?? "learn"} seed={a.slug} className="mt-3 aspect-[16/9] w-full rounded-2xl" />
+        <Art theme={articleTheme(a)} seed={a.slug} className="mt-3 aspect-[16/9] w-full rounded-2xl" />
         <h1 className="display mt-5 text-3xl sm:text-[2.5rem]">{a.title}</h1>
         <p className="mt-4 text-lg leading-snug text-muted sm:text-xl">{a.dek}</p>
         <div className="mt-5 flex flex-wrap items-center gap-3 border-y-4 border-oxford py-3 text-sm font-bold text-oxford">
-          <span className="inline-block h-3 w-3 rounded-full" style={{ background: sectionTheme(a.section).solid }} />
+          <span className="inline-block h-3 w-3 rounded-full" style={{ background: THEMES[articleTheme(a)].solid }} />
           <span>{a.section}</span>
           <span className="text-muted">·</span>
           <span>{readMinutes(a)} min read</span>

@@ -15,7 +15,7 @@ const KINDS: { label: string; kinds: Engine["kind"][] }[] = [
   { label: "Grounding", kinds: ["senses", "count", "label"] },
   { label: "Cards", kinds: ["deck", "pick"] },
   { label: "Check-ins", kinds: ["rate", "slider", "checklist"] },
-  { label: "Worksheets", kinds: ["write"] },
+  { label: "Worksheets", kinds: ["write", "chain"] },
 ];
 
 export default function ToolsPage() {
