@@ -5,7 +5,12 @@ import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
 import { ChevronIcon, GridIcon, LeafIcon, SunIcon, WindIcon } from "@/components/Icons";
 import Art from "@/components/Art";
-import { gradientCss, MODULE_THEME, SECTION_THEME, THEMES, type ThemeKey } from "@/data/art";
+import { gradientCss, MODULE_THEME, moduleTheme, SECTION_THEME, THEMES, type ThemeKey } from "@/data/art";
+import ToolPlayer from "@/components/ToolPlayer";
+import MeditationArt from "@/components/MeditationArt";
+import ToolCard from "@/components/ToolCard";
+import { getTool, TOOLS } from "@/data/tools";
+import type { ModuleId } from "@/data/skills";
 import { loadProfile, streak, todaysMood, type Profile } from "@/lib/profile";
 import { ARTICLES, readMinutes } from "@/data/articles";
 import { MEDITATIONS } from "@/data/meditations";
@@ -29,6 +34,15 @@ const FOR_MOOD: Record<string, string> = {
   overwhelmed: "accepts",
 };
 
+const ROWS: { module: ModuleId; title: string }[] = [
+  { module: "distress-tolerance", title: "Calm down fast" },
+  { module: "mindfulness", title: "Steady your mind" },
+  { module: "emotion-regulation", title: "Work with feelings" },
+  { module: "interpersonal", title: "With other people" },
+];
+const BREATHS = ["calm-breath", "box-breath", "ocean-breath", "double-sigh", "relax-478", "wise-mind-breath", "triangle-breath"];
+const rotate = <T,>(a: T[], n: number) => (a.length ? [...a.slice(n % a.length), ...a.slice(0, n % a.length)] : a);
+
 const dayIndex = () => Math.floor(Date.now() / 86400000);
 
 export default function Today() {
@@ -45,6 +59,7 @@ export default function Today() {
   const article = ARTICLES[d % ARTICLES.length];
   const med = MEDITATIONS[d % MEDITATIONS.length];
   const skill = getSkill(mood ? FOR_MOOD[mood] ?? "wise-mind" : ["wise-mind", "self-soothe", "dear-man", "radical-acceptance", "please", "observe", "opposite-action-er"][d % 7])!;
+  const breathTool = getTool(BREATHS[d % BREATHS.length])!;
   const mod = MODULES.find((m) => m.id === skill.module)!;
   const skillTheme = MODULE_THEME[skill.module] ?? "learn";
   const hour = new Date().getHours();
@@ -76,7 +91,50 @@ export default function Today() {
         </div>
       </section>
 
-      <div className="mt-6 grid gap-5 lg:grid-cols-[1.5fr_1fr]">
+      {/* Tools */}
+      <section className="mt-6">
+        <div className="flex items-end justify-between gap-3">
+          <h2 className="text-2xl font-bold text-oxford">Tools</h2>
+          <Link href="/tools" className="text-sm font-extrabold text-red hover:underline">
+            See all {TOOLS.length} ›
+          </Link>
+        </div>
+        <div className="mt-3 grid gap-4 lg:grid-cols-[1fr_1fr]">
+          <div className="min-w-0">
+            <p className="kicker !text-oxford">Breathe now</p>
+            <div className="mt-2">
+              <ToolPlayer tool={breathTool} />
+            </div>
+          </div>
+          <div className="min-w-0 space-y-5">
+            {ROWS.map((r) => (
+              <div key={r.module}>
+                <p className="text-xs font-extrabold uppercase tracking-[0.14em]" style={{ color: moduleTheme(r.module).solid }}>
+                  {r.title}
+                </p>
+                <div className="-mx-4 mt-2 flex snap-x gap-3 overflow-x-auto px-4 pb-1 lg:mx-0 lg:px-0">
+                  {rotate(TOOLS.filter((x) => x.module === r.module && x.id !== breathTool.id), d).slice(0, 8).map((x) => (
+                    <ToolCard key={x.id} tool={x} wide />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          {[
+            { href: "/help", label: "Right now", theme: "help" as ThemeKey },
+            { href: "/joy", label: "Joy finder", theme: "joy" as ThemeKey },
+            { href: "/progress", label: `Bingo ${practicedOnCard}/25`, theme: "progress" as ThemeKey },
+          ].map((q) => (
+            <Link key={q.href} href={q.href} className="rounded-xl px-3 py-3 text-center text-sm font-extrabold text-white" style={{ background: gradientCss(q.theme, q.label) }}>
+              {q.label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <div className="mt-9 grid gap-5 lg:grid-cols-[1.5fr_1fr]">
         {/* Lead story: today's practice */}
         <section className="overflow-hidden rounded-2xl text-white" style={{ background: THEMES[skillTheme].stops[0] }}>
           <Art theme={skillTheme} seed={skill.id} className="aspect-[16/7] w-full" />
@@ -107,33 +165,10 @@ export default function Today() {
         </section>
       </div>
 
-      {/* Quick tools */}
-      <h2 className="kicker mt-9 !text-oxford">Quick tools</h2>
-      <ul className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
-        {[
-          { href: "/practice#breathe", label: "Breathe", sub: "1-minute pacer", Icon: WindIcon, tint: "mindfulness" },
-          { href: "/help", label: "Right now", sub: "Help for this moment", Icon: LeafIcon, tint: "help" },
-          { href: "/joy", label: "Joy finder", sub: "A small good thing", Icon: SunIcon, tint: "joy" },
-          { href: "/progress", label: "Skills bingo", sub: `${practicedOnCard} of 25 squares`, Icon: GridIcon, tint: "progress" },
-        ].map(({ href, label, sub, Icon, tint }) => (
-          <li key={href}>
-            <Link href={href} className="card flex h-full flex-col gap-3 p-4 transition hover:border-oxford hover:shadow-md">
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl text-white" style={{ background: gradientCss(tint as ThemeKey, label) }}>
-                <Icon className="h-6 w-6" />
-              </span>
-              <span>
-                <span className="block font-extrabold text-oxford">{label}</span>
-                <span className="block text-sm text-muted">{sub}</span>
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-
       {/* Meditate + Read */}
       <div className="mt-9 grid gap-5 md:grid-cols-2">
         <Link href={`/meditate?play=${med.id}`} className="group relative block overflow-hidden rounded-2xl text-white hover:shadow-lg">
-          <Art theme="meditate" seed={med.id} scrim className="aspect-[16/9] w-full transition group-hover:scale-105" />
+          <MeditationArt id={med.id} className="aspect-[16/9] w-full transition group-hover:scale-105" />
           <span className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-sun text-oxford">
             <LeafIcon className="h-6 w-6" />
           </span>

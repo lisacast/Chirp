@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BookIcon, CardsIcon, ChatIcon, ExitIcon, HomeIcon, LeafIcon, LifebuoyIcon } from "./Icons";
+import { CardsIcon, ChatIcon, ExitIcon, HomeIcon, LeafIcon, LifebuoyIcon, WindIcon } from "./Icons";
 import { hasAgreed, loadProfile } from "@/lib/profile";
 import { trackPage } from "@/lib/track";
 
@@ -22,12 +22,12 @@ interface ShellProps {
 
 const TABS = [
   { href: "/lobby", label: "Today", Icon: HomeIcon },
+  { href: "/tools", label: "Tools", Icon: WindIcon },
   { href: "/chat", label: "Chat", Icon: ChatIcon },
   { href: "/skills", label: "Skills", Icon: CardsIcon },
   { href: "/meditate", label: "Meditate", Icon: LeafIcon },
-  { href: "/learn", label: "Learn", Icon: BookIcon },
 ];
-const DESKTOP = [...TABS.slice(0, 3), { href: "/practice", label: "Practice" }, ...TABS.slice(3), { href: "/progress", label: "Progress" }];
+const DESKTOP = [...TABS, { href: "/learn", label: "Learn" }, { href: "/progress", label: "Progress" }];
 
 const WIDTHS = { narrow: "max-w-2xl", medium: "max-w-4xl", wide: "max-w-6xl" };
 
@@ -133,49 +133,37 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
 
       {!fill && (
         <footer className={`bg-oxford text-white ${showTabs ? "pb-20 md:pb-0" : ""}`}>
-          <div className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-7 text-sm sm:grid-cols-3 sm:px-6">
-            <div>
-              <p className="text-xl font-bold">Chirp</p>
-              <p className="mt-1 text-white/85">Skills for feelings, stress and relationships. Ages 13 and up.</p>
-            </div>
-            <div>
-              <p className="font-extrabold text-sun">In crisis?</p>
-              <p className="mt-1 text-white/90">
-                Call or text{" "}
-                <a href="tel:988" className="font-extrabold underline">
-                  988
-                </a>
-                , text HOME to{" "}
-                <a href="sms:741741?&body=HOME" className="font-extrabold underline">
-                  741741
-                </a>
-                , or call 911.
+          <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">
+            <div className="flex items-center justify-between gap-4 rounded-xl bg-white/10 px-4 py-3">
+              <p className="text-sm font-bold">
+                <span className="text-sun">In crisis?</span> Call or text{" "}
+                <a href="tel:988" className="underline">988</a>
+                <span className="hidden sm:inline">, or call 911 in an emergency</span>
               </p>
-            </div>
-            <nav aria-label="Footer" className="flex flex-wrap content-start gap-x-4 gap-y-2 font-semibold sm:justify-end">
-              <Link href="/learn" className="hover:underline">
-                Learn
-              </Link>
-              <Link href="/practice" className="hover:underline">
-                Tips &amp; practices
-              </Link>
-              <Link href="/faq" className="hover:underline">
-                FAQ
-              </Link>
-              <Link href="/help" className="hover:underline">
+              <Link href="/help" className="shrink-0 rounded-lg bg-sun px-3 py-1.5 text-sm font-extrabold text-oxford">
                 Get help
               </Link>
-              <Link href="/terms" className="hover:underline">
-                Terms of Use
-              </Link>
-              <Link href="/privacy" className="hover:underline">
-                Privacy Policy
-              </Link>
+            </div>
+            <nav aria-label="Footer" className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2.5 text-sm font-semibold text-white/90 sm:grid-cols-4">
+              {[
+                ["/tools", "Tools"],
+                ["/learn", "Learn"],
+                ["/meditate", "Meditate"],
+                ["/faq", "FAQ"],
+                ["/practice", "Tips"],
+                ["/progress", "Progress"],
+                ["/terms", "Terms of Use"],
+                ["/privacy", "Privacy Policy"],
+              ].map(([href, label]) => (
+                <Link key={href} href={href} className="hover:text-sun hover:underline">
+                  {label}
+                </Link>
+              ))}
             </nav>
+            <p className="mt-5 border-t border-white/15 pt-4 text-xs text-white/70">
+              <span className="font-bold text-white">Chirp</span> · Ages 13+ · An educational skills app, not a medical service. © {new Date().getFullYear()} NewPath.
+            </p>
           </div>
-          <p className="mx-auto max-w-6xl px-4 pb-6 text-xs text-white/75 sm:px-6">
-            Chirp is an educational skills app, not a medical service. © {new Date().getFullYear()} NewPath.
-          </p>
         </footer>
       )}
 

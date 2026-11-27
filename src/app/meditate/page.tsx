@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
 import PageHeader from "@/components/PageHeader";
 import Art from "@/components/Art";
+import MeditationArt from "@/components/MeditationArt";
 import { ART } from "@/data/art";
 import { PauseIcon, PlayIcon } from "@/components/Icons";
 import { MEDITATIONS, getMeditation, type Meditation } from "@/data/meditations";
@@ -55,7 +56,7 @@ export default function MeditatePage() {
               }}
               className="group relative block h-full w-full overflow-hidden rounded-2xl text-left text-white hover:shadow-lg"
             >
-              <Art theme="meditate" seed={m.id} scrim className="aspect-[16/10] w-full transition group-hover:scale-105" />
+              <MeditationArt id={m.id} className="aspect-[16/10] w-full transition group-hover:scale-105" />
               <span className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-sun text-oxford">
                 <PlayIcon className="ml-0.5 h-6 w-6" />
               </span>
@@ -108,7 +109,7 @@ function Player({ m, onClose }: { m: Meditation; onClose: () => void }) {
 
   return (
     <section aria-label={m.title} className="relative mb-8 overflow-hidden rounded-2xl bg-[#0E0B33] text-white">
-      <Art theme="meditate" seed={m.id} className="absolute inset-0 h-full w-full opacity-60" />
+      <MeditationArt id={m.id} scrim={false} className="absolute inset-0 h-full w-full opacity-35" />
       <div className="relative p-6 sm:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>

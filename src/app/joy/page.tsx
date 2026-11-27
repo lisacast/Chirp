@@ -23,7 +23,7 @@ export default function JoyPage() {
 
   return (
     <Shell>
-      <Art theme={ART.joy} seed="joy" className="mb-5 h-32 w-full rounded-2xl sm:h-48" />
+      <Art theme={ART.joy} seed="joy" className="mb-4 h-16 w-full rounded-2xl sm:h-20" />
       <h1 className="display text-2xl sm:text-3xl">Joy finder</h1>
       <p className="mt-1 text-muted">
         Small pleasant moments add up. Here&apos;s an idea for today:

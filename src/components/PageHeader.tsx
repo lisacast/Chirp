@@ -17,15 +17,15 @@ export default function PageHeader({
 }) {
   if (art)
     return (
-      <header className="mb-6 sm:mb-8">
+      <header className="mb-5 sm:mb-6">
         <div className="relative overflow-hidden rounded-2xl bg-oxford">
-          <Art theme={art} seed={String(title)} scrim className="h-40 w-full sm:h-56" />
-          <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
-            {kicker && <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">{kicker}</p>}
-            <h1 className="mt-1 text-3xl font-bold leading-tight text-white sm:text-4xl">{title}</h1>
+          <Art theme={art} seed={String(title)} scrim className="h-24 w-full sm:h-28" />
+          <div className="absolute inset-x-0 bottom-0 px-4 py-3 sm:px-6 sm:py-4">
+            {kicker && <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.14em] text-sun">{kicker}</p>}
+            <h1 className="text-2xl font-bold leading-tight text-white sm:text-3xl">{title}</h1>
           </div>
         </div>
-        {dek && <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{dek}</p>}
+        {dek && <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">{dek}</p>}
         {children}
       </header>
     );
