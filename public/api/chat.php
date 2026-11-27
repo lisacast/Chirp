@@ -1,5 +1,5 @@
 <?php
-// PlayChirp chat backend for SiteGround (PHP 8.1+).
+// Chirp chat backend for SiteGround (PHP 8.1+).
 // Receives the conversation from the chat page, runs the crisis keyword check,
 // asks Claude for Chirp's reply, and returns JSON:
 //   { reply, skillIds, quickReplies, risk }
@@ -63,7 +63,7 @@ if ($apiKey === '') {
 
 $autoload = __DIR__ . '/vendor/autoload.php';
 if (!is_file($autoload)) {
-    error_log('PlayChirp: vendor/autoload.php missing');
+    error_log('Chirp: vendor/autoload.php missing');
     respond(safeFallback($keywordRisk, "Oops, my wings got tangled and I couldn't answer. Please try again in a moment.", $config));
 }
 require $autoload;
@@ -100,10 +100,10 @@ try {
         ],
     );
 } catch (\Anthropic\Core\Exceptions\APIStatusException $e) {
-    error_log('PlayChirp chat API error: ' . ($e->type?->value ?? 'unknown') . ' ' . $e->getMessage());
+    error_log('Chirp chat API error: ' . ($e->type?->value ?? 'unknown') . ' ' . $e->getMessage());
     respond(safeFallback($keywordRisk, "Oops, my wings got tangled and I couldn't answer. Please try again in a moment.", $config));
 } catch (\Throwable $e) {
-    error_log('PlayChirp chat error: ' . $e->getMessage());
+    error_log('Chirp chat error: ' . $e->getMessage());
     respond(safeFallback($keywordRisk, "Oops, my wings got tangled and I couldn't answer. Please try again in a moment.", $config));
 }
 
@@ -151,7 +151,7 @@ function loadChirpConfig(): array
         $cfg = $raw ? json_decode($raw, true) : null;
     }
     if (!is_array($cfg)) {
-        error_log('PlayChirp: chirp-config.json missing or invalid');
+        error_log('Chirp: chirp-config.json missing or invalid');
         http_response_code(500);
         echo json_encode(['error' => 'Server misconfigured']);
         exit;

@@ -65,11 +65,11 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
       {/* App bar */}
       <header className="sticky top-0 z-40 bg-oxford pt-[env(safe-area-inset-top)] text-white shadow-md">
         <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-2 px-3 sm:px-6">
-          <Link href={showNav ? "/lobby" : "/"} aria-label="PlayChirp home" className="flex shrink-0 items-center gap-2">
+          <Link href={showNav ? "/lobby" : "/"} aria-label="Chirp home" className="flex shrink-0 items-center gap-2">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white">
               <Image src="/chirp-bird.png" alt="" width={30} height={30} priority />
             </span>
-            <span className="text-lg font-extrabold tracking-tight">PlayChirp</span>
+            <span className="text-lg font-extrabold tracking-tight">Chirp</span>
           </Link>
 
           {showNav && (
@@ -129,7 +129,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
         <footer className={`bg-oxford text-white ${showTabs ? "pb-20 md:pb-0" : ""}`}>
           <div className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-7 text-sm sm:grid-cols-3 sm:px-6">
             <div>
-              <p className="text-base font-extrabold">PlayChirp</p>
+              <p className="text-base font-extrabold">Chirp</p>
               <p className="mt-1 text-white/85">Skills for feelings, stress and relationships. Ages 13 and up.</p>
             </div>
             <div>
@@ -162,7 +162,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
             </nav>
           </div>
           <p className="mx-auto max-w-6xl px-4 pb-6 text-xs text-white/75 sm:px-6">
-            PlayChirp is an educational skills app, not a medical service. © {new Date().getFullYear()} NewPath.
+            Chirp is an educational skills app, not a medical service. © {new Date().getFullYear()} NewPath.
           </p>
         </footer>
       )}

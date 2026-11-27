@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* PlayChirp palette (playchirp-palette.png) plus the mockup background. */
+/* Chirp palette (playchirp-palette.png) plus the mockup background. */
 :root {
   /* Bold, high-contrast palette. Every text/background pairing used meets WCAG AA. */
   --oxford: #001c38; /* primary dark: app bar, tab bar, headings */

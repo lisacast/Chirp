@@ -1,6 +1,6 @@
-// PlayChirp skill library.
+// Chirp skill library.
 // Skill list and taglines follow "Chirp Specification - full" (Skills overview +
-// Flashcard learning approach). Descriptions and steps are written for PlayChirp.
+// Flashcard learning approach). Descriptions and steps are written for Chirp.
 
 export type ModuleId =
   | "mindfulness"
@@ -12,7 +12,7 @@ export interface SkillModule {
   id: ModuleId;
   name: string;
   tagline: string;
-  color: string; // tailwind-friendly hex from the PlayChirp palette
+  color: string; // tailwind-friendly hex from the Chirp palette
 }
 
 export interface Skill {

@@ -6,7 +6,7 @@ import LegalPage, {
   type LegalSection,
 } from "@/components/LegalPage";
 
-export const metadata = { title: "Privacy Policy · PlayChirp" };
+export const metadata = { title: "Privacy Policy · Chirp" };
 
 const P = ({ children }: { children: React.ReactNode }) => <p>{children}</p>;
 const UL = ({ items }: { items: React.ReactNode[] }) => (
@@ -22,9 +22,9 @@ const SECTIONS: LegalSection[] = [
     heading: "Who we are",
     body: (
       <P>
-        PlayChirp is operated by {COMPANY}, Sacramento, California, USA
+        Chirp is operated by {COMPANY}, Sacramento, California, USA
         (&quot;we,&quot; &quot;us&quot; or &quot;our&quot;). This Privacy Policy
-        explains what information the PlayChirp website and Chirp guide (the
+        explains what information the Chirp website and Chirp guide (the
         &quot;Service&quot;) handle, how it is used, and the choices you have.
         It is part of our{" "}
         <Link href="/terms" className="underline">
@@ -39,7 +39,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <P>
-          PlayChirp is not directed to children under 13, and we do not
+          Chirp is not directed to children under 13, and we do not
           knowingly collect, use or disclose personal information from children
           under 13, in line with the U.S. Children&apos;s Online Privacy
           Protection Act (COPPA).
@@ -49,9 +49,9 @@ const SECTIONS: LegalSection[] = [
             "Before anyone can use the Service, we ask for their birth month and year. We use the answer only on the device to check age; it is not sent to us or stored.",
             "If the answer shows the person is under 13, they cannot enter the Service or use the chat, and the device remembers this so the age check cannot simply be retried.",
             "If we learn that we have received personal information from a child under 13, we will delete it promptly.",
-            "Parents or guardians who believe their child under 13 has used PlayChirp can contact us at " +
+            "Parents or guardians who believe their child under 13 has used Chirp can contact us at " +
               SUPPORT_EMAIL +
-              " and we will help remove any information. Clearing the browser data on the child's device also removes everything PlayChirp saved there.",
+              " and we will help remove any information. Clearing the browser data on the child's device also removes everything Chirp saved there.",
           ]}
         />
       </>
@@ -62,7 +62,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <P>
-          We designed PlayChirp to work with as little information as possible.
+          We designed Chirp to work with as little information as possible.
           We do not:
         </P>
         <UL
@@ -165,7 +165,7 @@ const SECTIONS: LegalSection[] = [
           items={[
             "Service providers who work on our behalf under contracts that limit how they use it: our website hosting provider and our AI service provider. If we add paid subscriptions, our payment processor will handle payment details directly; we will not see or store full card numbers.",
             "Legal and safety reasons: if required by law, court order or other legal process, or when we believe in good faith that disclosure is needed to protect someone's life or safety.",
-            "Business transfers: if PlayChirp is involved in a merger, acquisition or sale of assets, subject to this Privacy Policy.",
+            "Business transfers: if Chirp is involved in a merger, acquisition or sale of assets, subject to this Privacy Policy.",
           ]}
         />
       </>
@@ -214,8 +214,8 @@ const SECTIONS: LegalSection[] = [
       <>
         <UL
           items={[
-            "You can use PlayChirp without giving a nickname.",
-            "You can delete everything PlayChirp saved on your device at any time by clearing your browser's site data, and end a chat with Start over or the quick-exit button.",
+            "You can use Chirp without giving a nickname.",
+            "You can delete everything Chirp saved on your device at any time by clearing your browser's site data, and end a chat with Start over or the quick-exit button.",
             "Depending on where you live (for example California, other U.S. states, or the European Economic Area and UK), you may have rights to access, correct, delete or get a copy of your personal information, to opt out of its sale or sharing (we do neither), and not to be treated differently for using these rights.",
           ]}
         />
@@ -243,7 +243,7 @@ const SECTIONS: LegalSection[] = [
     heading: "International users",
     body: (
       <P>
-        PlayChirp is operated in the United States, and information may be
+        Chirp is operated in the United States, and information may be
         processed in the United States and other countries where our service
         providers operate. By using the Service, you understand that your
         information may be transferred to and processed in these places.
@@ -280,7 +280,7 @@ export default function PrivacyPage() {
       intro={
         <p>
           Your privacy matters, especially when you are talking about feelings.
-          In short: PlayChirp is for ages 13 and up, does not need an account,
+          In short: Chirp is for ages 13 and up, does not need an account,
           does not use ads or trackers, does not sell your information, and does
           not keep your chat conversations.
         </p>

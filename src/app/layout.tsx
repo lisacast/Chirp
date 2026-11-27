@@ -5,11 +5,11 @@ import "./globals.css";
 const lexend = Lexend({ variable: "--font-lexend", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PlayChirp",
+  title: "Chirp",
   description: "Practice skills for emotions, stress and relationships with Chirp, your friendly guide.",
   manifest: "/manifest.webmanifest",
   icons: { icon: "/icon-192.png", apple: "/icon-192.png" },
-  appleWebApp: { capable: true, title: "PlayChirp", statusBarStyle: "default" },
+  appleWebApp: { capable: true, title: "Chirp", statusBarStyle: "default" },
 };
 
 export const viewport: Viewport = {

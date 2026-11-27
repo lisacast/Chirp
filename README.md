@@ -1,11 +1,11 @@
-# PlayChirp
+# Chirp
 
 A mobile-first web app where people 13+ practice DBT skills with Chirp, a friendly AI guide powered by Claude.
 
 ## Features (v1)
 - Welcome with 13+ confirmation and terms, optional nickname
 - Mood check-in
-- Lobby (from the PlayChirp mockups)
+- Lobby (from the Chirp mockups)
 - Chat with Chirp: suggests skills as flip flashcards (← Chat / Next →), quick replies
 - Skills library: 26 skills across the four DBT modules
 - Mindful exercises: 2-Minute Distraction, 3-Minute Grounding, 5-Minute Wise Mind (guided timers)

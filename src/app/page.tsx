@@ -88,7 +88,7 @@ export default function Welcome() {
             Thanks for stopping by!
           </h1>
           <p className="mt-3 text-ink">
-            PlayChirp is made for people 13 and older, so it isn&apos;t
+            Chirp is made for people 13 and older, so it isn&apos;t
             available to you yet. We didn&apos;t save anything you entered.
           </p>
           <p className="mt-3 text-ink">
@@ -249,7 +249,7 @@ export default function Welcome() {
                 >
                   Privacy Policy
                 </Link>
-                . I understand PlayChirp is not a medical app, therapy or an
+                . I understand Chirp is not a medical app, therapy or an
                 emergency service.
               </span>
             </label>

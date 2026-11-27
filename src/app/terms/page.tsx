@@ -6,7 +6,7 @@ import LegalPage, {
   type LegalSection,
 } from "@/components/LegalPage";
 
-export const metadata = { title: "Terms of Use · PlayChirp" };
+export const metadata = { title: "Terms of Use · Chirp" };
 
 const P = ({ children }: { children: React.ReactNode }) => <p>{children}</p>;
 const UL = ({ items }: { items: React.ReactNode[] }) => (
@@ -25,7 +25,7 @@ const SECTIONS: LegalSection[] = [
         <P>
           These Terms of Use (the &quot;Terms&quot;) are a binding agreement
           between you and {COMPANY} (&quot;we,&quot; &quot;us&quot; or
-          &quot;our&quot;), the company that operates PlayChirp, the website at
+          &quot;our&quot;), the company that operates Chirp, the website at
           playchirp.com and the Chirp guide (together, the &quot;Service&quot;).
           By using the Service, you agree to these Terms and to our{" "}
           <Link href="/privacy" className="underline">
@@ -41,19 +41,19 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <P>
-          PlayChirp is an educational wellness and skills-practice app. It is{" "}
+          Chirp is an educational wellness and skills-practice app. It is{" "}
           <strong>not a medical app</strong>, not a medical device, and not a
           healthcare, counseling, therapy or emergency service. The skills in
-          PlayChirp are inspired by Dialectical Behavior Therapy (DBT), but
-          using PlayChirp is not DBT treatment and does not create a
+          Chirp are inspired by Dialectical Behavior Therapy (DBT), but
+          using Chirp is not DBT treatment and does not create a
           therapist-client, doctor-patient or any other professional
           relationship.
         </P>
         <UL
           items={[
-            "PlayChirp does not diagnose, treat, cure or prevent any illness or condition.",
+            "Chirp does not diagnose, treat, cure or prevent any illness or condition.",
             "Nothing in the Service is medical, psychological, legal or other professional advice.",
-            "Do not use PlayChirp instead of getting help from a doctor, counselor or other qualified professional, and do not delay getting that help because of something you read in PlayChirp.",
+            "Do not use Chirp instead of getting help from a doctor, counselor or other qualified professional, and do not delay getting that help because of something you read in Chirp.",
             "If you are working with a professional, talk with them before changing how you care for yourself.",
           ]}
         />
@@ -65,7 +65,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <P>
-          PlayChirp is not monitored by people and cannot send help. If you are
+          Chirp is not monitored by people and cannot send help. If you are
           in danger, thinking about hurting yourself or someone else, or in any
           emergency, <strong>call 911</strong> (or your local emergency number)
           right away. In the United States you can also call or text{" "}
@@ -82,18 +82,18 @@ const SECTIONS: LegalSection[] = [
     ),
   },
   {
-    heading: "Who can use PlayChirp",
+    heading: "Who can use Chirp",
     body: (
       <>
         <P>
-          <strong>You must be at least 13 years old to use PlayChirp.</strong>{" "}
+          <strong>You must be at least 13 years old to use Chirp.</strong>{" "}
           The Service is not directed to children under 13, and we do not
           knowingly collect personal information from anyone under 13. If you
           are under 13, please do not use the Service.
         </P>
         <P>
           If you are 13 to 17 years old (or under the age of majority where you
-          live), you may use PlayChirp only with the permission of a parent or
+          live), you may use Chirp only with the permission of a parent or
           legal guardian, who agrees to these Terms on your behalf and is
           responsible for your use. A parent or guardian must make any purchase.
         </P>
@@ -130,7 +130,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <P>
-          PlayChirp currently works without an account. Your nickname, mood
+          Chirp currently works without an account. Your nickname, mood
           check-ins and practice progress are saved in your own browser on your
           device, and your chat is kept only for your current browser session.
           Anyone who uses your device may be able to see this information, so
@@ -151,7 +151,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <P>
-          Some features of PlayChirp may require a paid subscription. If you buy
+          Some features of Chirp may require a paid subscription. If you buy
           one, the price, billing period and what is included will be shown to
           you before you pay. By subscribing you authorize us, or our payment
           provider, to charge the payment method you give us.
@@ -174,7 +174,7 @@ const SECTIONS: LegalSection[] = [
     heading: "Acceptable use",
     body: (
       <>
-        <P>To keep PlayChirp safe and kind for everyone, you agree not to:</P>
+        <P>To keep Chirp safe and kind for everyone, you agree not to:</P>
         <UL
           items={[
             "use the Service if you are under 13, or help anyone under 13 use it;",
@@ -197,7 +197,7 @@ const SECTIONS: LegalSection[] = [
     heading: "Your content",
     body: (
       <P>
-        You keep any rights you have in what you type into PlayChirp (&quot;your
+        You keep any rights you have in what you type into Chirp (&quot;your
         content&quot;). You give us permission to use your content only as
         needed to run the Service, for example to send your messages to our AI
         service provider so Chirp can reply, and as described in our Privacy
@@ -312,7 +312,7 @@ const SECTIONS: LegalSection[] = [
         We may update the Service and these Terms from time to time. When we
         make an important change to these Terms, we will update the effective
         date above and, where appropriate, show a notice in the Service. If you
-        keep using PlayChirp after a change takes effect, you accept the updated
+        keep using Chirp after a change takes effect, you accept the updated
         Terms. We may suspend or discontinue all or part of the Service at any
         time.
       </P>
@@ -349,8 +349,8 @@ export default function TermsPage() {
       title="Terms of Use"
       intro={
         <p>
-          Welcome to PlayChirp. Please read these Terms carefully. In short:
-          PlayChirp is for people 13 and older, it helps you practice coping
+          Welcome to Chirp. Please read these Terms carefully. In short:
+          Chirp is for people 13 and older, it helps you practice coping
           skills, and it is <strong>not</strong> medical care or an emergency
           service. In an emergency, call 911, or call or text 988.
         </p>

@@ -1,7 +1,7 @@
 import Shell from "@/components/Shell";
 import CrisisCard from "@/components/CrisisCard";
 
-export const metadata = { title: "Get help now · PlayChirp" };
+export const metadata = { title: "Get help now · Chirp" };
 
 export default function HelpPage() {
   return (

@@ -4,8 +4,8 @@ export const dynamic = "force-static";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "PlayChirp",
-    short_name: "PlayChirp",
+    name: "Chirp",
+    short_name: "Chirp",
     description: "Practice skills for emotions, stress and relationships with Chirp.",
     start_url: "/",
     display: "standalone",

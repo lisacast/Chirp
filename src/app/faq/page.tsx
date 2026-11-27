@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Shell from "@/components/Shell";
 
-export const metadata = { title: "FAQ · PlayChirp" };
+export const metadata = { title: "FAQ · Chirp" };
 
 const FAQ = [
   {
@@ -10,11 +10,11 @@ const FAQ = [
   },
   {
     q: "Is Chirp a therapist?",
-    a: "No. PlayChirp is not a medical app. Chirp is a practice buddy, not a therapist, doctor or emergency service. It can't diagnose anything or give medical advice. If you're working with a counselor, Chirp can help you practice between sessions.",
+    a: "No. Chirp is not a medical app. Chirp is a practice buddy, not a therapist, doctor or emergency service. It can't diagnose anything or give medical advice. If you're working with a counselor, Chirp can help you practice between sessions.",
   },
   {
-    q: "Who is PlayChirp for?",
-    a: "PlayChirp is for anyone 13 or older who wants to get better at handling big feelings, tough moments and tricky conversations. It isn't available to children under 13. If you're under 18, please use it with a parent or guardian's permission.",
+    q: "Who is Chirp for?",
+    a: "Chirp is for anyone 13 or older who wants to get better at handling big feelings, tough moments and tricky conversations. It isn't available to children under 13. If you're under 18, please use it with a parent or guardian's permission.",
   },
   {
     q: "Is my chat private?",

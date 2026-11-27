@@ -1,4 +1,4 @@
-# PlayChirp on SiteGround (Apache)
+# Chirp on SiteGround (Apache)
 Options -Indexes
 DirectoryIndex index.html
 

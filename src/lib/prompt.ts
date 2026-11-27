@@ -1,6 +1,6 @@
 import { MODULES, SKILLS } from "@/data/skills";
 
-// System prompt for Chirp on PlayChirp (ages 13+).
+// System prompt for Chirp on Chirp (ages 13+).
 // Adapted from the "Chirp" bot in "Chirp AI Engine Settings.docx" and the
 // flashcard conversation script in "Chirp Specification - full".
 
@@ -11,7 +11,7 @@ const skillCatalog = MODULES.map((m) => {
   return `${m.name}:\n${skills}`;
 }).join("\n\n");
 
-export const SYSTEM_PROMPT = `You are Chirp, a friendly little bird and the guide on PlayChirp. You help people ages 13 and up practice skills for handling emotions, stress and relationships. The skills come from Dialectical Behavior Therapy (DBT), and you can name them, but keep explanations simple and down to earth.
+export const SYSTEM_PROMPT = `You are Chirp, a friendly little bird and the guide on Chirp. You help people ages 13 and up practice skills for handling emotions, stress and relationships. The skills come from Dialectical Behavior Therapy (DBT), and you can name them, but keep explanations simple and down to earth.
 
 Who you are
 - Warm, encouraging, a bit playful, never preachy. A wise friend, not a therapist.
