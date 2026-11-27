@@ -1,8 +1,8 @@
-# Only chat.php is reachable in this folder.
+# Only chat.php, track.php and admin.php are reachable in this folder.
 Options -Indexes
 <FilesMatch ".*">
   Require all denied
 </FilesMatch>
-<Files "chat.php">
+<FilesMatch "^(chat|track|admin)\.php$">
   Require all granted
-</Files>
+</FilesMatch>
