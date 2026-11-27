@@ -86,7 +86,8 @@ const SECTIONS: LegalSection[] = [
         </P>
         <UL
           items={[
-            "your optional nickname, that you confirmed you are 13 or older and agreed to the Terms, your daily mood check-in, and which skills you marked as practiced (kept until you clear your browser data); and",
+            "your optional nickname, that you confirmed you are 13 or older and agreed to the Terms, your daily mood check-ins, which skills you marked as practiced or saved to your coping kit, which meditations you finished and articles you read, and your practice streak (kept until you clear your browser data);",
+            "a small note of the first day and the last day, week and month this browser visited, used only to count anonymous daily, weekly and monthly visits as described below; and",
             "your current chat conversation (kept only for your browser session and removed when you close the tab, tap Start over, or use the quick-exit button).",
           ]}
         />
@@ -144,12 +145,35 @@ const SECTIONS: LegalSection[] = [
     ),
   },
   {
+    heading: "Anonymous usage counts",
+    body: (
+      <>
+        <P>
+          To understand how Chirp is used and improve it, our own server keeps
+          anonymous daily totals, for example how many devices visited, which
+          pages were viewed, how many chats were started, which skills were
+          practiced, which moods were picked and how many meditations were
+          finished. When you do something in Chirp, your browser asks our
+          server to add 1 to the matching total.
+        </P>
+        <UL
+          items={[
+            "These totals never include your name, nickname, chat messages, IP address, a cookie, a device ID or any other identifier, so they cannot be linked to you or to each other.",
+            "We do not use third-party analytics or advertising tools, and the totals are not shared with or sold to anyone.",
+            "If your browser sends a Global Privacy Control signal, nothing is counted.",
+          ]}
+        />
+      </>
+    ),
+  },
+  {
     heading: "How we use information",
     body: (
       <UL
         items={[
           "to provide the Service, including generating Chirp's replies and suggesting skills;",
           "to show crisis and safety resources when a message suggests someone may be at risk;",
+          "to understand, in anonymous totals only, which features are used so we can improve Chirp;",
           "to keep the Service secure, reliable and free from abuse, and to fix problems; and",
           "to comply with the law and protect the rights and safety of our users and others.",
         ]}
@@ -281,7 +305,7 @@ export default function PrivacyPage() {
         <p>
           Your privacy matters, especially when you are talking about feelings.
           In short: Chirp is for ages 13 and up, does not need an account,
-          does not use ads or trackers, does not sell your information, and does
+          does not use ads or third-party trackers, does not sell your information, and does
           not keep your chat conversations.
         </p>
       }

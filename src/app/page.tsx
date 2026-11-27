@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
+import { track } from "@/lib/track";
 import {
   hasAgreed,
   loadProfile,
@@ -69,6 +70,7 @@ export default function Welcome() {
         nickname: undefined,
         agreedAt: undefined,
       });
+      track("age_block");
       setState("blocked");
       return;
     }
@@ -77,6 +79,7 @@ export default function Welcome() {
       termsVersion: TERMS_VERSION,
       nickname: nickname.trim().slice(0, 30) || undefined,
     });
+    track("age_pass");
     router.push("/mood");
   }
 
@@ -149,15 +152,14 @@ export default function Welcome() {
               that fit how you feel
             </li>
             <li className="flex gap-3">
-              <span aria-hidden>🃏</span> Flashcards for 26 skills, from Wise
-              Mind to DEAR MAN
+              <span aria-hidden>🃏</span> Flashcards for 26 skills, plus articles and audio meditations
             </li>
             <li className="flex gap-3">
               <span aria-hidden>🧘</span> Short mindful exercises and a joy
               finder
             </li>
             <li className="flex gap-3">
-              <span aria-hidden>🔒</span> No account, no ads and no trackers
+              <span aria-hidden>🔒</span> No account, no ads and no third-party trackers
             </li>
           </ul>
           </div>

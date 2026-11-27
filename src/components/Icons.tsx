@@ -99,3 +99,52 @@ export const ChevronIcon = ({ className = "w-5 h-5" }: P) => (
     <path d="m9 6 6 6-6 6" />
   </svg>
 );
+
+export const HeadphonesIcon = ({ className = "w-6 h-6" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden {...line}>
+    <path d="M4 15v-3a8 8 0 0 1 16 0v3" />
+    <rect x="3" y="14" width="5" height="7" rx="2" />
+    <rect x="16" y="14" width="5" height="7" rx="2" />
+  </svg>
+);
+
+export const BookIcon = ({ className = "w-6 h-6" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden {...line}>
+    <path d="M12 6c-2-1.5-5-2-8-2v14c3 0 6 .5 8 2 2-1.5 5-2 8-2V4c-3 0-6 .5-8 2Z" />
+    <path d="M12 6v14" />
+  </svg>
+);
+
+export const GridIcon = ({ className = "w-6 h-6" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden {...line}>
+    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+  </svg>
+);
+
+export const HeartIcon = ({ className = "w-6 h-6", filled = false }: P & { filled?: boolean }) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden {...line} fill={filled ? "currentColor" : "none"}>
+    <path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z" />
+  </svg>
+);
+
+export const PlayIcon = ({ className = "w-6 h-6" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
+    <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" />
+  </svg>
+);
+
+export const PauseIcon = ({ className = "w-6 h-6" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
+    <rect x="6" y="5" width="4" height="14" rx="1" />
+    <rect x="14" y="5" width="4" height="14" rx="1" />
+  </svg>
+);
+
+export const WindIcon = ({ className = "w-6 h-6" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden {...line}>
+    <path d="M3 8h11a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h8" />
+  </svg>
+);

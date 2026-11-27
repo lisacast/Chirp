@@ -80,7 +80,7 @@ export default function MindfulPage() {
     const finished = left === 0;
     return (
       <Shell>
-        <h1 className="text-center text-2xl font-extrabold text-oxford sm:text-3xl">
+        <h1 className="display text-center text-4xl sm:text-5xl">
           {ex.title}
         </h1>
         <div className="mt-6 flex flex-col items-center">
@@ -114,7 +114,7 @@ export default function MindfulPage() {
 
   return (
     <Shell width="wide">
-      <h1 className="text-2xl font-extrabold text-oxford sm:text-4xl">
+      <h1 className="display text-[2.25rem] sm:text-6xl">
         Mindful exercises
       </h1>
       <p className="mt-1 text-muted">

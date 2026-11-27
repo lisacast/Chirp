@@ -9,6 +9,7 @@
 //   <?php return ['anthropic_api_key' => 'sk-ant-...', 'model' => 'claude-opus-5-5'];
 
 declare(strict_types=1);
+require_once __DIR__ . '/metrics-lib.php';
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -51,6 +52,7 @@ if (!$last || $last['role'] !== 'user' || trim($last['content']) === '') {
 
 // Layer 1: deterministic crisis keyword check, independent of the AI.
 $keywordRisk = checkRisk($last['content'], $config);
+chirpCount(['chat_msg' => 1] + ($keywordRisk !== 'none' ? ['chat_risk:' . $keywordRisk => 1] : []) + (count(array_filter($history, fn($h) => $h['role'] === 'user')) === 1 ? ['chat_start' => 1] : []));
 
 if (rateLimited(clientIp())) {
     respond(safeFallback($keywordRisk, "Whoa, that's a lot of chirping! Let's take a breath and try again in a minute.", $config));
@@ -100,9 +102,11 @@ try {
         ],
     );
 } catch (\Anthropic\Core\Exceptions\APIStatusException $e) {
+    chirpCount(['chat_error' => 1]);
     error_log('Chirp chat API error: ' . ($e->type?->value ?? 'unknown') . ' ' . $e->getMessage());
     respond(safeFallback($keywordRisk, "Oops, my wings got tangled and I couldn't answer. Please try again in a moment.", $config));
 } catch (\Throwable $e) {
+    chirpCount(['chat_error' => 1]);
     error_log('Chirp chat error: ' . $e->getMessage());
     respond(safeFallback($keywordRisk, "Oops, my wings got tangled and I couldn't answer. Please try again in a moment.", $config));
 }
@@ -130,6 +134,15 @@ $quick = array_values(array_filter(
     'is_string'
 ));
 $aiRisk = in_array($parsed['risk'] ?? '', ['none', 'concern', 'urgent'], true) ? $parsed['risk'] : 'none';
+
+$counts = ['chat_ok' => 1];
+try {
+    $counts['tokens_in'] = (int) ($message->usage->inputTokens ?? 0);
+    $counts['tokens_out'] = (int) ($message->usage->outputTokens ?? 0);
+} catch (\Throwable) {}
+if ($aiRisk !== 'none') $counts['chat_ai_risk:' . $aiRisk] = 1;
+foreach (array_slice($skillIds, 0, 3) as $sid) $counts['chat_skill:' . $sid] = 1;
+chirpCount($counts);
 
 respond([
     'reply' => $parsed['reply'],

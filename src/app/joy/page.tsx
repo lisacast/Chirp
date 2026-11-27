@@ -21,7 +21,7 @@ export default function JoyPage() {
 
   return (
     <Shell>
-      <h1 className="text-2xl font-extrabold text-oxford sm:text-4xl">Joy finder</h1>
+      <h1 className="display text-[2.25rem] sm:text-6xl">Joy finder</h1>
       <p className="mt-1 text-muted">
         Small pleasant moments add up. Here&apos;s an idea for today:
       </p>

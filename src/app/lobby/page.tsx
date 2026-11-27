@@ -3,90 +3,165 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
-import { CardsIcon, ChevronIcon, LeafIcon, SunIcon } from "@/components/Icons";
-import { loadProfile, todaysMood, type Profile } from "@/lib/profile";
+import { ChevronIcon, GridIcon, HeadphonesIcon, LeafIcon, SunIcon, WindIcon } from "@/components/Icons";
+import { loadProfile, streak, todaysMood, type Profile } from "@/lib/profile";
+import { ARTICLES, readMinutes } from "@/data/articles";
+import { MEDITATIONS } from "@/data/meditations";
+import { getSkill, MODULES } from "@/data/skills";
+import { BINGO_SKILLS } from "@/data/bingo";
+import quotes from "@/data/quotes.json";
 
-const SECTIONS = [
-  {
-    title: "Skills library",
-    body: "Flashcards for every skill, from Wise Mind to DEAR MAN.",
-    href: "/skills",
-    Icon: CardsIcon,
-    tint: "bg-blue text-white",
-  },
-  {
-    title: "Mindful exercises",
-    body: "Three short guided exercises for grounding.",
-    href: "/mindful",
-    Icon: LeafIcon,
-    tint: "bg-oxford text-white",
-  },
-  {
-    title: "Joy finder",
-    body: "A quick idea for something pleasant to do today.",
-    href: "/joy",
-    Icon: SunIcon,
-    tint: "bg-sun text-oxford",
-  },
-];
+// Skill suggestion for today's mood.
+const FOR_MOOD: Record<string, string> = {
+  happy: "positive-events",
+  calm: "wise-mind",
+  loved: "give",
+  meh: "participate",
+  tired: "please",
+  worried: "observe",
+  sad: "self-soothe",
+  angry: "opposite-action-er",
+  stressed: "improve",
+  embarrassed: "non-judgmental",
+  numb: "self-soothe",
+  overwhelmed: "accepts",
+};
 
-export default function Lobby() {
+const dayIndex = () => Math.floor(Date.now() / 86400000);
+
+export default function Today() {
   const [profile, setProfile] = useState<Profile | null>(null);
   useEffect(() => setProfile(loadProfile()), []);
 
   const mood = profile ? todaysMood(profile) : undefined;
   const name = profile?.nickname;
-  const practiced = profile?.practiced.length ?? 0;
+  const practicedOnCard = BINGO_SKILLS.filter((id) => profile?.practiced.includes(id)).length + 1;
+  const days = profile ? streak(profile) : 0;
+  const d = dayIndex();
+  const quote = (quotes as string[])[d % quotes.length];
+  const [qText, qBy] = quote.split(" - ");
+  const article = ARTICLES[d % ARTICLES.length];
+  const med = MEDITATIONS[d % MEDITATIONS.length];
+  const skill = getSkill(mood ? FOR_MOOD[mood] ?? "wise-mind" : ["wise-mind", "self-soothe", "dear-man", "radical-acceptance", "please", "observe", "opposite-action-er"][d % 7])!;
+  const mod = MODULES.find((m) => m.id === skill.module)!;
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const date = new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
 
   return (
     <Shell width="wide">
-      <section className="rounded-2xl bg-oxford p-5 text-white sm:p-8">
-        <div className="md:flex md:items-end md:justify-between md:gap-8">
-          <div className="md:flex-1">
-            <h1 className="text-2xl font-extrabold sm:text-4xl">{name ? `Hi ${name}!` : "Welcome back!"}</h1>
-            <p className="mt-1 text-white/90 sm:text-lg">What would you like to practice today?</p>
-            <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-              <Link href="/mood" className="rounded-full border border-white/50 px-3 py-1 font-bold hover:bg-white/10">
-                {mood ? `Feeling ${mood} · Change` : "Check in with your mood"}
-              </Link>
-              {practiced > 0 && (
-                <span className="rounded-full bg-sun px-3 py-1 font-bold text-oxford">
-                  {practiced} skill{practiced === 1 ? "" : "s"} practiced
-                </span>
-              )}
-            </div>
-          </div>
-          <Link href="/chat" className="btn btn-coral mt-5 md:mt-0 md:w-64 md:shrink-0">
-            Chat with Chirp
+      {/* Masthead */}
+      <section>
+        <p className="kicker">{date}</p>
+        <h1 className="display mt-1 text-[2.5rem] sm:text-6xl">
+          {greet}
+          {name ? `, ${name}` : ""}.
+        </h1>
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
+          <Link href="/mood" className="rounded-full border-2 border-oxford px-3 py-1 font-bold text-oxford hover:bg-sun">
+            {mood ? `Feeling ${mood} · Change` : "How are you feeling?"}
           </Link>
+          {days > 0 && (
+            <span className="rounded-full bg-sun px-3 py-1 font-bold text-oxford">
+              🔥 {days}-day streak
+            </span>
+          )}
         </div>
+        <div className="rule mt-5" />
       </section>
 
-      <h2 className="mt-7 text-sm font-extrabold uppercase tracking-wider text-muted">Practice</h2>
-      <ul className="mt-2 grid gap-3 md:grid-cols-3">
-        {SECTIONS.map(({ title, body, href, Icon, tint }) => (
+      <div className="mt-6 grid gap-5 lg:grid-cols-[1.5fr_1fr]">
+        {/* Lead story: today's practice */}
+        <section className="overflow-hidden rounded-2xl bg-oxford text-white">
+          <div className="p-6 sm:p-8">
+            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">
+              {mood ? `For feeling ${mood}` : "Today's practice"}
+            </p>
+            <h2 className="mt-2 font-display text-3xl font-extrabold leading-tight sm:text-5xl">{skill.name}</h2>
+            <p className="mt-2 text-lg text-white/90">{skill.tagline}</p>
+            <p className="mt-1 text-sm font-semibold" style={{ color: "#9cc0ff" }}>
+              {mod.name}
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <Link href={`/skills/${skill.id}`} className="btn btn-coral">
+                Open the card
+              </Link>
+              <Link href="/chat" className="btn border-2 border-white text-white hover:bg-white/10">
+                Talk it through with Chirp
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Quote of the day */}
+        <section className="flex flex-col justify-between rounded-2xl bg-sun p-6 text-oxford sm:p-8">
+          <p className="text-xs font-extrabold uppercase tracking-[0.14em]">Thought for today</p>
+          <blockquote className="mt-3 font-display text-2xl font-bold leading-snug sm:text-[1.7rem]">
+            &ldquo;{qText}&rdquo;
+          </blockquote>
+          {qBy && <p className="mt-3 text-sm font-bold">{qBy}</p>}
+        </section>
+      </div>
+
+      {/* Quick tools */}
+      <h2 className="kicker mt-9 !text-oxford">Quick tools</h2>
+      <ul className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
+        {[
+          { href: "/practice#breathe", label: "Breathe", sub: "1-minute pacer", Icon: WindIcon, tint: "bg-blue text-white" },
+          { href: "/help", label: "Right now", sub: "Help for this moment", Icon: LeafIcon, tint: "bg-red text-white" },
+          { href: "/joy", label: "Joy finder", sub: "A small good thing", Icon: SunIcon, tint: "bg-sun text-oxford" },
+          { href: "/progress", label: "Skills bingo", sub: `${practicedOnCard} of 25 squares`, Icon: GridIcon, tint: "bg-oxford text-white" },
+        ].map(({ href, label, sub, Icon, tint }) => (
           <li key={href}>
-            <Link
-              href={href}
-              className="card flex h-full items-center gap-4 p-4 transition hover:border-oxford md:flex-col md:items-start md:p-5"
-            >
-              <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${tint}`}>
+            <Link href={href} className="card flex h-full flex-col gap-3 p-4 transition hover:border-oxford hover:shadow-md">
+              <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${tint}`}>
                 <Icon className="h-6 w-6" />
               </span>
-              <span className="min-w-0 flex-1">
-                <span className="block font-extrabold text-oxford">{title}</span>
-                <span className="mt-0.5 block text-sm text-muted">{body}</span>
+              <span>
+                <span className="block font-extrabold text-oxford">{label}</span>
+                <span className="block text-sm text-muted">{sub}</span>
               </span>
-              <ChevronIcon className="h-5 w-5 shrink-0 text-oxford md:hidden" />
             </Link>
           </li>
         ))}
       </ul>
 
-      <Link href="/faq" className="card mt-3 flex items-center justify-between p-4 font-bold text-oxford hover:border-oxford">
-        New here? Read how Chirp works
-        <ChevronIcon className="h-5 w-5" />
-      </Link>
+      {/* Listen + Read */}
+      <div className="mt-9 grid gap-5 md:grid-cols-2">
+        <Link href={`/listen?play=${med.id}`} className="group card flex items-center gap-4 p-5 hover:border-oxford">
+          <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-white" style={{ background: med.color }}>
+            <HeadphonesIcon className="h-7 w-7" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="kicker">Listen · {med.minutes} min</span>
+            <span className="block font-display text-2xl font-extrabold text-oxford">{med.title}</span>
+            <span className="block text-sm text-muted">{med.blurb}</span>
+          </span>
+          <ChevronIcon className="h-5 w-5 shrink-0 text-oxford" />
+        </Link>
+        <Link href={`/learn/${article.slug}`} className="card flex items-center gap-4 p-5 hover:border-oxford">
+          <span className="min-w-0 flex-1">
+            <span className="kicker">
+              Read · {article.section} · {readMinutes(article)} min
+            </span>
+            <span className="mt-0.5 block font-display text-2xl font-extrabold leading-tight text-oxford">{article.title}</span>
+            <span className="mt-1 block text-sm text-muted">{article.dek}</span>
+          </span>
+          <ChevronIcon className="h-5 w-5 shrink-0 text-oxford" />
+        </Link>
+      </div>
+
+      <div className="mt-9 grid gap-3 sm:grid-cols-3">
+        <Link href="/practice" className="card flex items-center justify-between p-4 font-bold text-oxford hover:border-oxford">
+          Tips &amp; practices <ChevronIcon className="h-5 w-5" />
+        </Link>
+        <Link href="/mindful" className="card flex items-center justify-between p-4 font-bold text-oxford hover:border-oxford">
+          Timed mindful exercises <ChevronIcon className="h-5 w-5" />
+        </Link>
+        <Link href="/faq" className="card flex items-center justify-between p-4 font-bold text-oxford hover:border-oxford">
+          How Chirp works <ChevronIcon className="h-5 w-5" />
+        </Link>
+      </div>
     </Shell>
   );
 }

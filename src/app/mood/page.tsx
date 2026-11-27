@@ -3,7 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Shell from "@/components/Shell";
-import { updateProfile } from "@/lib/profile";
+import { dayKey, loadProfile, markActive, updateProfile } from "@/lib/profile";
+import { track } from "@/lib/track";
 
 // Mood check-in, from the "Icon selection" mockup.
 const MOODS = [
@@ -26,16 +27,24 @@ export default function MoodPage() {
   const [mood, setMood] = useState<string | null>(null);
 
   function go(selected: string | null) {
+    const moods = { ...(loadProfile().moods ?? {}) };
+    if (selected) moods[dayKey()] = selected;
+    const keep = Object.keys(moods).sort().slice(-30);
     updateProfile({
       mood: selected ?? undefined,
       moodDate: selected ? new Date().toDateString() : undefined,
+      moods: Object.fromEntries(keep.map((k) => [k, moods[k]])),
     });
+    if (selected) {
+      markActive();
+      track("mood", selected);
+    } else track("mood_skip");
     router.push("/lobby");
   }
 
   return (
     <Shell>
-      <h1 className="text-2xl font-extrabold text-oxford sm:text-4xl">
+      <h1 className="display text-[2.25rem] sm:text-6xl">
         What&apos;s your mood today?
       </h1>
       <p className="mt-2 text-muted">

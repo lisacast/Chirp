@@ -8,6 +8,9 @@ RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Admin dashboard at /admin
+RewriteRule ^admin/?$ api/admin.php [L,QSA]
+
 # Block the vendor folder entirely
 RewriteRule ^api/vendor(/|$) - [F,L]
 

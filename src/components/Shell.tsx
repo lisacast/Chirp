@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CardsIcon, ChatIcon, ExitIcon, HomeIcon, LeafIcon, LifebuoyIcon, SunIcon } from "./Icons";
+import { BookIcon, CardsIcon, ChatIcon, ExitIcon, HeadphonesIcon, HomeIcon, LifebuoyIcon } from "./Icons";
 import { hasAgreed, loadProfile } from "@/lib/profile";
+import { trackPage } from "@/lib/track";
 
 interface ShellProps {
   children: React.ReactNode;
@@ -20,12 +21,13 @@ interface ShellProps {
 }
 
 const TABS = [
-  { href: "/lobby", label: "Home", Icon: HomeIcon },
+  { href: "/lobby", label: "Today", Icon: HomeIcon },
   { href: "/chat", label: "Chat", Icon: ChatIcon },
   { href: "/skills", label: "Skills", Icon: CardsIcon },
-  { href: "/mindful", label: "Mindful", Icon: LeafIcon },
-  { href: "/joy", label: "Joy", Icon: SunIcon },
+  { href: "/listen", label: "Listen", Icon: HeadphonesIcon },
+  { href: "/learn", label: "Learn", Icon: BookIcon },
 ];
+const DESKTOP = [...TABS.slice(0, 3), { href: "/practice", label: "Practice" }, ...TABS.slice(3), { href: "/progress", label: "Progress" }];
 
 const WIDTHS = { narrow: "max-w-2xl", medium: "max-w-4xl", wide: "max-w-6xl" };
 
@@ -51,6 +53,10 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
     else setReady(true);
   }, [gated, router]);
 
+  useEffect(() => {
+    trackPage(path);
+  }, [path]);
+
   const showNav = !hideNav && signedIn;
   const showTabs = showNav && !fill;
   const active = (href: string) =>
@@ -69,21 +75,21 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white">
               <Image src="/chirp-bird.png" alt="" width={30} height={30} priority />
             </span>
-            <span className="text-lg font-extrabold tracking-tight">Chirp</span>
+            <span className="font-display text-2xl font-extrabold tracking-tight">Chirp</span>
           </Link>
 
           {showNav && (
-            <nav aria-label="Main" className="ml-6 hidden h-full items-stretch md:flex">
-              {[...TABS, { href: "/faq", label: "FAQ" }].map((n) => (
+            <nav aria-label="Main" className="ml-4 hidden h-full items-stretch md:flex lg:ml-8">
+              {DESKTOP.map((n) => (
                 <Link
                   key={n.href}
                   href={n.href}
                   aria-current={active(n.href) ? "page" : undefined}
-                  className={`flex items-center border-b-4 px-3 text-sm font-bold ${
+                  className={`flex items-center border-b-4 px-2 text-sm font-bold lg:px-3 ${
                     active(n.href) ? "border-sun text-white" : "border-transparent text-white/85 hover:text-white"
                   }`}
                 >
-                  {n.label === "Joy" ? "Joy finder" : n.label}
+                  {n.label}
                 </Link>
               ))}
             </nav>
@@ -129,7 +135,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
         <footer className={`bg-oxford text-white ${showTabs ? "pb-20 md:pb-0" : ""}`}>
           <div className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-7 text-sm sm:grid-cols-3 sm:px-6">
             <div>
-              <p className="text-base font-extrabold">Chirp</p>
+              <p className="font-display text-2xl font-extrabold">Chirp</p>
               <p className="mt-1 text-white/85">Skills for feelings, stress and relationships. Ages 13 and up.</p>
             </div>
             <div>
@@ -147,6 +153,12 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
               </p>
             </div>
             <nav aria-label="Footer" className="flex flex-wrap content-start gap-x-4 gap-y-2 font-semibold sm:justify-end">
+              <Link href="/learn" className="hover:underline">
+                Learn
+              </Link>
+              <Link href="/practice" className="hover:underline">
+                Tips &amp; practices
+              </Link>
               <Link href="/faq" className="hover:underline">
                 FAQ
               </Link>
