@@ -35,7 +35,7 @@ export default function Flashcard({
           <button
             type="button"
             onClick={() => setFlipped(true)}
-            className="flip-face flex flex-col items-center justify-center rounded-3xl p-6 text-center text-white shadow-lg"
+            className="flip-face flex flex-col items-center justify-center rounded-2xl p-6 text-center text-white shadow-lg"
             style={{ background: mod.color }}
             aria-label={`${skill.name}. Tap to flip.`}
             aria-hidden={flipped}
@@ -56,13 +56,13 @@ export default function Flashcard({
           </button>
 
           <div
-            className="flip-face flip-back flex flex-col overflow-y-auto rounded-3xl bg-card p-5 shadow-lg"
+            className="flip-face flip-back flex flex-col overflow-y-auto rounded-2xl border border-line bg-card p-5 shadow-lg"
             aria-hidden={!flipped}
           >
             <button
               type="button"
               onClick={() => setFlipped(false)}
-              className="self-end text-sm font-semibold text-coral"
+              className="self-end text-sm font-semibold text-red"
               tabIndex={flipped ? 0 : -1}
             >
               Flip back
@@ -83,7 +83,7 @@ export default function Flashcard({
                 markPracticed(skill.id);
                 setDone(true);
               }}
-              className={`mt-auto pt-4 text-sm font-semibold ${done ? "text-green-700" : "text-navy underline"}`}
+              className={`mt-auto pt-4 text-sm font-semibold ${done ? "text-green-700" : "text-oxford underline"}`}
             >
               {done
                 ? "✓ Nice work! Saved to your practice list."

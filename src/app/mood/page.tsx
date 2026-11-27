@@ -35,10 +35,10 @@ export default function MoodPage() {
 
   return (
     <Shell>
-      <h1 className="text-3xl font-bold text-navy sm:text-4xl">
+      <h1 className="text-2xl font-extrabold text-oxford sm:text-4xl">
         What&apos;s your mood today?
       </h1>
-      <p className="mt-2 text-ink/75">
+      <p className="mt-2 text-muted">
         Pick the one that feels most like you right now.
       </p>
 
@@ -53,10 +53,10 @@ export default function MoodPage() {
             role="radio"
             aria-checked={mood === m.label}
             onClick={() => setMood(m.label)}
-            className={`flex flex-col items-center rounded-2xl bg-white/70 py-3 transition ${
+            className={`flex flex-col items-center rounded-xl border-2 bg-white py-3 transition ${
               mood === m.label
-                ? "ring-4 ring-white bg-white scale-105"
-                : "hover:bg-white"
+                ? "border-oxford bg-sun"
+                : "border-line hover:border-oxford"
             }`}
           >
             <span className="text-4xl" aria-hidden>

@@ -30,13 +30,13 @@ export default function LegalPage({
   return (
     <Shell gated={false} width="wide">
       <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-        <h1 className="text-3xl font-bold text-navy sm:text-4xl">{title}</h1>
-        <p className="mt-1 text-sm text-ink/70">Effective {EFFECTIVE_DATE}</p>
+        <h1 className="text-2xl font-extrabold text-oxford sm:text-4xl">{title}</h1>
+        <p className="mt-1 text-sm text-muted">Effective {EFFECTIVE_DATE}</p>
       </div>
       <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
         <nav
           aria-label="Contents"
-          className="mx-auto w-full max-w-2xl rounded-2xl bg-white/70 p-4 text-sm lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:self-start lg:overflow-y-auto"
+          className="mx-auto w-full max-w-2xl card p-4 text-sm lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:self-start lg:overflow-y-auto"
         >
           <p className="font-bold">Contents</p>
           <ol className="mt-2 list-decimal space-y-1 pl-5">
@@ -49,7 +49,7 @@ export default function LegalPage({
             ))}
           </ol>
         </nav>
-        <div className="mx-auto w-full max-w-2xl space-y-6 rounded-3xl bg-white p-5 text-[0.95rem] leading-relaxed shadow-sm sm:p-8 lg:mx-0">
+        <div className="mx-auto w-full max-w-2xl space-y-6 card p-5 text-[0.95rem] leading-relaxed sm:p-8 lg:mx-0">
           <div className="space-y-3 text-base">{intro}</div>
           {sections.map((s, i) => (
             <section
@@ -57,13 +57,13 @@ export default function LegalPage({
               id={`s${i + 1}`}
               className="scroll-mt-24 space-y-2"
             >
-              <h2 className="text-lg font-bold text-navy">
+              <h2 className="text-lg font-extrabold text-oxford">
                 {i + 1}. {s.heading}
               </h2>
               {s.body}
             </section>
           ))}
-          <p className="border-t border-ink/10 pt-4 text-sm text-ink/70">
+          <p className="border-t border-ink/10 pt-4 text-sm text-muted">
             See also:{" "}
             <Link href="/terms" className="underline">
               Terms of Use

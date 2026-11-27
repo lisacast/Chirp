@@ -83,19 +83,19 @@ export default function Welcome() {
   if (state === "blocked") {
     return (
       <Shell gated={false} hideNav>
-        <div className="mx-auto flex w-full max-w-lg flex-1 flex-col rounded-3xl bg-white p-6 shadow-sm sm:p-8">
-          <h1 className="text-3xl font-bold text-navy">
+        <div className="mx-auto flex w-full max-w-lg flex-1 flex-col card p-5 sm:p-8">
+          <h1 className="text-3xl font-extrabold text-oxford">
             Thanks for stopping by!
           </h1>
-          <p className="mt-3 text-ink/85">
+          <p className="mt-3 text-ink">
             PlayChirp is made for people 13 and older, so it isn&apos;t
             available to you yet. We didn&apos;t save anything you entered.
           </p>
-          <p className="mt-3 text-ink/85">
+          <p className="mt-3 text-ink">
             If something is bothering you, a parent, teacher, school counselor
             or another trusted adult can help.
           </p>
-          <p className="mt-6 rounded-2xl bg-sky/40 p-4 text-sm">
+          <p className="mt-6 rounded-2xl border-2 border-oxford bg-white p-4 text-sm">
             If you feel unsafe or need to talk to someone right now, call or
             text{" "}
             <a href="tel:988" className="font-bold text-brick">
@@ -111,7 +111,7 @@ export default function Welcome() {
             </a>{" "}
             in an emergency.
           </p>
-          <p className="mt-auto pt-6 text-center text-xs text-ink/60">
+          <p className="mt-auto pt-6 text-center text-xs text-muted">
             <Link href="/privacy" className="underline">
               Privacy Policy
             </Link>{" "}
@@ -126,27 +126,24 @@ export default function Welcome() {
   }
 
   const select =
-    "mt-2 w-full rounded-xl border border-navy/30 bg-white px-3 py-3 outline-none focus:border-navy";
+    "mt-2 w-full rounded-xl border border-muted bg-white px-3 py-3 outline-none focus:border-oxford";
 
   return (
     <Shell gated={false} hideNav width="wide">
-      <div className="grid flex-1 items-start gap-8 lg:grid-cols-2 lg:gap-14">
-        <section className="hidden lg:block lg:pt-6">
-          <Image
-            src="/chirp-bird.png"
-            alt=""
-            width={140}
-            height={140}
-            priority
-          />
-          <h2 className="mt-6 text-5xl font-bold leading-tight text-navy">
+      <div className="grid flex-1 items-start gap-4 lg:grid-cols-2 lg:gap-14">
+        <section className="flex items-center gap-4 rounded-2xl bg-oxford p-5 text-white lg:block lg:p-10">
+          <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white lg:h-32 lg:w-32">
+            <Image src="/chirp-bird.png" alt="" width={120} height={120} priority className="h-12 w-12 lg:h-24 lg:w-24" />
+          </span>
+          <div>
+          <h2 className="text-xl font-extrabold leading-tight lg:mt-6 lg:text-5xl">
             Skills for big feelings, any time.
           </h2>
-          <p className="mt-4 max-w-md text-lg text-ink/80">
+          <p className="mt-1 max-w-md text-sm text-white/90 lg:mt-4 lg:text-lg">
             Chirp is a friendly guide that helps you practice coping skills for
             stress, emotions and relationships.
           </p>
-          <ul className="mt-8 space-y-3 text-ink/85">
+          <ul className="mt-8 hidden space-y-3 font-semibold text-white lg:block">
             <li className="flex gap-3">
               <span aria-hidden>💬</span> A private chat that suggests skills
               that fit how you feel
@@ -163,10 +160,11 @@ export default function Welcome() {
               <span aria-hidden>🔒</span> No account, no ads and no trackers
             </li>
           </ul>
+          </div>
         </section>
-        <div className="mx-auto flex w-full max-w-lg flex-col rounded-3xl bg-white p-6 shadow-sm sm:p-8 lg:mx-0">
-          <h1 className="text-4xl font-bold text-navy">Welcome!</h1>
-          <p className="mt-3 text-ink/80">
+        <div className="mx-auto flex w-full max-w-lg flex-col card p-5 sm:p-8 lg:mx-0">
+          <h1 className="text-3xl font-extrabold text-oxford">Welcome!</h1>
+          <p className="mt-3 text-muted">
             Meet Chirp, your friendly guide with helpful skills for feelings,
             stress and relationships.
           </p>
@@ -208,7 +206,7 @@ export default function Welcome() {
                   </select>
                 </label>
               </div>
-              <span className="mt-1 block text-xs text-ink/60">
+              <span className="mt-1 block text-xs text-muted">
                 This stays on your device. We don&apos;t save it.
               </span>
             </fieldset>
@@ -222,9 +220,9 @@ export default function Welcome() {
                 onChange={(e) => setNickname(e.target.value)}
                 maxLength={30}
                 placeholder="A nickname is perfect"
-                className="mt-2 w-full rounded-xl border border-navy/30 px-4 py-3 outline-none focus:border-navy"
+                className="mt-2 w-full rounded-xl border border-muted px-4 py-3 outline-none focus:border-oxford"
               />
-              <span className="mt-1 block text-xs text-ink/60">
+              <span className="mt-1 block text-xs text-muted">
                 Please don&apos;t use your full name.
               </span>
             </label>
@@ -234,20 +232,20 @@ export default function Welcome() {
                 type="checkbox"
                 checked={terms}
                 onChange={(e) => setTerms(e.target.checked)}
-                className="mt-1 h-5 w-5 shrink-0 accent-coral"
+                className="mt-1 h-5 w-5 shrink-0 accent-red"
               />
               <span>
                 I agree to the{" "}
                 <Link
                   href="/terms"
-                  className="font-semibold text-coral underline"
+                  className="font-semibold text-red underline"
                 >
                   Terms of Use
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/privacy"
-                  className="font-semibold text-coral underline"
+                  className="font-semibold text-red underline"
                 >
                   Privacy Policy
                 </Link>
@@ -266,7 +264,7 @@ export default function Welcome() {
             </div>
           </form>
 
-          <p className="mt-6 text-center text-sm text-ink/70">
+          <p className="mt-6 text-center text-sm text-muted">
             In crisis? Call or text{" "}
             <a href="tel:988" className="font-bold text-brick">
               988

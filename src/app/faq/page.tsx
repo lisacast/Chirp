@@ -37,22 +37,22 @@ const FAQ = [
 export default function FaqPage() {
   return (
     <Shell gated={false}>
-      <h1 className="text-3xl font-bold text-navy sm:text-4xl">FAQ</h1>
-      <p className="mt-1 text-ink/80">
+      <h1 className="text-2xl font-extrabold text-oxford sm:text-4xl">FAQ</h1>
+      <p className="mt-1 text-muted">
         The most frequently asked questions about Chirp.
       </p>
       <div className="mt-5 space-y-2">
         {FAQ.map((f) => (
           <details
             key={f.q}
-            className="rounded-2xl bg-white px-4 py-3 shadow-sm open:shadow"
+            className="card px-4 py-3"
           >
             <summary className="cursor-pointer font-semibold">{f.q}</summary>
-            <p className="mt-2 text-ink/85">{f.a}</p>
+            <p className="mt-2 text-ink">{f.a}</p>
           </details>
         ))}
       </div>
-      <p className="mt-6 text-ink/80">
+      <p className="mt-6 text-muted">
         Other questions? Email{" "}
         <a
           className="font-semibold underline"

@@ -21,12 +21,12 @@ export default function JoyPage() {
 
   return (
     <Shell>
-      <h1 className="text-3xl font-bold text-navy sm:text-4xl">Joy finder</h1>
-      <p className="mt-1 text-ink/80">
+      <h1 className="text-2xl font-extrabold text-oxford sm:text-4xl">Joy finder</h1>
+      <p className="mt-1 text-muted">
         Small pleasant moments add up. Here&apos;s an idea for today:
       </p>
       <div
-        className="mt-6 flex min-h-56 items-center justify-center rounded-3xl bg-sun p-8 text-center text-2xl sm:text-3xl font-bold shadow-sm"
+        className="mt-6 flex min-h-56 items-center justify-center rounded-2xl border-2 border-oxford bg-sun p-8 text-oxford text-center text-2xl sm:text-3xl font-extrabold"
         aria-live="polite"
       >
         {idx !== null ? LIST[idx] : ""}

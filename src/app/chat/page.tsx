@@ -146,7 +146,7 @@ export default function ChatPage() {
     <Shell fill>
       <div className="flex items-center justify-between pb-2">
         <h1 className="text-lg font-bold">Chat with Chirp</h1>
-        <button onClick={clearChat} className="text-sm text-ink/70 underline">
+        <button onClick={clearChat} className="text-sm text-muted underline">
           Start over
         </button>
       </div>
@@ -163,13 +163,13 @@ export default function ChatPage() {
                   height={40}
                   className="mt-1 shrink-0 rounded-full bg-white p-0.5"
                 />
-                <div className="max-w-[85%] whitespace-pre-wrap rounded-3xl rounded-tl-md bg-white px-4 py-3 shadow-sm">
+                <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tl-sm border border-line bg-white px-4 py-3">
                   {m.content}
                 </div>
               </div>
             ) : (
               <div className="flex justify-end">
-                <div className="max-w-[85%] whitespace-pre-wrap rounded-3xl rounded-tr-md bg-sun px-4 py-3 shadow-sm">
+                <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-sm bg-oxford px-4 py-3 text-white">
                   {m.content}
                 </div>
               </div>
@@ -184,7 +184,7 @@ export default function ChatPage() {
                     <button
                       key={id}
                       onClick={() => setOpenSkill({ id, list: m.skillIds! })}
-                      className="rounded-full px-4 py-2 text-sm font-semibold text-white shadow"
+                      className="rounded-lg px-3 py-2 text-sm font-bold text-white"
                       style={{ background: getModule(s.module).color }}
                     >
                       🃏 {s.name}
@@ -204,7 +204,7 @@ export default function ChatPage() {
 
         {busy && (
           <div
-            className="flex items-center gap-2 pl-12 text-ink/70"
+            className="flex items-center gap-2 pl-12 text-muted"
             aria-label="Chirp is typing"
           >
             <span className="animate-pulse">Chirp is thinking…</span>
@@ -220,7 +220,7 @@ export default function ChatPage() {
                 <button
                   key={q}
                   onClick={() => send(q)}
-                  className="rounded-full border-2 border-sun bg-white px-4 py-2 text-sm font-medium"
+                  className="rounded-full border-2 border-oxford bg-white px-4 py-2 text-sm font-bold text-oxford hover:bg-sun"
                 >
                   {q}
                 </button>
@@ -235,7 +235,7 @@ export default function ChatPage() {
           e.preventDefault();
           send(input);
         }}
-        className="mb-[max(env(safe-area-inset-bottom),0.75rem)] flex items-center gap-2 rounded-full bg-sun px-4 py-2 shadow"
+        className="mb-[max(env(safe-area-inset-bottom),0.75rem)] flex items-center gap-2 rounded-xl border-2 border-oxford bg-white px-3 py-1.5"
       >
         <label htmlFor="chat-input" className="sr-only">
           Message Chirp
@@ -247,18 +247,18 @@ export default function ChatPage() {
           maxLength={MAX_INPUT}
           placeholder="Reply here"
           autoComplete="off"
-          className="min-w-0 flex-1 bg-transparent py-2 outline-none placeholder:text-ink/60"
+          className="min-w-0 flex-1 bg-transparent py-2 outline-none placeholder:text-muted"
         />
         <button
           type="submit"
           disabled={busy || !input.trim()}
           aria-label="Send"
-          className="p-1 disabled:opacity-40"
+          className="flex h-10 w-10 items-center justify-center rounded-lg bg-red text-white disabled:opacity-40"
         >
-          <SendIcon />
+          <SendIcon className="h-5 w-5" />
         </button>
       </form>
-      <p className="pb-2 text-center text-[11px] text-ink/60">
+      <p className="pb-2 text-center text-xs text-muted">
         Chirp is an AI guide, not a therapist. In crisis, call or text 988.
       </p>
 
