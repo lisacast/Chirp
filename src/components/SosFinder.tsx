@@ -15,7 +15,7 @@ export default function SosFinder() {
   return (
     <section className="rounded-2xl bg-oxford p-5 text-white sm:p-8">
       <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">Right now</p>
-      <h2 className="mt-1 font-display text-3xl font-extrabold sm:text-4xl">What&apos;s going on?</h2>
+      <h2 className="mt-1 font-display text-2xl font-bold sm:text-3xl">What&apos;s going on?</h2>
       <p className="mt-1 text-white/90">Pick the closest one. You&apos;ll get three quick steps you can try right away.</p>
       <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {SOS.map((s) => (
@@ -41,7 +41,7 @@ export default function SosFinder() {
 
       {o && (
         <div className="mt-6 rounded-2xl bg-white p-5 text-ink" aria-live="polite">
-          <p className="font-display text-xl font-bold text-oxford">{o.intro}</p>
+          <p className="text-lg font-bold text-oxford">{o.intro}</p>
           <ol className="mt-4 space-y-3">
             {o.steps.map((s, i) => (
               <li key={s} className="flex gap-3">
@@ -55,8 +55,8 @@ export default function SosFinder() {
               Breathing pacer
             </Link>
             {med && (
-              <Link href={`/listen?play=${med.id}`} className="rounded-full bg-blue px-4 py-2 text-sm font-bold text-white">
-                Listen: {med.title}
+              <Link href={`/meditate?play=${med.id}`} className="rounded-full bg-blue px-4 py-2 text-sm font-bold text-white">
+                Meditate: {med.title}
               </Link>
             )}
             {o.skillIds.map((id) => {

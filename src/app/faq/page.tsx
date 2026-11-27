@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Shell from "@/components/Shell";
+import Art from "@/components/Art";
+import { ART } from "@/data/art";
 
 export const metadata = { title: "FAQ · Chirp" };
 
@@ -33,8 +35,8 @@ const FAQ = [
     a: "The Exit button at the top of every page clears this visit's chat and quickly takes you to a different website.",
   },
   {
-    q: "How do the audio meditations work?",
-    a: "Open Listen and press play. Your phone or computer reads each meditation aloud using its own built-in voice, with optional soft background sound. The words also appear on screen, so you can read along or follow it silently. Voices differ from device to device.",
+    q: "How do the meditations work?",
+    a: "Open Meditate and tap a meditation, then Begin. Each one shows one gentle line at a time, with quiet time in between. The next line appears on its own, or you can tap Next or Pause to go at your own pace.",
   },
   {
     q: "What is skills bingo?",
@@ -57,7 +59,8 @@ const FAQ = [
 export default function FaqPage() {
   return (
     <Shell gated={false}>
-      <h1 className="display text-[2.25rem] sm:text-6xl">FAQ</h1>
+      <Art n={ART.faq} priority sizes="100vw" className="mb-5 h-36 w-full rounded-2xl sm:h-52" />
+      <h1 className="display text-2xl sm:text-3xl">FAQ</h1>
       <p className="mt-1 text-muted">
         The most frequently asked questions about Chirp.
       </p>

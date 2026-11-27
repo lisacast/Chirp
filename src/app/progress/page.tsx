@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
 import PageHeader from "@/components/PageHeader";
+import { ART } from "@/data/art";
 import { HeartIcon } from "@/components/Icons";
 import { dayKey, loadProfile, streak, updateProfile, type Profile } from "@/lib/profile";
 import { track } from "@/lib/track";
@@ -46,10 +47,10 @@ export default function ProgressPage() {
 
   return (
     <Shell width="wide">
-      <PageHeader kicker="Your progress" title="Skills bingo" dek="Practice a skill, mark it on its card, and watch your board fill in. Five in a row, any direction, is a bingo." />
+      <PageHeader art={ART.progress} kicker="Your progress" title="Skills bingo" dek="Practice a skill to fill its square. Five in a row wins." />
 
       {cheer && (
-        <div role="status" className="mb-6 rounded-2xl bg-sun p-5 text-center font-display text-2xl font-extrabold text-oxford">
+        <div role="status" className="mb-6 rounded-2xl bg-sun p-5 text-center text-xl font-bold text-oxford">
           {cheer}
         </div>
       )}
@@ -58,7 +59,7 @@ export default function ProgressPage() {
         <section aria-label="Bingo card">
           <div className="grid grid-cols-5 gap-1.5 rounded-2xl bg-oxford p-2 sm:gap-2 sm:p-3">
             {["C", "H", "I", "R", "P"].map((l) => (
-              <div key={l} className="py-1 text-center font-display text-2xl font-extrabold text-sun sm:text-3xl">
+              <div key={l} className="py-1 text-center text-xl font-bold text-sun sm:text-3xl">
                 {l}
               </div>
             ))}
@@ -104,7 +105,7 @@ export default function ProgressPage() {
           <section className="card p-5">
             <p className="kicker">This week</p>
             <div className="mt-1 flex items-baseline gap-2">
-              <span className="font-display text-5xl font-extrabold text-oxford">{days}</span>
+              <span className="text-4xl font-bold text-oxford">{days}</span>
               <span className="font-bold text-muted">day streak</span>
             </div>
             <ol className="mt-4 grid grid-cols-7 gap-1 text-center">
@@ -147,7 +148,7 @@ export default function ProgressPage() {
               [p.read?.length ?? 0, "articles read"],
             ].map(([n, l]) => (
               <div key={l as string} className="card p-3">
-                <div className="font-display text-3xl font-extrabold text-oxford">{n}</div>
+                <div className="text-2xl font-bold text-oxford">{n}</div>
                 <div className="text-xs font-bold text-muted">{l}</div>
               </div>
             ))}

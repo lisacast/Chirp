@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Shell from "@/components/Shell";
 import PageHeader from "@/components/PageHeader";
+import { ART } from "@/data/art";
 import { ChevronIcon, LeafIcon, SunIcon } from "@/components/Icons";
 import { TIP_GROUPS } from "@/data/tips";
 import { getSkill } from "@/data/skills";
@@ -19,7 +20,7 @@ const PATTERNS = [
 export default function PracticePage() {
   return (
     <Shell width="wide">
-      <PageHeader kicker="Tools" title="Tips & practices" dek="Quick tools for hard moments, and small habits that make every day a little steadier." />
+      <PageHeader art={ART.practice} kicker="Tools" title="Tips & practices" />
       <Breathe />
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -28,7 +29,7 @@ export default function PracticePage() {
             <LeafIcon />
           </span>
           <span className="flex-1">
-            <span className="block font-display text-xl font-extrabold text-oxford">Timed mindful exercises</span>
+            <span className="block text-lg font-bold text-oxford">Timed mindful exercises</span>
             <span className="text-sm text-muted">2-minute distraction, 3-minute grounding, 5-minute Wise Mind</span>
           </span>
           <ChevronIcon />
@@ -38,7 +39,7 @@ export default function PracticePage() {
             <SunIcon />
           </span>
           <span className="flex-1">
-            <span className="block font-display text-xl font-extrabold text-oxford">Joy finder</span>
+            <span className="block text-lg font-bold text-oxford">Joy finder</span>
             <span className="text-sm text-muted">Hundreds of ideas for something pleasant to do today</span>
           </span>
           <ChevronIcon />
@@ -53,7 +54,7 @@ export default function PracticePage() {
               const s = t.skillId ? getSkill(t.skillId) : undefined;
               return (
                 <li key={t.title} className="card flex flex-col p-5">
-                  <span className="font-display text-3xl font-extrabold text-red">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="text-2xl font-bold text-red">{String(i + 1).padStart(2, "0")}</span>
                   <span className="mt-1 font-extrabold text-oxford">{t.title}</span>
                   <span className="mt-1 flex-1 text-[0.95rem] text-ink">{t.body}</span>
                   {s && (
@@ -117,7 +118,7 @@ function Breathe() {
       <div className="grid gap-6 p-6 sm:p-8 md:grid-cols-2 md:items-center">
         <div>
           <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">Breathing pacer</p>
-          <h2 className="mt-1 font-display text-4xl font-extrabold sm:text-5xl">Breathe with the circle</h2>
+          <h2 className="mt-1 font-display text-2xl font-bold sm:text-3xl">Breathe with the circle</h2>
           <p className="mt-2 text-white/90">Slow breathing, especially a long out-breath, tells your body it&apos;s safe. Follow the circle as it grows and shrinks.</p>
           <div className="mt-5 flex flex-wrap gap-2" role="radiogroup" aria-label="Pattern">
             {PATTERNS.map((p) => (
@@ -156,7 +157,7 @@ function Breathe() {
               style={{ transform: `scale(${scale})`, transition: `transform ${on ? secs : 0.5}s ease-in-out` }}
             />
             <div className="relative text-center text-oxford">
-              <p aria-live="polite" className="font-display text-3xl font-extrabold">
+              <p aria-live="polite" className="text-2xl font-bold">
                 {on ? label : "Ready"}
               </p>
               {on && <p className="text-sm font-bold">{Math.floor(left / 60)}:{String(left % 60).padStart(2, "0")} left</p>}

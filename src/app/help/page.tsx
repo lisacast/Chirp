@@ -1,6 +1,7 @@
 import Shell from "@/components/Shell";
 import CrisisCard from "@/components/CrisisCard";
 import PageHeader from "@/components/PageHeader";
+import { ART } from "@/data/art";
 import SosFinder from "@/components/SosFinder";
 
 export const metadata = { title: "Get help now · Chirp" };
@@ -8,7 +9,7 @@ export const metadata = { title: "Get help now · Chirp" };
 export default function HelpPage() {
   return (
     <Shell gated={false} width="medium">
-      <PageHeader kicker="Help" title="Get help now" dek="If you're thinking about hurting yourself, feel unsafe, or just need to talk to someone, real people are ready to help, any time, for free." />
+      <PageHeader art={ART.help} kicker="Help" title="Get help now" dek="Real people are ready to help, any time, for free." />
       <CrisisCard risk="urgent" />
       <div className="mt-8">
         <SosFinder />

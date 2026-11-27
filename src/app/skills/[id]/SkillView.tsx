@@ -60,7 +60,7 @@ export default function SkillView({ id }: { id: string }) {
             <ul className="mt-2 divide-y divide-line border-y-4 border-oxford">
               {reads.map((a) => (
                 <li key={a.slug}>
-                  <Link href={`/learn/${a.slug}`} className="block py-3 font-display text-lg font-bold text-oxford hover:underline">
+                  <Link href={`/learn/${a.slug}`} className="block py-3 text-lg font-bold text-oxford hover:underline">
                     {a.title}
                   </Link>
                 </li>

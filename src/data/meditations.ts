@@ -1,5 +1,4 @@
-// Guided audio meditations. Read aloud on the device with the browser's built-in voice
-// (free, works offline once loaded), with optional soft background sound.
+// Guided meditations, shown one line at a time on screen.
 // Each step is [what to say, seconds of quiet after it].
 
 export interface Meditation {
@@ -160,7 +159,7 @@ export const MEDITATIONS: Meditation[] = [
       ["Stay with your breath. In, and out. You are riding the wave.", 25],
       ["Check the number again. Zero to ten. Has it changed, even a little?", 10],
       ["Urges always pass. You've just shown yourself that you can ride one out.", 6],
-      ["If the urge is still strong, try a skill like cold water on your face, or call someone you trust. If you might hurt yourself, call or text nine eight eight.", 3],
+      ["If the urge is still strong, try a skill like cold water on your face, or call someone you trust. If you might hurt yourself, call or text 988.", 3],
     ],
   },
   {

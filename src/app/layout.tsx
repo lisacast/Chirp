@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Lexend } from "next/font/google";
+import { Lexend } from "next/font/google";
 import "./globals.css";
 
 const lexend = Lexend({ variable: "--font-lexend", subsets: ["latin"] });
-const fraunces = Fraunces({ variable: "--font-fraunces", subsets: ["latin"], axes: ["opsz", "SOFT"] });
 
 export const metadata: Metadata = {
   title: "Chirp",
@@ -23,7 +22,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${lexend.variable} ${fraunces.variable} antialiased`}>{children}</body>
+      <body className={`${lexend.variable} antialiased`}>{children}</body>
     </html>
   );
 }

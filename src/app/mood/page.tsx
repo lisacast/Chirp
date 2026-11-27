@@ -44,7 +44,7 @@ export default function MoodPage() {
 
   return (
     <Shell>
-      <h1 className="display text-[2.25rem] sm:text-6xl">
+      <h1 className="display text-2xl sm:text-3xl">
         What&apos;s your mood today?
       </h1>
       <p className="mt-2 text-muted">

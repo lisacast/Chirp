@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
-import { ChevronIcon, GridIcon, HeadphonesIcon, LeafIcon, SunIcon, WindIcon } from "@/components/Icons";
+import { ChevronIcon, GridIcon, LeafIcon, SunIcon, WindIcon } from "@/components/Icons";
+import Art from "@/components/Art";
+import { ART, MEDITATION_ART, MODULE_ART, articleArt } from "@/data/art";
 import { loadProfile, streak, todaysMood, type Profile } from "@/lib/profile";
 import { ARTICLES, readMinutes } from "@/data/articles";
 import { MEDITATIONS } from "@/data/meditations";
@@ -44,6 +46,8 @@ export default function Today() {
   const med = MEDITATIONS[d % MEDITATIONS.length];
   const skill = getSkill(mood ? FOR_MOOD[mood] ?? "wise-mind" : ["wise-mind", "self-soothe", "dear-man", "radical-acceptance", "please", "observe", "opposite-action-er"][d % 7])!;
   const mod = MODULES.find((m) => m.id === skill.module)!;
+  const pool = MODULE_ART[skill.module] ?? [ART.skills];
+  const skillArt = pool[d % pool.length];
   const hour = new Date().getHours();
   const greet = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
   const date = new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
@@ -51,37 +55,38 @@ export default function Today() {
   return (
     <Shell width="wide">
       {/* Masthead */}
-      <section>
-        <p className="kicker">{date}</p>
-        <h1 className="display mt-1 text-[2.5rem] sm:text-6xl">
-          {greet}
-          {name ? `, ${name}` : ""}.
-        </h1>
-        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-          <Link href="/mood" className="rounded-full border-2 border-oxford px-3 py-1 font-bold text-oxford hover:bg-sun">
-            {mood ? `Feeling ${mood} · Change` : "How are you feeling?"}
-          </Link>
-          {days > 0 && (
-            <span className="rounded-full bg-sun px-3 py-1 font-bold text-oxford">
-              🔥 {days}-day streak
-            </span>
-          )}
+      <section className="relative overflow-hidden rounded-2xl bg-oxford text-white">
+        <Art n={ART.today} priority sizes="100vw" className="absolute inset-0 h-full w-full" />
+        <div className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/60 to-oxford/10" />
+        <div className="relative flex min-h-48 flex-col justify-end p-5 sm:min-h-64 sm:p-8">
+          <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">{date}</p>
+          <h1 className="mt-1 text-3xl font-bold leading-tight sm:text-4xl">
+            {greet}
+            {name ? `, ${name}` : ""}.
+          </h1>
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
+            <Link href="/mood" className="rounded-full bg-white px-3 py-1 font-bold text-oxford hover:bg-sun">
+              {mood ? `Feeling ${mood} · Change` : "How are you feeling?"}
+            </Link>
+            {days > 0 && (
+              <span className="rounded-full bg-sun px-3 py-1 font-bold text-oxford">
+                🔥 {days}-day streak
+              </span>
+            )}
+          </div>
         </div>
-        <div className="rule mt-5" />
       </section>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[1.5fr_1fr]">
         {/* Lead story: today's practice */}
         <section className="overflow-hidden rounded-2xl bg-oxford text-white">
+          <Art n={skillArt} className="aspect-[16/7] w-full" />
           <div className="p-6 sm:p-8">
             <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">
-              {mood ? `For feeling ${mood}` : "Today's practice"}
+              {mood ? `For feeling ${mood}` : "Today's practice"} · {mod.name}
             </p>
-            <h2 className="mt-2 font-display text-3xl font-extrabold leading-tight sm:text-5xl">{skill.name}</h2>
+            <h2 className="mt-2 font-display text-2xl font-bold leading-tight sm:text-3xl">{skill.name}</h2>
             <p className="mt-2 text-lg text-white/90">{skill.tagline}</p>
-            <p className="mt-1 text-sm font-semibold" style={{ color: "#9cc0ff" }}>
-              {mod.name}
-            </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <Link href={`/skills/${skill.id}`} className="btn btn-coral">
                 Open the card
@@ -96,7 +101,7 @@ export default function Today() {
         {/* Quote of the day */}
         <section className="flex flex-col justify-between rounded-2xl bg-sun p-6 text-oxford sm:p-8">
           <p className="text-xs font-extrabold uppercase tracking-[0.14em]">Thought for today</p>
-          <blockquote className="mt-3 font-display text-2xl font-bold leading-snug sm:text-[1.7rem]">
+          <blockquote className="mt-3 text-xl font-semibold leading-snug sm:text-2xl">
             &ldquo;{qText}&rdquo;
           </blockquote>
           {qBy && <p className="mt-3 text-sm font-bold">{qBy}</p>}
@@ -126,28 +131,28 @@ export default function Today() {
         ))}
       </ul>
 
-      {/* Listen + Read */}
+      {/* Meditate + Read */}
       <div className="mt-9 grid gap-5 md:grid-cols-2">
-        <Link href={`/listen?play=${med.id}`} className="group card flex items-center gap-4 p-5 hover:border-oxford">
-          <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-white" style={{ background: med.color }}>
-            <HeadphonesIcon className="h-7 w-7" />
+        <Link href={`/meditate?play=${med.id}`} className="group relative block overflow-hidden rounded-2xl bg-oxford text-white hover:shadow-lg">
+          <Art n={MEDITATION_ART[med.id] ?? ART.meditate} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[16/9] w-full transition group-hover:scale-105" />
+          <span className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/30 to-transparent" />
+          <span className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-sun text-oxford">
+            <LeafIcon className="h-6 w-6" />
           </span>
-          <span className="min-w-0 flex-1">
-            <span className="kicker">Listen · {med.minutes} min</span>
-            <span className="block font-display text-2xl font-extrabold text-oxford">{med.title}</span>
-            <span className="block text-sm text-muted">{med.blurb}</span>
+          <span className="absolute inset-x-0 bottom-0 p-5">
+            <span className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">Meditate · {med.minutes} min</span>
+            <span className="block text-2xl font-bold">{med.title}</span>
           </span>
-          <ChevronIcon className="h-5 w-5 shrink-0 text-oxford" />
         </Link>
-        <Link href={`/learn/${article.slug}`} className="card flex items-center gap-4 p-5 hover:border-oxford">
-          <span className="min-w-0 flex-1">
-            <span className="kicker">
-              Read · {article.section} · {readMinutes(article)} min
+        <Link href={`/learn/${article.slug}`} className="group relative block overflow-hidden rounded-2xl bg-oxford text-white hover:shadow-lg">
+          <Art n={articleArt(article.section, article.slug, ARTICLES)} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[16/9] w-full transition group-hover:scale-105" />
+          <span className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/30 to-transparent" />
+          <span className="absolute inset-x-0 bottom-0 p-5">
+            <span className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">
+              Read · {readMinutes(article)} min
             </span>
-            <span className="mt-0.5 block font-display text-2xl font-extrabold leading-tight text-oxford">{article.title}</span>
-            <span className="mt-1 block text-sm text-muted">{article.dek}</span>
+            <span className="block text-2xl font-bold leading-tight">{article.title}</span>
           </span>
-          <ChevronIcon className="h-5 w-5 shrink-0 text-oxford" />
         </Link>
       </div>
 

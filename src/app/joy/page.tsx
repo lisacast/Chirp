@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Shell from "@/components/Shell";
+import Art from "@/components/Art";
+import { ART } from "@/data/art";
 import activities from "@/data/joyous-activities.json";
 
 // "1000 Joyous Activities" list, used for the Increase Positive Emotions skill.
@@ -21,7 +23,8 @@ export default function JoyPage() {
 
   return (
     <Shell>
-      <h1 className="display text-[2.25rem] sm:text-6xl">Joy finder</h1>
+      <Art n={ART.joy} priority sizes="100vw" className="mb-5 h-36 w-full rounded-2xl sm:h-52" />
+      <h1 className="display text-2xl sm:text-3xl">Joy finder</h1>
       <p className="mt-1 text-muted">
         Small pleasant moments add up. Here&apos;s an idea for today:
       </p>

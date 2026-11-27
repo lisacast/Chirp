@@ -30,7 +30,7 @@ export default function LegalPage({
   return (
     <Shell gated={false} width="wide">
       <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-        <h1 className="display text-[2.25rem] sm:text-6xl">{title}</h1>
+        <h1 className="display text-2xl sm:text-3xl">{title}</h1>
         <p className="mt-1 text-sm text-muted">Effective {EFFECTIVE_DATE}</p>
       </div>
       <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">

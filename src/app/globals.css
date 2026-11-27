@@ -48,7 +48,7 @@
   --color-sun: var(--sun);
   --color-ink: var(--ink);
   --color-card: var(--card);
-  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-lexend), system-ui, sans-serif;
   --font-sans: var(--font-lexend), ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -126,11 +126,10 @@ input:focus-visible {
 /* Editorial type: Fraunces display headlines, small-caps kickers, thick rules. */
 @layer components {
   .display {
-    font-family: var(--font-fraunces), Georgia, serif;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-family: var(--font-lexend), system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
     color: var(--oxford);
   }
   .kicker {
@@ -151,9 +150,9 @@ input:focus-visible {
   }
   .prose-chirp p + p { margin-top: 1rem; }
   .prose-chirp h2 {
-    font-family: var(--font-fraunces), Georgia, serif;
-    font-weight: 750;
-    font-size: 1.5rem;
+    font-family: var(--font-lexend), system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
     line-height: 1.2;
     color: var(--oxford);
     margin: 2rem 0 0.75rem;
@@ -162,15 +161,6 @@ input:focus-visible {
   .prose-chirp ul { list-style: disc; }
   .prose-chirp ol { list-style: decimal; }
   .prose-chirp li + li { margin-top: 0.4rem; }
-  .prose-chirp > p:first-of-type::first-letter {
-    float: left;
-    font-family: var(--font-fraunces), Georgia, serif;
-    font-weight: 800;
-    font-size: 3.6rem;
-    line-height: 0.85;
-    padding: 0.3rem 0.5rem 0 0;
-    color: var(--red);
-  }
 }
 
 /* Flashcard flip */

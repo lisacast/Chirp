@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BookIcon, CardsIcon, ChatIcon, ExitIcon, HeadphonesIcon, HomeIcon, LifebuoyIcon } from "./Icons";
+import { BookIcon, CardsIcon, ChatIcon, ExitIcon, HomeIcon, LeafIcon, LifebuoyIcon } from "./Icons";
 import { hasAgreed, loadProfile } from "@/lib/profile";
 import { trackPage } from "@/lib/track";
 
@@ -24,7 +24,7 @@ const TABS = [
   { href: "/lobby", label: "Today", Icon: HomeIcon },
   { href: "/chat", label: "Chat", Icon: ChatIcon },
   { href: "/skills", label: "Skills", Icon: CardsIcon },
-  { href: "/listen", label: "Listen", Icon: HeadphonesIcon },
+  { href: "/meditate", label: "Meditate", Icon: LeafIcon },
   { href: "/learn", label: "Learn", Icon: BookIcon },
 ];
 const DESKTOP = [...TABS.slice(0, 3), { href: "/practice", label: "Practice" }, ...TABS.slice(3), { href: "/progress", label: "Progress" }];
@@ -75,7 +75,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white">
               <Image src="/chirp-bird.png" alt="" width={30} height={30} priority />
             </span>
-            <span className="font-display text-2xl font-extrabold tracking-tight">Chirp</span>
+            <span className="text-xl font-bold tracking-tight">Chirp</span>
           </Link>
 
           {showNav && (
@@ -135,7 +135,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
         <footer className={`bg-oxford text-white ${showTabs ? "pb-20 md:pb-0" : ""}`}>
           <div className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-7 text-sm sm:grid-cols-3 sm:px-6">
             <div>
-              <p className="font-display text-2xl font-extrabold">Chirp</p>
+              <p className="text-xl font-bold">Chirp</p>
               <p className="mt-1 text-white/85">Skills for feelings, stress and relationships. Ages 13 and up.</p>
             </div>
             <div>

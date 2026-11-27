@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Shell from "@/components/Shell";
+import Art from "@/components/Art";
+import { ART } from "@/data/art";
 
 // The three exercises from the "Mindful Exercises" mockup. The mockup shows
 // videos; until those are recorded, each is a guided, timed walkthrough.
@@ -80,7 +82,7 @@ export default function MindfulPage() {
     const finished = left === 0;
     return (
       <Shell>
-        <h1 className="display text-center text-4xl sm:text-5xl">
+        <h1 className="display text-center text-3xl sm:text-4xl">
           {ex.title}
         </h1>
         <div className="mt-6 flex flex-col items-center">
@@ -114,7 +116,8 @@ export default function MindfulPage() {
 
   return (
     <Shell width="wide">
-      <h1 className="display text-[2.25rem] sm:text-6xl">
+      <Art n={ART.mindful} priority sizes="100vw" className="mb-5 h-36 w-full rounded-2xl sm:h-52" />
+      <h1 className="display text-2xl sm:text-3xl">
         Mindful exercises
       </h1>
       <p className="mt-1 text-muted">

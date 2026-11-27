@@ -146,7 +146,7 @@ export const ARTICLES: Article[] = [
       "4. Notice the pause between breathing in and breathing out. Rest there for a moment.",
       "## Checking yourself",
       "If an answer feels hot and urgent, it might be Emotion Mind. If it feels cold and ignores how you feel, it might be Reasonable Mind. Wise Mind usually feels steady and kind.",
-      "> Try the \"Wise Mind Lake\" meditation in Listen. It walks you through the stone-in-the-lake practice in about six minutes.",
+      "> Try the \"Wise Mind Lake\" meditation in Meditate. It walks you through the stone-in-the-lake practice in about six minutes.",
     ],
   },
   {
@@ -333,7 +333,7 @@ export const ARTICLES: Article[] = [
       "- E: Exercise. Some movement most days, even a short walk, can lift mood and lower stress.",
       "## Start with one",
       "Do not try to fix everything at once. Pick the one area that is most off right now and make one small change. Going to bed 20 minutes earlier, or eating breakfast, can make a real difference.",
-      "> See \"Skills for a better night's sleep\" in Everyday Life for sleep-specific tips, and try the Sleep wind-down meditation in Listen.",
+      "> See \"Skills for a better night's sleep\" in Everyday Life for sleep-specific tips, and try the Sleep wind-down meditation in Meditate.",
     ],
   },
   {
@@ -527,7 +527,7 @@ export const ARTICLES: Article[] = [
       "If your mind goes blank, put your pencil down, breathe out slowly a few times, and skip to a question you know. If you start spiraling (\"I'm going to fail\"), notice it, and turn your mind back to the question in front of you.",
       "## After: Non-judgmental stance",
       "Whatever happened, describe it without judgment. \"That was hard and I'm not sure how I did\" is kinder and more accurate than \"I bombed it, I'm so dumb.\"",
-      "> Try the 3-minute Breathing Space in Listen right before a test, or the Breathing pacer during a break.",
+      "> Try the 3-minute Breathing space in Meditate right before a test, or the Breathing pacer during a break.",
     ],
   },
   {
@@ -549,7 +549,7 @@ export const ARTICLES: Article[] = [
       "- If you are still awake after a while, get up, do something quiet in dim light, and go back when you feel sleepy.",
       "## Worry before bed",
       "If worries keep you up, write them down earlier in the evening with one next step for each. Then tell your mind: \"I've written it down. I'll handle it tomorrow.\"",
-      "> Chirp's Sleep wind-down in Listen is a ten-minute guided relaxation designed for bedtime.",
+      "> Chirp's Sleep wind-down in Meditate is a ten-minute guided relaxation designed for bedtime.",
     ],
   },
   {

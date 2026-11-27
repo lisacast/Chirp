@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
+import Art from "@/components/Art";
+import { ART } from "@/data/art";
 import { track } from "@/lib/track";
 import {
   hasAgreed,
@@ -134,12 +136,14 @@ export default function Welcome() {
   return (
     <Shell gated={false} hideNav width="wide">
       <div className="grid flex-1 items-start gap-4 lg:grid-cols-2 lg:gap-14">
-        <section className="flex items-center gap-4 rounded-2xl bg-oxford p-5 text-white lg:block lg:p-10">
-          <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white lg:h-32 lg:w-32">
+        <section className="relative flex min-h-56 items-end gap-4 overflow-hidden rounded-2xl bg-oxford p-5 text-white lg:block lg:min-h-[36rem] lg:p-10">
+          <Art n={ART.welcome} priority sizes="(min-width: 1024px) 50vw, 100vw" className="absolute inset-0 h-full w-full" />
+          <span className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/70 to-oxford/10" />
+          <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white lg:h-32 lg:w-32">
             <Image src="/chirp-bird.png" alt="" width={120} height={120} priority className="h-12 w-12 lg:h-24 lg:w-24" />
           </span>
-          <div>
-          <h2 className="text-xl font-extrabold leading-tight lg:mt-6 lg:text-5xl">
+          <div className="relative">
+          <h2 className="text-xl font-extrabold leading-tight lg:mt-6 lg:text-4xl">
             Skills for big feelings, any time.
           </h2>
           <p className="mt-1 max-w-md text-sm text-white/90 lg:mt-4 lg:text-lg">
@@ -152,7 +156,7 @@ export default function Welcome() {
               that fit how you feel
             </li>
             <li className="flex gap-3">
-              <span aria-hidden>🃏</span> Flashcards for 26 skills, plus articles and audio meditations
+              <span aria-hidden>🃏</span> Flashcards for 26 skills, plus articles and guided meditations
             </li>
             <li className="flex gap-3">
               <span aria-hidden>🧘</span> Short mindful exercises and a joy
@@ -166,10 +170,7 @@ export default function Welcome() {
         </section>
         <div className="mx-auto flex w-full max-w-lg flex-col card p-5 sm:p-8 lg:mx-0">
           <h1 className="text-3xl font-extrabold text-oxford">Welcome!</h1>
-          <p className="mt-3 text-muted">
-            Meet Chirp, your friendly guide with helpful skills for feelings,
-            stress and relationships.
-          </p>
+          <p className="mt-2 text-muted">Let&apos;s get you started.</p>
 
           <form onSubmit={start} className="mt-6 flex flex-col gap-4">
             <fieldset>
