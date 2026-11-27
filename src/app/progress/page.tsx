@@ -1,5 +1,6 @@
 "use client";
 
+import { gradientCss, MODULE_THEME, THEMES } from "@/data/art";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
@@ -76,6 +77,7 @@ export default function ProgressPage() {
                 );
               const s = getSkill(id)!;
               const color = MODULES.find((m) => m.id === s.module)!.color;
+              const tk = MODULE_THEME[s.module];
               return (
                 <Link
                   key={id}
@@ -84,7 +86,7 @@ export default function ProgressPage() {
                   className={`relative flex aspect-square items-center justify-center overflow-hidden rounded-lg p-1 text-center text-[0.6rem] font-bold leading-tight sm:text-xs ${
                     done ? "text-white" : "bg-white text-oxford hover:bg-paper"
                   } ${winning.has(i) ? "ring-4 ring-sun" : ""}`}
-                  style={done ? { background: color } : { borderTop: `5px solid ${color}` }}
+                  style={done ? { background: `linear-gradient(${THEMES[tk].stops[0]}80, ${THEMES[tk].stops[0]}80), ${gradientCss(tk, id)}` } : { borderTop: `5px solid ${color}` }}
                 >
                   <span className="line-clamp-3 break-words">{SHORT[id] ?? s.name}</span>
                   {done && (

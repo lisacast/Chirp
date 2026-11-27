@@ -116,7 +116,7 @@ export default function MindfulPage() {
 
   return (
     <Shell width="wide">
-      <Art n={ART.mindful} priority sizes="100vw" className="mb-5 h-36 w-full rounded-2xl sm:h-52" />
+      <Art theme={ART.mindful} seed="mindful" className="mb-5 h-32 w-full rounded-2xl sm:h-48" />
       <h1 className="display text-2xl sm:text-3xl">
         Mindful exercises
       </h1>

@@ -1,5 +1,6 @@
 "use client";
 
+import { gradientCss, MODULE_THEME, THEMES } from "@/data/art";
 import { useEffect, useState } from "react";
 import { getModule, type Skill } from "@/data/skills";
 import { markPracticed } from "@/lib/profile";
@@ -36,7 +37,7 @@ export default function Flashcard({
             type="button"
             onClick={() => setFlipped(true)}
             className="flip-face flex flex-col items-center justify-center rounded-2xl p-6 text-center text-white shadow-lg"
-            style={{ background: mod.color }}
+            style={{ background: `linear-gradient(${THEMES[MODULE_THEME[mod.id]].stops[0]}66, ${THEMES[MODULE_THEME[mod.id]].stops[0]}66), ${gradientCss(MODULE_THEME[mod.id], skill.id)}` }}
             aria-label={`${skill.name}. Tap to flip.`}
             aria-hidden={flipped}
             tabIndex={flipped ? -1 : 0}

@@ -29,25 +29,25 @@ export const MODULES: SkillModule[] = [
     id: "mindfulness",
     name: "Core Mindfulness",
     tagline: "Rooted in the present, responsive not reactive.",
-    color: "#1A56C4",
+    color: "#0B7285",
   },
   {
     id: "distress-tolerance",
     name: "Distress Tolerance",
     tagline: "Get through tough moments without making them worse.",
-    color: "#C8321E",
+    color: "#B83D0B",
   },
   {
     id: "emotion-regulation",
     name: "Emotion Regulation",
     tagline: "Understand your feelings and steer them.",
-    color: "#7A5C12",
+    color: "#7B2CBF",
   },
   {
     id: "interpersonal",
     name: "Interpersonal Effectiveness",
     tagline: "Ask for what you need and keep your relationships strong.",
-    color: "#001C38",
+    color: "#187A4A",
   },
 ];
 

@@ -14,12 +14,12 @@ export interface Article {
 }
 
 export const SECTIONS: { name: ArticleSection; blurb: string; color: string }[] = [
-  { name: "Foundations", blurb: "What DBT is, where it came from, and how it works.", color: "#001C38" },
-  { name: "Mindfulness", blurb: "Coming back to the present moment, on purpose.", color: "#1A56C4" },
-  { name: "Distress Tolerance", blurb: "Getting through hard moments without making them harder.", color: "#C8321E" },
-  { name: "Emotion Regulation", blurb: "Understanding feelings and steering them.", color: "#7A5C12" },
-  { name: "Relationships", blurb: "Asking, saying no, and keeping your self-respect.", color: "#001C38" },
-  { name: "Everyday Life", blurb: "Skills for school, sleep, screens and the holidays.", color: "#1A56C4" },
+  { name: "Foundations", blurb: "What DBT is, where it came from, and how it works.", color: "#1A56C4" },
+  { name: "Mindfulness", blurb: "Coming back to the present moment, on purpose.", color: "#0B7285" },
+  { name: "Distress Tolerance", blurb: "Getting through hard moments without making them harder.", color: "#B83D0B" },
+  { name: "Emotion Regulation", blurb: "Understanding feelings and steering them.", color: "#7B2CBF" },
+  { name: "Relationships", blurb: "Asking, saying no, and keeping your self-respect.", color: "#187A4A" },
+  { name: "Everyday Life", blurb: "Skills for school, sleep, screens and the holidays.", color: "#C2410C" },
 ];
 
 export const ARTICLES: Article[] = [

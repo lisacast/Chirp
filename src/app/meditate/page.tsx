@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
 import PageHeader from "@/components/PageHeader";
 import Art from "@/components/Art";
-import { ART, MEDITATION_ART } from "@/data/art";
+import { ART } from "@/data/art";
 import { PauseIcon, PlayIcon } from "@/components/Icons";
 import { MEDITATIONS, getMeditation, type Meditation } from "@/data/meditations";
 import { markListened } from "@/lib/profile";
@@ -53,10 +53,9 @@ export default function MeditatePage() {
                 setCurrent(m);
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="group relative block h-full w-full overflow-hidden rounded-2xl bg-oxford text-left text-white hover:shadow-lg"
+              className="group relative block h-full w-full overflow-hidden rounded-2xl text-left text-white hover:shadow-lg"
             >
-              <Art n={MEDITATION_ART[m.id]} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="aspect-[16/10] w-full transition group-hover:scale-105" />
-              <span className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/40 to-transparent" />
+              <Art theme="meditate" seed={m.id} scrim className="aspect-[16/10] w-full transition group-hover:scale-105" />
               <span className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-sun text-oxford">
                 <PlayIcon className="ml-0.5 h-6 w-6" />
               </span>
@@ -108,8 +107,8 @@ function Player({ m, onClose }: { m: Meditation; onClose: () => void }) {
   const pct = done ? 100 : step < 0 ? 0 : Math.round((step / total) * 100);
 
   return (
-    <section aria-label={m.title} className="relative mb-8 overflow-hidden rounded-2xl bg-oxford text-white">
-      <Art n={MEDITATION_ART[m.id]} priority className="absolute inset-0 h-full w-full opacity-30" />
+    <section aria-label={m.title} className="relative mb-8 overflow-hidden rounded-2xl bg-[#0E0B33] text-white">
+      <Art theme="meditate" seed={m.id} className="absolute inset-0 h-full w-full opacity-60" />
       <div className="relative p-6 sm:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>

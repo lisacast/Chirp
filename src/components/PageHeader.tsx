@@ -1,4 +1,5 @@
 import Art from "./Art";
+import type { ThemeKey } from "@/data/art";
 
 // Page header: optional illustration banner, small red kicker, headline and a short dek.
 export default function PageHeader({
@@ -11,15 +12,14 @@ export default function PageHeader({
   kicker?: string;
   title: React.ReactNode;
   dek?: React.ReactNode;
-  art?: number;
+  art?: ThemeKey;
   children?: React.ReactNode;
 }) {
   if (art)
     return (
       <header className="mb-6 sm:mb-8">
         <div className="relative overflow-hidden rounded-2xl bg-oxford">
-          <Art n={art} priority className="h-44 w-full sm:h-64" />
-          <div className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/60 to-transparent" />
+          <Art theme={art} seed={String(title)} scrim className="h-40 w-full sm:h-56" />
           <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
             {kicker && <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">{kicker}</p>}
             <h1 className="mt-1 text-3xl font-bold leading-tight text-white sm:text-4xl">{title}</h1>

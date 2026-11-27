@@ -59,7 +59,7 @@ const FAQ = [
 export default function FaqPage() {
   return (
     <Shell gated={false}>
-      <Art n={ART.faq} priority sizes="100vw" className="mb-5 h-36 w-full rounded-2xl sm:h-52" />
+      <Art theme={ART.faq} seed="faq" className="mb-5 h-32 w-full rounded-2xl sm:h-48" />
       <h1 className="display text-2xl sm:text-3xl">FAQ</h1>
       <p className="mt-1 text-muted">
         The most frequently asked questions about Chirp.

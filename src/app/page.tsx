@@ -137,8 +137,7 @@ export default function Welcome() {
     <Shell gated={false} hideNav width="wide">
       <div className="grid flex-1 items-start gap-4 lg:grid-cols-2 lg:gap-14">
         <section className="relative flex min-h-56 items-end gap-4 overflow-hidden rounded-2xl bg-oxford p-5 text-white lg:block lg:min-h-[36rem] lg:p-10">
-          <Art n={ART.welcome} priority sizes="(min-width: 1024px) 50vw, 100vw" className="absolute inset-0 h-full w-full" />
-          <span className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/70 to-oxford/10" />
+          <Art theme={ART.welcome} seed="welcome" scrim className="absolute inset-0 h-full w-full" />
           <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white lg:h-32 lg:w-32">
             <Image src="/chirp-bird.png" alt="" width={120} height={120} priority className="h-12 w-12 lg:h-24 lg:w-24" />
           </span>

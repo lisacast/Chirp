@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
 import { ChevronIcon, GridIcon, LeafIcon, SunIcon, WindIcon } from "@/components/Icons";
 import Art from "@/components/Art";
-import { ART, MEDITATION_ART, MODULE_ART, articleArt } from "@/data/art";
+import { gradientCss, MODULE_THEME, SECTION_THEME, THEMES, type ThemeKey } from "@/data/art";
 import { loadProfile, streak, todaysMood, type Profile } from "@/lib/profile";
 import { ARTICLES, readMinutes } from "@/data/articles";
 import { MEDITATIONS } from "@/data/meditations";
@@ -46,8 +46,7 @@ export default function Today() {
   const med = MEDITATIONS[d % MEDITATIONS.length];
   const skill = getSkill(mood ? FOR_MOOD[mood] ?? "wise-mind" : ["wise-mind", "self-soothe", "dear-man", "radical-acceptance", "please", "observe", "opposite-action-er"][d % 7])!;
   const mod = MODULES.find((m) => m.id === skill.module)!;
-  const pool = MODULE_ART[skill.module] ?? [ART.skills];
-  const skillArt = pool[d % pool.length];
+  const skillTheme = MODULE_THEME[skill.module] ?? "learn";
   const hour = new Date().getHours();
   const greet = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
   const date = new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
@@ -56,8 +55,8 @@ export default function Today() {
     <Shell width="wide">
       {/* Masthead */}
       <section className="relative overflow-hidden rounded-2xl bg-oxford text-white">
-        <Art n={ART.today} priority sizes="100vw" className="absolute inset-0 h-full w-full" />
-        <div className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/60 to-oxford/10" />
+        <Art theme="today" seed={String(d)} className="absolute inset-0 h-full w-full" />
+        <div className="absolute inset-0 bg-gradient-to-r from-oxford/85 via-oxford/30 to-transparent" />
         <div className="relative flex min-h-48 flex-col justify-end p-5 sm:min-h-64 sm:p-8">
           <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">{date}</p>
           <h1 className="mt-1 text-3xl font-bold leading-tight sm:text-4xl">
@@ -79,8 +78,8 @@ export default function Today() {
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[1.5fr_1fr]">
         {/* Lead story: today's practice */}
-        <section className="overflow-hidden rounded-2xl bg-oxford text-white">
-          <Art n={skillArt} className="aspect-[16/7] w-full" />
+        <section className="overflow-hidden rounded-2xl text-white" style={{ background: THEMES[skillTheme].stops[0] }}>
+          <Art theme={skillTheme} seed={skill.id} className="aspect-[16/7] w-full" />
           <div className="p-6 sm:p-8">
             <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">
               {mood ? `For feeling ${mood}` : "Today's practice"} · {mod.name}
@@ -112,14 +111,14 @@ export default function Today() {
       <h2 className="kicker mt-9 !text-oxford">Quick tools</h2>
       <ul className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
         {[
-          { href: "/practice#breathe", label: "Breathe", sub: "1-minute pacer", Icon: WindIcon, tint: "bg-blue text-white" },
-          { href: "/help", label: "Right now", sub: "Help for this moment", Icon: LeafIcon, tint: "bg-red text-white" },
-          { href: "/joy", label: "Joy finder", sub: "A small good thing", Icon: SunIcon, tint: "bg-sun text-oxford" },
-          { href: "/progress", label: "Skills bingo", sub: `${practicedOnCard} of 25 squares`, Icon: GridIcon, tint: "bg-oxford text-white" },
+          { href: "/practice#breathe", label: "Breathe", sub: "1-minute pacer", Icon: WindIcon, tint: "mindfulness" },
+          { href: "/help", label: "Right now", sub: "Help for this moment", Icon: LeafIcon, tint: "help" },
+          { href: "/joy", label: "Joy finder", sub: "A small good thing", Icon: SunIcon, tint: "joy" },
+          { href: "/progress", label: "Skills bingo", sub: `${practicedOnCard} of 25 squares`, Icon: GridIcon, tint: "progress" },
         ].map(({ href, label, sub, Icon, tint }) => (
           <li key={href}>
             <Link href={href} className="card flex h-full flex-col gap-3 p-4 transition hover:border-oxford hover:shadow-md">
-              <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${tint}`}>
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl text-white" style={{ background: gradientCss(tint as ThemeKey, label) }}>
                 <Icon className="h-6 w-6" />
               </span>
               <span>
@@ -133,9 +132,8 @@ export default function Today() {
 
       {/* Meditate + Read */}
       <div className="mt-9 grid gap-5 md:grid-cols-2">
-        <Link href={`/meditate?play=${med.id}`} className="group relative block overflow-hidden rounded-2xl bg-oxford text-white hover:shadow-lg">
-          <Art n={MEDITATION_ART[med.id] ?? ART.meditate} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[16/9] w-full transition group-hover:scale-105" />
-          <span className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/30 to-transparent" />
+        <Link href={`/meditate?play=${med.id}`} className="group relative block overflow-hidden rounded-2xl text-white hover:shadow-lg">
+          <Art theme="meditate" seed={med.id} scrim className="aspect-[16/9] w-full transition group-hover:scale-105" />
           <span className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-sun text-oxford">
             <LeafIcon className="h-6 w-6" />
           </span>
@@ -144,9 +142,8 @@ export default function Today() {
             <span className="block text-2xl font-bold">{med.title}</span>
           </span>
         </Link>
-        <Link href={`/learn/${article.slug}`} className="group relative block overflow-hidden rounded-2xl bg-oxford text-white hover:shadow-lg">
-          <Art n={articleArt(article.section, article.slug, ARTICLES)} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[16/9] w-full transition group-hover:scale-105" />
-          <span className="absolute inset-0 bg-gradient-to-t from-oxford via-oxford/30 to-transparent" />
+        <Link href={`/learn/${article.slug}`} className="group relative block overflow-hidden rounded-2xl text-white hover:shadow-lg">
+          <Art theme={SECTION_THEME[article.section] ?? "learn"} seed={article.slug} scrim className="aspect-[16/9] w-full transition group-hover:scale-105" />
           <span className="absolute inset-x-0 bottom-0 p-5">
             <span className="text-xs font-extrabold uppercase tracking-[0.14em] text-sun">
               Read · {readMinutes(article)} min
