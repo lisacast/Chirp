@@ -63,13 +63,13 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
     path === href || path === `${href}/` || (href !== "/lobby" && path.startsWith(`${href}/`));
 
   return (
-    <div className={`flex w-full flex-col bg-paper ${fill ? "h-dvh" : "min-h-dvh"}`}>
+    <div className={`flex w-full flex-col bg-paper print:min-h-0 print:bg-white ${fill ? "h-dvh" : "min-h-dvh"}`}>
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-sun focus:px-3 focus:py-2 focus:font-bold focus:text-oxford">
         Skip to content
       </a>
 
       {/* App bar */}
-      <header className="sticky top-0 z-40 bg-oxford pt-[env(safe-area-inset-top)] text-white shadow-md">
+      <header className="print:hidden sticky top-0 z-40 bg-oxford pt-[env(safe-area-inset-top)] text-white shadow-md">
         <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-2 px-3 sm:px-6">
           <Link href={showNav ? "/lobby" : "/"} aria-label="Chirp home" className="flex shrink-0 items-center gap-2">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white">
@@ -124,7 +124,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
 
       <main
         id="main"
-        className={`mx-auto flex w-full flex-1 flex-col px-4 sm:px-6 ${
+        className={`mx-auto flex w-full flex-1 flex-col px-4 sm:px-6 print:max-w-none print:p-0 ${
           fill ? "min-h-0 max-w-3xl pt-3" : `${WIDTHS[width]} pt-5 pb-8 sm:pt-8`
         } ${showTabs ? "pb-40 md:pb-8" : ""}`}
       >
@@ -132,7 +132,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
       </main>
 
       {!fill && (
-        <footer className={`bg-oxford text-white ${showTabs ? "pb-36 md:pb-0" : ""}`}>
+        <footer className={`print:hidden bg-oxford text-white ${showTabs ? "pb-36 md:pb-0" : ""}`}>
           <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">
             <div className="flex items-center justify-between gap-4 rounded-xl bg-white/10 px-4 py-3">
               <p className="text-sm font-bold">
@@ -169,7 +169,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
 
       {/* Floating dock (phones and tablets): Ask Chirp bar + tabs */}
       {showTabs && (
-        <nav aria-label="Tabs" className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(env(safe-area-inset-bottom),0.6rem)] md:hidden">
+        <nav aria-label="Tabs" className="print:hidden fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(env(safe-area-inset-bottom),0.6rem)] md:hidden">
           <div className="mx-auto max-w-lg rounded-[1.4rem] bg-oxford p-2 shadow-[0_10px_40px_rgba(0,28,56,0.45)] ring-1 ring-white/10">
             <Link href="/chat" className="ask-glow flex items-center gap-2.5 rounded-2xl bg-white/10 py-2 pl-2 pr-2 ring-2 ring-sun">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white">
@@ -199,7 +199,7 @@ export default function Shell({ children, gated = true, fill = false, hideNav = 
 
       {/* Desktop: floating Ask Chirp button */}
       {showNav && !path.startsWith("/chat") && (
-        <Link href="/chat" className="ask-glow fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-full bg-sun py-2 pl-2 pr-5 font-extrabold text-oxford shadow-xl md:flex">
+        <Link href="/chat" className="print:hidden ask-glow fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-full bg-sun py-2 pl-2 pr-5 font-extrabold text-oxford shadow-xl md:flex">
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white">
             <Image src="/chirp-bird.png" alt="" width={28} height={28} className="bird-idle" />
           </span>

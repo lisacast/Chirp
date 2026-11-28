@@ -23,6 +23,9 @@ export default function SkillsPage() {
           <Link href="/progress" className="text-sm font-bold text-red underline">
             See your bingo card
           </Link>
+          <Link href="/skills/print" className="rounded-full bg-white px-3 py-1 text-sm font-bold text-oxford ring-1 ring-line hover:bg-sun">
+            🖨 Print cue cards
+          </Link>
         </div>
       </PageHeader>
 

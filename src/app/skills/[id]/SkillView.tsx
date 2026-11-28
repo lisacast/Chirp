@@ -54,6 +54,9 @@ export default function SkillView({ id }: { id: string }) {
             <HeartIcon filled={fav} className="h-6 w-6" />
           </button>
         </div>
+        <Link href={`/skills/print?ids=${skill.id}`} className="mt-3 block text-center text-sm font-bold text-oxford underline">
+          🖨 Print this cue card
+        </Link>
         {reads.length > 0 && (
           <section className="mt-8">
             <p className="kicker">Read more</p>
