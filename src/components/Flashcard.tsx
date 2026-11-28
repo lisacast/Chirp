@@ -1,5 +1,6 @@
 "use client";
 
+import { gradientCss, MODULE_THEME, THEMES } from "@/data/art";
 import { useEffect, useState } from "react";
 import { getModule, type Skill } from "@/data/skills";
 import { markPracticed } from "@/lib/profile";
@@ -13,7 +14,12 @@ interface Props {
 
 // Skill flashcard from the spec: name on the front, description on the back,
 // tap to flip, with "← Chat" and "Next →" on the back.
-export default function Flashcard({ skill, onBack, backLabel = "← Chat", onNext }: Props) {
+export default function Flashcard({
+  skill,
+  onBack,
+  backLabel = "← Chat",
+  onNext,
+}: Props) {
   const [flipped, setFlipped] = useState(false);
   const [done, setDone] = useState(false);
   const mod = getModule(skill.module);
@@ -30,26 +36,34 @@ export default function Flashcard({ skill, onBack, backLabel = "← Chat", onNex
           <button
             type="button"
             onClick={() => setFlipped(true)}
-            className="flip-face flex flex-col items-center justify-center rounded-3xl p-6 text-center text-white shadow-lg"
-            style={{ background: mod.color }}
+            className="flip-face flex flex-col items-center justify-center rounded-2xl p-6 text-center text-white shadow-lg"
+            style={{ background: `linear-gradient(${THEMES[MODULE_THEME[mod.id]].stops[0]}66, ${THEMES[MODULE_THEME[mod.id]].stops[0]}66), ${gradientCss(MODULE_THEME[mod.id], skill.id)}` }}
             aria-label={`${skill.name}. Tap to flip.`}
             aria-hidden={flipped}
             tabIndex={flipped ? -1 : 0}
           >
-            <span className="text-sm font-semibold uppercase tracking-wider opacity-85">{mod.name}</span>
-            <span className="mt-3 text-3xl font-bold leading-tight">{skill.name}</span>
-            <span className="mt-4 text-lg opacity-95">&ldquo;{skill.tagline}&rdquo;</span>
-            <span className="mt-8 rounded-full bg-white/25 px-4 py-1 text-sm">Tap to flip</span>
+            <span className="text-sm font-semibold uppercase tracking-wider opacity-85">
+              {mod.name}
+            </span>
+            <span className="mt-3 text-3xl font-bold leading-tight">
+              {skill.name}
+            </span>
+            <span className="mt-4 text-lg opacity-95">
+              &ldquo;{skill.tagline}&rdquo;
+            </span>
+            <span className="mt-8 rounded-full bg-white/25 px-4 py-1 text-sm">
+              Tap to flip
+            </span>
           </button>
 
           <div
-            className="flip-face flip-back flex flex-col overflow-y-auto rounded-3xl bg-card p-5 shadow-lg"
+            className="flip-face flip-back flex flex-col overflow-y-auto rounded-2xl border border-line bg-card p-5 shadow-lg"
             aria-hidden={!flipped}
           >
             <button
               type="button"
               onClick={() => setFlipped(false)}
-              className="self-end text-sm font-semibold text-coral"
+              className="self-end text-sm font-semibold text-red"
               tabIndex={flipped ? 0 : -1}
             >
               Flip back
@@ -70,9 +84,11 @@ export default function Flashcard({ skill, onBack, backLabel = "← Chat", onNex
                 markPracticed(skill.id);
                 setDone(true);
               }}
-              className={`mt-auto pt-4 text-sm font-semibold ${done ? "text-green-700" : "text-navy underline"}`}
+              className={`mt-auto pt-4 text-sm font-semibold ${done ? "text-green-700" : "text-oxford underline"}`}
             >
-              {done ? "✓ Nice work! Saved to your practice list." : "I practiced this"}
+              {done
+                ? "✓ Nice work! Saved to your practice list."
+                : "I practiced this"}
             </button>
           </div>
         </div>

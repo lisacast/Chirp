@@ -1,6 +1,6 @@
-// PlayChirp skill library.
+// Chirp skill library.
 // Skill list and taglines follow "Chirp Specification - full" (Skills overview +
-// Flashcard learning approach). Descriptions and steps are written for PlayChirp.
+// Flashcard learning approach). Descriptions and steps are written for Chirp.
 
 export type ModuleId =
   | "mindfulness"
@@ -12,7 +12,7 @@ export interface SkillModule {
   id: ModuleId;
   name: string;
   tagline: string;
-  color: string; // tailwind-friendly hex from the PlayChirp palette
+  color: string; // tailwind-friendly hex from the Chirp palette
 }
 
 export interface Skill {
@@ -29,25 +29,25 @@ export const MODULES: SkillModule[] = [
     id: "mindfulness",
     name: "Core Mindfulness",
     tagline: "Rooted in the present, responsive not reactive.",
-    color: "#4F81E3",
+    color: "#0B7285",
   },
   {
     id: "distress-tolerance",
     name: "Distress Tolerance",
     tagline: "Get through tough moments without making them worse.",
-    color: "#E25945",
+    color: "#B83D0B",
   },
   {
     id: "emotion-regulation",
     name: "Emotion Regulation",
     tagline: "Understand your feelings and steer them.",
-    color: "#B39457",
+    color: "#7B2CBF",
   },
   {
     id: "interpersonal",
     name: "Interpersonal Effectiveness",
     tagline: "Ask for what you need and keep your relationships strong.",
-    color: "#354248",
+    color: "#187A4A",
   },
 ];
 

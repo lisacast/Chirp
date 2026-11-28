@@ -5,15 +5,15 @@ import "./globals.css";
 const lexend = Lexend({ variable: "--font-lexend", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PlayChirp",
+  title: "Chirp",
   description: "Practice skills for emotions, stress and relationships with Chirp, your friendly guide.",
   manifest: "/manifest.webmanifest",
-  icons: { icon: "/icon-192.png", apple: "/icon-192.png" },
-  appleWebApp: { capable: true, title: "PlayChirp", statusBarStyle: "default" },
+  icons: { icon: [{ url: "/favicon.ico", sizes: "any" }, { url: "/icon-192.png", type: "image/png" }], apple: "/apple-touch-icon.png" },
+  appleWebApp: { capable: true, title: "Chirp", statusBarStyle: "black-translucent" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#b8cdd2",
+  themeColor: "#001c38",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

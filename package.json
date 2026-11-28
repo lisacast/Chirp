@@ -7,17 +7,12 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "build:siteground": "next build && node scripts/package-siteground.mjs"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^1.14.0",
-    "@opennextjs/cloudflare": "^1.20.19",
     "next": "15.5.29",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "zod": "^4.6.7"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -28,7 +23,6 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.29",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "wrangler": "^4.168.0"
+    "typescript": "^5"
   }
 }

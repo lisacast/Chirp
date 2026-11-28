@@ -40,7 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Cloudflare / OpenNext
-.open-next
-.wrangler
-.dev.vars
+# SiteGround build
+/siteground
+/public/api/vendor
+/php/vendor
+/playchirp-config.php

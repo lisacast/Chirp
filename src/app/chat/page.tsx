@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Shell from "@/components/Shell";
 import Flashcard from "@/components/Flashcard";
+import LiveBird, { type BirdMood } from "@/components/LiveBird";
 import CrisisCard from "@/components/CrisisCard";
 import { SendIcon } from "@/components/Icons";
 import { getSkill, getModule, SKILLS } from "@/data/skills";
@@ -23,7 +23,9 @@ function greeting(): ChatMessage {
     content: mood
       ? `${hi}I'm Chirp. I see you're feeling ${mood} today. Want to tell me a little about what's going on?`
       : `${hi}I'm Chirp, your skills buddy. How are you feeling today?`,
-    quickReplies: mood ? undefined : ["Pretty good", "Stressed out", "Not great"],
+    quickReplies: mood
+      ? undefined
+      : ["Pretty good", "Stressed out", "Not great"],
   };
 }
 
@@ -31,10 +33,27 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
-  const [openSkill, setOpenSkill] = useState<{ id: string; list: string[] } | null>(null);
+  const [openSkill, setOpenSkill] = useState<{
+    id: string;
+    list: string[];
+  } | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
+  const [bird, setBird] = useState<BirdMood>("idle");
+  const pendingQ = useRef<string | null>(null);
 
   useEffect(() => {
+    let q = new URLSearchParams(location.search).get("q");
+    try {
+      const pre = sessionStorage.getItem("playchirp.prefill");
+      if (pre) {
+        q = pre;
+        sessionStorage.removeItem("playchirp.prefill");
+      }
+    } catch {}
+    if (q) {
+      pendingQ.current = q.slice(0, MAX_INPUT);
+      history.replaceState(null, "", "/chat/");
+    }
     try {
       const saved = sessionStorage.getItem(STORE);
       if (saved) {
@@ -47,9 +66,16 @@ export default function ChatPage() {
 
   useEffect(() => {
     try {
-      if (messages.length) sessionStorage.setItem(STORE, JSON.stringify(messages));
+      if (messages.length)
+        sessionStorage.setItem(STORE, JSON.stringify(messages));
     } catch {}
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    if (messages.length && pendingQ.current && !busy) {
+      const q = pendingQ.current;
+      pendingQ.current = null;
+      send(q);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages, busy]);
 
   async function send(text: string) {
@@ -61,9 +87,10 @@ export default function ChatPage() {
     setMessages(next);
     setInput("");
     setBusy(true);
+    setBird("thinking");
 
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("/api/chat.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -97,12 +124,20 @@ export default function ChatPage() {
       ]);
     } finally {
       setBusy(false);
+      setBird("reply");
+      setTimeout(() => setBird("idle"), 900);
     }
   }
 
   function closeCard() {
     setOpenSkill(null);
-    setMessages((m) => [...m, { role: "assistant", content: "Hey, great job. What would you like to practice next?" }]);
+    setMessages((m) => [
+      ...m,
+      {
+        role: "assistant",
+        content: "Hey, great job. What would you like to practice next?",
+      },
+    ]);
   }
 
   function nextCard() {
@@ -132,9 +167,21 @@ export default function ChatPage() {
 
   return (
     <Shell fill>
-      <div className="flex items-center justify-between pb-2">
-        <h1 className="text-lg font-bold">Chat with Chirp</h1>
-        <button onClick={clearChat} className="text-sm text-ink/70 underline">
+      <div className="flex items-center gap-3 pb-3">
+        <LiveBird mood={bird} size={52} />
+        <div className="min-w-0 flex-1">
+          <h1 className="text-lg font-bold leading-tight text-oxford">Chirp</h1>
+          <p className="text-xs font-semibold text-muted">
+            {bird === "thinking" ? (
+              <>
+                thinking<span className="dot-1">.</span>
+                <span className="dot-2">.</span>
+                <span className="dot-3">.</span>
+              </>
+            ) : bird === "listening" ? "listening…" : "here for you · private, nothing saved"}
+          </p>
+        </div>
+        <button onClick={clearChat} className="rounded-full border border-line bg-white px-3 py-1 text-xs font-bold text-muted">
           Start over
         </button>
       </div>
@@ -144,14 +191,17 @@ export default function ChatPage() {
           <div key={i} className="space-y-2">
             {m.role === "assistant" ? (
               <div className="flex items-start gap-2">
-                <Image src="/chirp-bird.png" alt="" width={40} height={40} className="mt-1 shrink-0 rounded-full bg-white p-0.5" />
-                <div className="max-w-[85%] whitespace-pre-wrap rounded-3xl rounded-tl-md bg-white px-4 py-3 shadow-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/chirp-bird.png" alt="" width={34} height={34} className={`mt-1 h-[34px] w-[34px] shrink-0 rounded-full bg-white p-0.5 ring-1 ring-line ${i === messages.length - 1 ? "bird-ruffle" : ""}`} />
+                <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tl-sm border border-line bg-white px-4 py-3">
                   {m.content}
                 </div>
               </div>
             ) : (
               <div className="flex justify-end">
-                <div className="max-w-[85%] whitespace-pre-wrap rounded-3xl rounded-tr-md bg-sun px-4 py-3 shadow-sm">{m.content}</div>
+                <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-sm bg-oxford px-4 py-3 text-white">
+                  {m.content}
+                </div>
               </div>
             )}
 
@@ -164,7 +214,7 @@ export default function ChatPage() {
                     <button
                       key={id}
                       onClick={() => setOpenSkill({ id, list: m.skillIds! })}
-                      className="rounded-full px-4 py-2 text-sm font-semibold text-white shadow"
+                      className="rounded-lg px-3 py-2 text-sm font-bold text-white"
                       style={{ background: getModule(s.module).color }}
                     >
                       🃏 {s.name}
@@ -183,20 +233,29 @@ export default function ChatPage() {
         ))}
 
         {busy && (
-          <div className="flex items-center gap-2 pl-12 text-ink/70" aria-label="Chirp is typing">
-            <span className="animate-pulse">Chirp is thinking…</span>
+          <div className="flex items-center gap-2 pl-11" aria-label="Chirp is typing">
+            <span className="rounded-2xl rounded-tl-sm border border-line bg-white px-4 py-3 text-xl font-bold leading-none text-oxford">
+              <span className="dot-1">•</span> <span className="dot-2">•</span> <span className="dot-3">•</span>
+            </span>
           </div>
         )}
 
-        {!busy && last?.role === "assistant" && last.quickReplies && last.quickReplies.length > 0 && (
-          <div className="flex flex-wrap justify-end gap-2">
-            {last.quickReplies.map((q) => (
-              <button key={q} onClick={() => send(q)} className="rounded-full border-2 border-sun bg-white px-4 py-2 text-sm font-medium">
-                {q}
-              </button>
-            ))}
-          </div>
-        )}
+        {!busy &&
+          last?.role === "assistant" &&
+          last.quickReplies &&
+          last.quickReplies.length > 0 && (
+            <div className="flex flex-wrap justify-end gap-2">
+              {last.quickReplies.map((q) => (
+                <button
+                  key={q}
+                  onClick={() => send(q)}
+                  className="rounded-full border-2 border-oxford bg-white px-4 py-2 text-sm font-bold text-oxford hover:bg-sun"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          )}
         <div ref={endRef} />
       </div>
 
@@ -205,7 +264,7 @@ export default function ChatPage() {
           e.preventDefault();
           send(input);
         }}
-        className="mb-[max(env(safe-area-inset-bottom),0.75rem)] flex items-center gap-2 rounded-full bg-sun px-4 py-2 shadow"
+        className="mb-[max(env(safe-area-inset-bottom),0.75rem)] flex items-center gap-2 rounded-xl border-2 border-oxford bg-white px-3 py-1.5"
       >
         <label htmlFor="chat-input" className="sr-only">
           Message Chirp
@@ -213,22 +272,35 @@ export default function ChatPage() {
         <input
           id="chat-input"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            setInput(e.target.value);
+            if (!busy) setBird(e.target.value ? "listening" : "idle");
+          }}
           maxLength={MAX_INPUT}
-          placeholder="Reply here"
+          placeholder="Tell Chirp anything…"
           autoComplete="off"
-          className="min-w-0 flex-1 bg-transparent py-2 outline-none placeholder:text-ink/60"
+          className="min-w-0 flex-1 bg-transparent py-2 outline-none placeholder:text-muted"
         />
-        <button type="submit" disabled={busy || !input.trim()} aria-label="Send" className="p-1 disabled:opacity-40">
-          <SendIcon />
+        <button
+          type="submit"
+          disabled={busy || !input.trim()}
+          aria-label="Send"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-sun text-oxford disabled:opacity-40"
+        >
+          <SendIcon className="h-5 w-5" />
         </button>
       </form>
-      <p className="pb-2 text-center text-[11px] text-ink/60">
+      <p className="pb-2 text-center text-xs text-muted">
         Chirp is an AI guide, not a therapist. In crisis, call or text 988.
       </p>
 
       {card && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-4" role="dialog" aria-modal="true" aria-label={card.name}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={card.name}
+        >
           <div className="w-full max-w-md">
             <Flashcard skill={card} onBack={closeCard} onNext={nextCard} />
           </div>

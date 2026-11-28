@@ -1,22 +1,41 @@
 @import "tailwindcss";
 
-/* PlayChirp palette (playchirp-palette.png) plus the mockup background. */
+/* Chirp palette (playchirp-palette.png) plus the mockup background. */
 :root {
-  --sky: #b8cdd2;
-  --sky-deep: #84a7ae;
-  --coral: #e25945;
-  --coral-soft: #e57361;
-  --brick: #b3230c;
-  --sand: #b39457;
-  --slate: #354248;
-  --navy: #3b3a6e;
-  --blue: #4f81e3;
-  --sun: #fed35d;
-  --ink: #16202a;
+  /* Bold, high-contrast palette. Every text/background pairing used meets WCAG AA. */
+  --oxford: #001c38; /* primary dark: app bar, tab bar, headings */
+  --oxford-2: #00264d;
+  --red: #c8321e; /* primary action (white text 5.3:1) */
+  --red-dark: #a3200d;
+  --red-bright: #e25945; /* decorative only */
+  --sun: #fed35d; /* highlight (oxford text 12:1) */
+  --blue: #1a56c4;
+  --gold: #7a5c12;
+  --paper: #f3f5f8; /* page background */
+  --line: #d5dce5;
+  --ink: #0b1726;
+  --muted: #3d4a5c;
   --card: #ffffff;
+  /* legacy names, mapped onto the new palette */
+  --sky: var(--paper);
+  --sky-deep: var(--oxford-2);
+  --coral: var(--red);
+  --coral-soft: var(--red);
+  --brick: var(--red-dark);
+  --sand: var(--gold);
+  --slate: var(--oxford);
+  --navy: var(--oxford);
 }
 
 @theme inline {
+  --color-oxford: var(--oxford);
+  --color-oxford-2: var(--oxford-2);
+  --color-red: var(--red);
+  --color-red-dark: var(--red-dark);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
   --color-sky: var(--sky);
   --color-sky-deep: var(--sky-deep);
   --color-coral: var(--coral);
@@ -29,6 +48,7 @@
   --color-sun: var(--sun);
   --color-ink: var(--ink);
   --color-card: var(--card);
+  --font-display: var(--font-lexend), system-ui, sans-serif;
   --font-sans: var(--font-lexend), ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -43,40 +63,104 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+@layer components {
 .btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   width: 100%;
-  min-height: 3.25rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 9999px;
+  min-height: 3rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
   font-weight: 700;
-  font-size: 1.05rem;
-  transition: transform 0.1s ease, filter 0.15s ease;
+  font-size: 1rem;
+  line-height: 1.25;
   text-align: center;
+  transition: background-color 0.15s ease, transform 0.1s ease;
 }
 .btn:active {
   transform: scale(0.98);
 }
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn:focus-visible,
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
 }
 .btn-coral {
-  background: var(--coral-soft);
-  color: white;
+  background: var(--red);
+  color: #fff;
 }
-.btn-coral:hover {
-  filter: brightness(0.95);
+.btn-coral:hover:not(:disabled) {
+  background: var(--red-dark);
 }
 .btn-navy {
-  background: var(--navy);
-  color: white;
+  background: var(--oxford);
+  color: #fff;
+}
+.btn-navy:hover:not(:disabled) {
+  background: var(--oxford-2);
 }
 .btn-outline {
-  background: white;
-  color: var(--coral);
-  border: 3px solid var(--coral);
+  background: #fff;
+  color: var(--oxford);
+  border: 2px solid var(--oxford);
+}
+.btn-outline:hover {
+  background: var(--paper);
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+}
+}
+
+/* Editorial type: Fraunces display headlines, small-caps kickers, thick rules. */
+@layer components {
+  .display {
+    font-family: var(--font-lexend), system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: var(--oxford);
+  }
+  .kicker {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .rule {
+    border-top: 4px solid var(--oxford);
+  }
+  .prose-chirp p,
+  .prose-chirp li {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .prose-chirp p + p { margin-top: 1rem; }
+  .prose-chirp h2 {
+    font-family: var(--font-lexend), system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    color: var(--oxford);
+    margin: 2rem 0 0.75rem;
+  }
+  .prose-chirp ul, .prose-chirp ol { margin: 0.75rem 0 1rem; padding-left: 1.25rem; }
+  .prose-chirp ul { list-style: disc; }
+  .prose-chirp ol { list-style: decimal; }
+  .prose-chirp li + li { margin-top: 0.4rem; }
 }
 
 /* Flashcard flip */
@@ -130,3 +214,31 @@ body {
     animation: none;
   }
 }
+
+/* Tool animations */
+@keyframes chirp-wave { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes chirp-flicker { 0%,100% { transform: scale(1, 1) rotate(-1deg); } 30% { transform: scale(0.96, 1.06) rotate(1.5deg); } 60% { transform: scale(1.03, 0.97) rotate(-2deg); } }
+@keyframes chirp-pop { from { transform: scale(0.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.anim-wave { animation: chirp-wave 6s linear infinite; }
+.anim-flicker { animation: chirp-flicker 1.4s ease-in-out infinite; transform-origin: 50% 90%; }
+.anim-pop { animation: chirp-pop 0.35s ease-out; }
+@media (prefers-reduced-motion: reduce) { .anim-wave, .anim-flicker, .anim-pop { animation: none; } }
+
+/* Chirp the bird: alive in chat */
+@keyframes chirp-idle { 0%,100% { transform: scale(1, 1); } 50% { transform: scale(1.03, 0.97) translateY(1px); } }
+@keyframes chirp-hop { 0%,100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-12px) rotate(-6deg); } 50% { transform: translateY(0) scale(1.06, 0.92); } 70% { transform: translateY(-5px) rotate(3deg); } 85% { transform: translateY(0) scale(1.03, 0.97); } }
+@keyframes chirp-ruffle { 0%,100% { transform: rotate(0) scale(1); } 15% { transform: rotate(-9deg) scale(1.08, 0.92); } 30% { transform: rotate(8deg) scale(0.94, 1.07); } 45% { transform: rotate(-6deg) scale(1.05, 0.95); } 60% { transform: rotate(4deg); } 80% { transform: rotate(-2deg); } }
+@keyframes chirp-tilt { 0%,100% { transform: rotate(0); } 40%,70% { transform: rotate(-14deg) translateX(-2px); } }
+@keyframes chirp-think { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes chirp-dot { 0%,80%,100% { opacity: 0.25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+@keyframes chirp-glow { 0%,100% { box-shadow: 0 0 0 0 rgba(254, 211, 93, 0.55); } 50% { box-shadow: 0 0 0 6px rgba(254, 211, 93, 0); } }
+.bird-idle { animation: chirp-idle 2.6s ease-in-out infinite; transform-origin: 50% 100%; }
+.bird-hop { animation: chirp-hop 0.8s ease-out; transform-origin: 50% 100%; }
+.bird-ruffle { animation: chirp-ruffle 0.7s ease-in-out; transform-origin: 50% 80%; }
+.bird-tilt { animation: chirp-tilt 1.6s ease-in-out infinite; transform-origin: 50% 90%; }
+.bird-think { animation: chirp-think 0.6s ease-in-out infinite; transform-origin: 50% 100%; }
+.dot-1, .dot-2, .dot-3 { animation: chirp-dot 1.2s infinite; display: inline-block; }
+.dot-2 { animation-delay: 0.15s; }
+.dot-3 { animation-delay: 0.3s; }
+.ask-glow { animation: chirp-glow 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .bird-idle, .bird-hop, .bird-ruffle, .bird-tilt, .bird-think, .dot-1, .dot-2, .dot-3, .ask-glow { animation: none; } }

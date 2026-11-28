@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Shell from "@/components/Shell";
+import Art from "@/components/Art";
+import { ART } from "@/data/art";
 import activities from "@/data/joyous-activities.json";
 
 // "1000 Joyous Activities" list, used for the Increase Positive Emotions skill.
@@ -21,12 +23,18 @@ export default function JoyPage() {
 
   return (
     <Shell>
-      <h1 className="text-3xl font-bold">Joy finder</h1>
-      <p className="mt-1 text-ink/80">Small pleasant moments add up. Here&apos;s an idea for today:</p>
-      <div className="mt-6 flex min-h-48 items-center justify-center rounded-3xl bg-sun p-6 text-center text-2xl font-bold shadow-sm" aria-live="polite">
+      <Art theme={ART.joy} seed="joy" className="mb-4 h-16 w-full rounded-2xl sm:h-20" />
+      <h1 className="display text-2xl sm:text-3xl">Joy finder</h1>
+      <p className="mt-1 text-muted">
+        Small pleasant moments add up. Here&apos;s an idea for today:
+      </p>
+      <div
+        className="mt-6 flex min-h-56 items-center justify-center rounded-2xl border-2 border-oxford bg-sun p-8 text-oxford text-center text-2xl sm:text-3xl font-extrabold"
+        aria-live="polite"
+      >
         {idx !== null ? LIST[idx] : ""}
       </div>
-      <div className="mt-6 space-y-3">
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <button className="btn btn-coral" onClick={another}>
           Show me another
         </button>

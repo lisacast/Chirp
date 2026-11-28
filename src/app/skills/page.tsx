@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Shell from "@/components/Shell";
+import PageHeader from "@/components/PageHeader";
+import Art from "@/components/Art";
+import { ART, moduleTheme, MODULE_THEME } from "@/data/art";
 import { MODULES, SKILLS } from "@/data/skills";
 import { loadProfile } from "@/lib/profile";
 
@@ -11,37 +14,50 @@ export default function SkillsPage() {
   useEffect(() => setPracticed(loadProfile().practiced), []);
 
   return (
-    <Shell>
-      <h1 className="text-3xl font-bold">Skills library</h1>
-      <p className="mt-1 text-ink/80">Tap a skill to open its flashcard.</p>
+    <Shell width="wide">
+      <PageHeader art={ART.skills} kicker="Flashcards" title="Skills library">
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <span className="rounded-full bg-sun px-3 py-1 text-sm font-bold text-oxford">
+            {practiced.length} of {SKILLS.length} practiced
+          </span>
+          <Link href="/progress" className="text-sm font-bold text-red underline">
+            See your bingo card
+          </Link>
+          <Link href="/skills/print" className="rounded-full bg-white px-3 py-1 text-sm font-bold text-oxford ring-1 ring-line hover:bg-sun">
+            🖨 Print cue cards
+          </Link>
+        </div>
+      </PageHeader>
 
-      <div className="mt-5 space-y-6">
-        {MODULES.map((m) => (
-          <section key={m.id}>
-            <h2 className="text-xl font-bold" style={{ color: m.color }}>
-              {m.name}
-            </h2>
-            <p className="text-sm text-ink/75">{m.tagline}</p>
-            <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {SKILLS.filter((s) => s.module === m.id).map((s) => (
-                <li key={s.id}>
-                  <Link
-                    href={`/skills/${s.id}`}
-                    className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 shadow-sm hover:shadow"
-                    style={{ borderLeft: `6px solid ${m.color}` }}
-                  >
-                    <span className="font-semibold">{s.name}</span>
-                    {practiced.includes(s.id) && (
-                      <span className="text-green-700" aria-label="practiced">
-                        ✓
+      <div className="space-y-10">
+        {MODULES.map((m) => {
+          const t = moduleTheme(m.id);
+          return (
+            <section key={m.id}>
+              <div className="flex items-center gap-3">
+                <span className="h-8 w-2 rounded-full" style={{ background: t.solid }} />
+                <h2 className="text-2xl font-bold text-oxford sm:text-3xl">{m.name}</h2>
+              </div>
+              <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                {SKILLS.filter((s) => s.module === m.id).map((s, i) => (
+                  <li key={s.id}>
+                    <Link href={`/skills/${s.id}`} className="card group relative block h-full overflow-hidden hover:border-oxford hover:shadow-md">
+                      <span className="relative block">
+                        <Art theme={MODULE_THEME[m.id]} seed={s.id + i} className="aspect-[4/3] w-full transition group-hover:scale-105" />
+                        {practiced.includes(s.id) && (
+                          <span className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-sun text-sm font-extrabold text-oxford" aria-label="practiced">
+                            ✓
+                          </span>
+                        )}
                       </span>
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+                      <span className="block p-3 font-bold leading-snug" style={{ color: t.solid }}>{s.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
       </div>
     </Shell>
   );

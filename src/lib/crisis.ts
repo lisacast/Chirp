@@ -53,7 +53,7 @@ export const CRISIS_RESOURCES: CrisisResource[] = [
 ];
 
 // Urgent: possible risk to life or safety (spec sections 1, 2 and overdose).
-const URGENT_PATTERNS: RegExp[] = [
+export const URGENT_PATTERNS: RegExp[] = [
   /\bsuicid/i,
   /\bkill(ing)?\s+my\s?self\b/i,
   /\bend(ing)?\s+(my|it)\s+(life|all)\b/i,
@@ -75,7 +75,7 @@ const URGENT_PATTERNS: RegExp[] = [
 ];
 
 // Concern: distress worth acknowledging and offering help for (spec sections 3-7).
-const CONCERN_PATTERNS: RegExp[] = [
+export const CONCERN_PATTERNS: RegExp[] = [
   /\bhopeless\b/i,
   /\bworthless\b/i,
   /\bhelpless\b/i,
